@@ -1,0 +1,42 @@
+
+export NOTI_DEFAULT="banner telegram slack"
+
+setopt extendedglob
+
+# >>> Standard Aliases <<<
+
+alias ll='ls -lhF --color'
+alias lla='ls -lahF --color'
+
+alias c='xclip'
+alias v='xclip -o'
+alias cb="tr -d '\n' | xclip -selection clipboard"
+
+alias sz='source ~/.zshrc'
+alias horas='date +%T'
+alias intrr='echo "${?}"'
+alias rmall='rm -rfv ./?*'
+alias tmp='[ ! -e /tmp/tmp ] && mkdir -v /tmp/tmp; cd /tmp/tmp || cd /tmp/tmp'
+alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
+alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
+alias TOKEN="cat /home/${USER}/Documents/.TOKEN_GIT.txt | tr -d '\n' | xclip -selection clipboard"
+alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_conhecimento/utilitarios_bash.txt'
+
+# >>> Standard Functions <<<
+
+translate() { trans -b en:pt-br "${*}" ;}
+translatebr() { trans -b pt-br:en "${*}" ;}
+readmd() { pandoc -f markdown ${1} | lynx -stdin ;}
+pick_alias() { alias ${1} | cut -d '=' -f 2 | tr -d "'" ;}
+
+# =============================================================================================
+
+# ToDo List (SlackJeff)
+
+export ToDo="${HOME}/Documents/anotacoes/.todo_list.txt"
+
+rand() { export RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done ;}
+tla() { rand; [ ${#} -eq 0 ] && cat ${ToDo} || echo "${RAND} ---> ${*}" >> ${ToDo} ;}
+tlr() { sed -i "/^${*}/d" ${ToDo} ;}
+
+# =============================================================================================
