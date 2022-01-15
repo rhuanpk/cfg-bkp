@@ -12,6 +12,7 @@ alias v='xclip -o'
 alias cb="tr -d '\n' | xclip -selection clipboard"
 
 alias sz='source ~/.zshrc'
+alias sb='source ~/.bashrc'
 alias horas='date +%T'
 alias intrr='echo "${?}"'
 alias rmall='rm -rfv ./?*'
