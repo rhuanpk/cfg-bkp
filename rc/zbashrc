@@ -1,7 +1,6 @@
 
-export NOTI_DEFAULT="banner telegram slack"
-
-setopt extendedglob
+# export NOTI_DEFAULT="banner telegram slack"
+# setopt extendedglob
 
 # >>> Standard Aliases <<<
 

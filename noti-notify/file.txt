@@ -1,0 +1,1 @@
+noti --telegram -t 'Mensagem para o meu amor<3' -m 'Eu te amo!!!'
