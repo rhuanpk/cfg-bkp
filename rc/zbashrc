@@ -1,6 +1,7 @@
 
 # export NOTI_DEFAULT="banner telegram slack"
-# setopt extendedglob
+# zsh: setopt extendedglob
+# bash: shopt -s extglob
 
 # >>> Standard Aliases <<<
 
