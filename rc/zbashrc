@@ -29,6 +29,7 @@ translate() { trans -b en:pt-br "${*}" ;}
 translatebr() { trans -b pt-br:en "${*}" ;}
 readmd() { pandoc -f markdown ${1} | lynx -stdin ;}
 pick_alias() { alias ${1} | cut -d '=' -f 2 | tr -d "'" ;}
+ae() { [ -e "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
 
 # =============================================================================================
 
