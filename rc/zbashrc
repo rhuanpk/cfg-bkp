@@ -27,6 +27,7 @@ alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_con
 
 # >>> Standard Functions <<<
 
+contvar() { echo "Contenudo de ${1}: ${${1}}" ;}
 translate() { trans -b en:pt-br "${*}" ;}
 translatebr() { trans -b pt-br:en "${*}" ;}
 readmd() { pandoc -f markdown ${1} | lynx -stdin ;}
