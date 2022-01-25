@@ -27,6 +27,7 @@ alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_con
 
 # >>> Standard Functions <<<
 
+brilho() { xrandr --output $(xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f 1) --brightness ${1} ;}
 contvar() { echo "Contenudo de ${1}: ${${1}}" ;}
 translate() { trans -b en:pt-br "${*}" ;}
 translatebr() { trans -b pt-br:en "${*}" ;}
