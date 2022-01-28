@@ -12,6 +12,7 @@ alias c='xclip'
 alias v='xclip -o'
 alias cb="tr -d '\n' | xclip -selection clipboard"
 
+alias vcon='vcontrol; kill -9 $$'
 alias sz='source ~/.zshrc'
 alias sb='source ~/.bashrc'
 alias vimz='vim ~/.zshrc'
