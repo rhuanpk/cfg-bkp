@@ -1,7 +1,16 @@
 
+#################################################
+#
+# source ~/Documents/git/cfg-bkp/rc/zbashrc
+#
 # export NOTI_DEFAULT="banner telegram slack"
+#
 # zsh: setopt extendedglob
 # bash: shopt -s extglob
+#
+# export PATH=${PATH}:${HOME}/script:/tmp/script
+#
+#################################################
 
 # >>> Standard Aliases <<<
 
@@ -12,7 +21,7 @@ alias c='xclip'
 alias v='xclip -o'
 alias cb="tr -d '\n' | xclip -selection clipboard"
 
-alias vcon='vcontrol; kill -9 $$'
+alias insp='viewvar ${1}'
 alias sz='source ~/.zshrc'
 alias sb='source ~/.bashrc'
 alias vimz='vim ~/.zshrc'
@@ -28,8 +37,7 @@ alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_con
 
 # >>> Standard Functions <<<
 
-brilho() { xrandr --output $(xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f 1) --brightness ${1} ;}
-contvar() { echo "Contenudo de ${1}: ${${1}}" ;}
+viewvar() { eval echo "\${${1}}" ;}
 translate() { trans -b en:pt-br "${*}" ;}
 translatebr() { trans -b pt-br:en "${*}" ;}
 readmd() { pandoc -f markdown ${1} | lynx -stdin ;}
