@@ -44,6 +44,7 @@ readmd() { pandoc -f markdown ${1} | lynx -stdin ;}
 pick_alias() { alias ${1} | cut -d '=' -f 2 | tr -d "'" ;}
 ae() { [ -e "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
 diffstr() { if diff <(echo "${1}") <(echo "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
+container_reboot() { echo '---ENCERRANDO CONTAINER---'; sudo docker stop "${1}" && sleep 1 && sudo docker ps -a && echo '---INICIANDO CONTAINER---'; sudo docker start "${1}" && sleep 1 && sudo docker ps -a ;}
 
 # =============================================================================================
 
