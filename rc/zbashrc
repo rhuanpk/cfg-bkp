@@ -32,7 +32,7 @@ alias rmall='rm -rfv ./?*'
 alias tmp='[ ! -e /tmp/tmp ] && mkdir -v /tmp/tmp; cd /tmp/tmp || cd /tmp/tmp'
 alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
 alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
-alias TOKEN="toplip -d /home/${USER}/Documents/.TOKEN_GIT.txt | tr -d '\n' | xclip -selection clipboard"
+alias TOKEN="toplip -d /home/${USER}/Documents/git/cfg-bkp/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
 alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_conhecimento/utilitarios_bash.txt'
 
 # >>> Standard Functions <<<
