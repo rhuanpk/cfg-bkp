@@ -5,6 +5,8 @@ vim \
 git \
 xclip \
 terminator \
+neofetch \
+htop \
 software-properties-common \
 netcat \
 network-manager \
@@ -33,3 +35,6 @@ clone_repos() {
 	mkdir -p "${git_path}" 
 	clone_repos
 } || clone_repos
+
+sudo wget "https://2ton.com.au/standalone_binaries/toplip" -P /usr/local/bin/
+sudo chmod +x /usr/local/bin/toplip
