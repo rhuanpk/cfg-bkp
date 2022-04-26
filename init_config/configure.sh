@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# manualmente: instalar zsh e oh-my-zsh
+
 sudo apt update && sudo apt install \
 vim \
 git \
