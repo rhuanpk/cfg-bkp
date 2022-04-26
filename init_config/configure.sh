@@ -7,6 +7,8 @@ xclip \
 terminator \
 neofetch \
 htop \
+translate-shell \
+gnome-tweaks \
 software-properties-common \
 netcat \
 network-manager \
@@ -28,7 +30,7 @@ clone_repos() {
 	for index in ${git_path}/${comandos_repo}/standard_scripts/*.sh; do
 		sudo cp "${index}" "${local_bin}/pk_$(basename ${index%.sh})"
 	done
-	echo -e "\n${git_path}/${cfg_repo}/rc/zbashrc" >> "${bash_file}"
+	echo -e "\nsource ${git_path}/${cfg_repo}/rc/zbashrc" >> "${bash_file}"
 }
 
 [ ! -d ${git_path} ] && {
