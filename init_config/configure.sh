@@ -7,6 +7,9 @@ xclip \
 terminator \
 neofetch \
 htop \
+ncdu \
+ranger \
+tree \
 translate-shell \
 gnome-tweaks \
 software-properties-common \
