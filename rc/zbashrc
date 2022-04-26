@@ -1,5 +1,5 @@
 
-#################################################
+##################################################################################################################
 #
 # source ~/Documents/git/cfg-bkp/rc/zbashrc
 #
@@ -10,7 +10,9 @@
 #
 # export PATH=${PATH}:${HOME}/script:/tmp/script
 #
-#################################################
+# alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_conhecimento/utilitarios_bash.txt'
+#
+##################################################################################################################
 
 # >>> Standard Aliases <<<
 
@@ -35,7 +37,6 @@ alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp
 alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
 alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
 alias TOKEN="toplip -d /home/${USER}/Documents/git/cfg-bkp/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
-# alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_conhecimento/utilitarios_bash.txt'
 
 # >>> Standard Functions <<<
 
@@ -48,7 +49,31 @@ readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
 pick_alias() { alias "${1}" | cut -d '=' -f 2 | tr -d "'" ;}
 ae() { [ -e "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
 diffstr() { if diff <(echo "${1}") <(echo "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
-container_reboot() { echo '---ENCERRANDO CONTAINER---'; docker stop "${1}" && sleep 1; docker ps -a && echo '---INICIANDO CONTAINER---'; docker start "${1}" && sleep 1; docker ps -a ;}
+
+# >>> Longs !
+
+repita() {
+	time=1
+	[ ${#} -eq 0 ] && command='ls -lhF --color' || {
+		[ ${#} -eq 1 ] && command="${1}" || {
+			command="${1}"
+			time=${2}
+		}
+	}
+	while :; do sleep ${time}; clear; eval ${command}; done
+}
+
+container_reboot() {
+	echo '---ENCERRANDO CONTAINER---'
+	docker stop "${1}" &&
+	sleep 1
+	docker ps -a &&
+	echo '---INICIANDO CONTAINER---'
+	docker start "${1}" &&
+	sleep 1
+	docker ps -a
+}
+
 add_ln_nxt() {
         [ ! "$(basename ${0})" = 'bash' ] && {
                 echo -e "\e[40;31;1m>>> Logue numa sesão BASH !\e[m"
