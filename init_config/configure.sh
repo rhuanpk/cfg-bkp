@@ -13,6 +13,7 @@ htop \
 ncdu \
 ranger \
 tree \
+progress \
 translate-shell \
 default-jdk \
 software-properties-common \
