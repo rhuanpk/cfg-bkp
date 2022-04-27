@@ -13,7 +13,6 @@ ncdu \
 ranger \
 tree \
 translate-shell \
-gnome-tweaks \
 software-properties-common \
 netcat \
 network-manager \
