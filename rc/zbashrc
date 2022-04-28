@@ -23,7 +23,7 @@ alias c='xclip'
 alias v='xclip -o'
 alias cb="tr -d '\n' | xclip -selection clipboard"
 
-alias insp='viewvar "${1}"'
+alias insp='viewvar ${1}'
 alias sz='source ~/.zshrc'
 alias sb='source ~/.bashrc'
 alias vimz='vim ~/.zshrc'
