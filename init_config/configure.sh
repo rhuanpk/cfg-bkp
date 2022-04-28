@@ -13,6 +13,7 @@ htop \
 ncdu \
 ranger \
 tree \
+acpi \
 progress \
 translate-shell \
 default-jdk \
