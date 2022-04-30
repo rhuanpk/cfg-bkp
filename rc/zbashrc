@@ -109,7 +109,7 @@ add_ln_nxt() {
 				let ++line
 			done
 		}
-    }
+	}
 }
 
 rm_nxt_blnk_ln() {
