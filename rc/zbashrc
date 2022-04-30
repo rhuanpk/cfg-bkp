@@ -16,8 +16,8 @@
 
 # >>> Standard Aliases <<<
 
-alias ll='ls -lhF --color'
-alias lla='ls -lahF --color'
+alias ll='ls -lhF --color; echo "count: `ls -1 | wc -l` !"'
+alias lla='ls -lahF --color; echo "count: `ls -a1 | wc -l` !"'
 
 alias c='xclip'
 alias v='xclip -o'
