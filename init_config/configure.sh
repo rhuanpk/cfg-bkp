@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# manualmente: instalar zsh e oh-my-zsh; crontab: backup, backup file
+# manualmente: instalar zsh e oh-my-zsh; crontab: backup, backup file; autostart: copyq; vcontrol, bcontrol; swapfile
 # programas: pcloud, eclipse, netbeans
 
 cd /tmp; sudo apt update; sudo apt install \
@@ -14,6 +14,7 @@ ncdu \
 ranger \
 tree \
 acpi \
+copyq \
 progress \
 translate-shell \
 default-jdk \
