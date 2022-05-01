@@ -90,6 +90,14 @@ container_reboot() {
 	docker ps -a
 }
 
+outfind() {
+	tmp_find_path=/tmp/output_find.tmp
+	f_time=1
+	find / \( -path /proc -prune -o -path /sys -prune \) -o -name "*${1}*" >${tmp_find_path} 2>&- &
+	while (ps ${!} >/dev/null); do sleep 1; echo -ne "\rtime: ${f_time}s"; let ++f_time; done; echo
+	less ${tmp_find_path}
+}
+
 add_ln_nxt() {
 	[ ! "$(basename ${0})" = 'bash' ] && {
 		echo -e "\e[40;31;1m>>> Logue numa sesão BASH !\e[m"
