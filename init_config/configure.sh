@@ -26,6 +26,7 @@ sudo \
 curl \
 wget \
 ssh \
+hwinfo \
 openssh-server \
 ca-certificates \
 apt-transport-https \
