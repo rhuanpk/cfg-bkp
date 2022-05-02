@@ -16,6 +16,9 @@
 
 # >>> Standard Aliases <<<
 
+alias lll='ll --literal'
+alias llla='lla --literal'
+
 alias c='xclip'
 alias v='xclip -o'
 alias cb="tr -d '\n' | xclip -selection clipboard"
