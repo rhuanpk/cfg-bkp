@@ -44,10 +44,11 @@ executables_path="${home_path}/others/executables"
 clone_repos() {
 	git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
 	git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
-	for index in ${git_path}/${comandos_repo}/standard_scripts/*.sh; do
+	${git_path}/${comandos_repo}/standard_scripts/move2symlink.sh
+	# for index in ${git_path}/${comandos_repo}/standard_scripts/*.sh; do
 		# sudo cp "${index}" "${local_bin}/pk_$(basename ${index%.sh})"
-		sudo ln -s "${index}" "${local_bin}/pk-$(basename ${index%.sh})"
-	done
+		# sudo ln -s "${index}" "${local_bin}/pk-$(basename ${index%.sh})"
+	# done
 	echo -e "\nsource ${git_path}/${cfg_repo}/rc/zbashrc" >> "${bash_file}"
 }
 
