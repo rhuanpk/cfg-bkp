@@ -84,10 +84,6 @@ install_programs() {
 	sudo apt install -f -y
 }
 
-install_cron() {
-
-}
-
 [ ! -d "${git_path}" ] && {
 	mkdir -p "${git_path}" 
 	clone_repos
