@@ -7,7 +7,7 @@ local git_branch='$(git_prompt_info)%{$reset_color%}'
 
 
 PROMPT="%(?,%{$fg[red]%}┌─╼${current_dir}%{$reset_color%} ${git_branch}
-%{$fg[red]%}└────╼%{$reset_color%} ,%{$fg[red]%}┌─╼${current_dir}%{$reset_color%} ${git_branch}
+%{$fg[red]%}└───╼%{$reset_color%} ,%{$fg[red]%}┌─╼${current_dir}%{$reset_color%} ${git_branch}
 %{$fg[red]%}└╼ %{$reset_color%} "
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[red]%}["
