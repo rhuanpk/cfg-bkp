@@ -71,6 +71,14 @@ tlr() { sed -i "/^${*}/d" ${TODO} ;}
 
 # >>> Standard Long Functions !
 
+comment_structure() {
+	echo -e "\
+		\r# ********** Declaração de Funções **********\n\
+		\r# ********** Declaração de Variáveis **********\n\
+		\r# ********** Início do Programa **********\
+	" | xclip -selection clipboard
+}
+
 repita() {
 	time=1
 	[ ${#} -eq 0 ] && command='ls -lhF --color' || {
