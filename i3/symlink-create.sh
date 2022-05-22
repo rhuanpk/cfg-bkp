@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
-
-ln -s /home/${USER}/Documents/git/cfg-bkp/i3/config ~/.config/i3/config
+symlink_create() {
+	ln -s /home/${USER}/Documents/git/cfg-bkp/i3/config ${i3_local_path}
+}
+i3_local_path="/home/${USER}/.config/i3"
+[ ! -d ${i3_local_path} ] && {
+	mkdir -p ${i3_local_path}
+	symlink_create
+} || symlink_create
