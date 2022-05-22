@@ -258,7 +258,7 @@ format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
 ##### original ---> label-connected = %essid%
 ##### modified ---> coloca o um descrição para o elemento
-label-connected = "w_IP: %local_ip% | RAM:"
+label-connected = "w_IP: %local_ip% |"
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -283,7 +283,7 @@ format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 ##### original ---> label-connected = %local_ip%
 ##### modified ---> coloca o um descrição para o elemento
-label-connected = "e_IP: %local_ip% | RAM:"
+label-connected = "e_IP: %local_ip% |"
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -310,7 +310,7 @@ format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
 ##### modified ---> horas e depois a data
-label = "mb | %date% - %time% "
+label = "| %date% - %time% "
 
 [module/pulseaudio]
 type = internal/pulseaudio
