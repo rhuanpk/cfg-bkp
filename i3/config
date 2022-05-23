@@ -212,3 +212,12 @@ exec_always --no-startup-id polybar 'my-bar'
 
 # ----- MODIFIED -----
 # exec feh --bg-scale ~/Pictures/wallpaper/wallpaper.png
+
+# ----- MODIFIED -----
+bindsym --release $mod+Prior exec --no-startup-id xdotool key --clearmodifiers Home
+bindsym --release $mod+Next exec --no-startup-id xdotool key --clearmodifiers End
+
+bindsym $mod+Prior focus left
+bindsym $mod+End focus down
+bindsym $mod+Home focus up
+bindsym $mod+Next focus right
