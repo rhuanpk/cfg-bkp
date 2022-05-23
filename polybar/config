@@ -83,7 +83,7 @@ modules-center = mpd
 modules-right = eth wlan my-memory date
 
 tray-position = right
-tray-padding = 2
+tray-padding = 1
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
@@ -246,7 +246,7 @@ label = "RAM: %mb_used%"
 ##### modified ---> controle de ram pessoal
 [module/my-memory]
 type = custom/script
-interval = 1
+interval = 2
 exec = pk-htop_memory
 
 [module/wlan]
