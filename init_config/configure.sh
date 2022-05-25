@@ -45,18 +45,13 @@ clone_repos() {
 	git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
 	git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
 	${git_path}/${comandos_repo}/standard_scripts/move2symlink.sh
-	# for index in ${git_path}/${comandos_repo}/standard_scripts/*.sh; do
-		# sudo cp "${index}" "${local_bin}/pk_$(basename ${index%.sh})"
-		# sudo ln -s "${index}" "${local_bin}/pk-$(basename ${index%.sh})"
-	# done
 	echo -e "\nsource ${git_path}/${cfg_repo}/rc/zbashrc" >> "${bash_file}"
 }
 
 docker_install() {
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
-	sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-	sudo apt update && sudo apt install \
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+	sudo apt update; sudo apt install \
 	docker-ce \
 	docker-ce-cli \
 	containerd.io \
@@ -65,22 +60,20 @@ docker_install() {
 
 install_programs() {
 	# chrome
-	wget -O "google_tmp.deb" "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-	sudo dpkg -i "/tmp/google_tmp.deb"
+	wget -O google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	sudo dpkg -i /tmp/google-chrome_tmp.deb
 	# vs-code
-	wget "https://packages.microsoft.com/keys/microsoft.asc" | gpg --dearmor > "packages.microsoft.gpg"
-	sudo install -o root -g root -m 644 "packages.microsoft.gpg" "/etc/apt/trusted.gpg.d/"
-	echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
-	rm -f "packages.microsoft.gpg"
+	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.gpg >/dev/null
+	echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
 	sudo apt update; sudo apt install code -y
 	# sublime
-	wget -qO - "https://download.sublimetext.com/sublimehq-pub.gpg" | sudo apt-key add -
-	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.gpg >/dev/null
+	echo "deb [signed-by=/etc/apt/keyrings/sublimehq-pub.gpg] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt update; sudo apt install sublime-text -y
 	# discord
-	wget -O "discord_tmp.deb" "https://discord.com/api/download?platform=linux&format=deb" 
+	wget -O discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
 	sleep 5
-	sudo dpkg -i "discord_tmp.deb"
+	sudo dpkg -i discord_tmp.deb
 	sudo apt install -f -y
 }
 
