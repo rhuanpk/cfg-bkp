@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 normal_user="$(whoami)"
-pk_command="ln -sf /home/${normal_user}/Documents/git/cfg-bkp/my-theme/*.zsh-theme"
+pk_command="ln -svf /home/${normal_user}/Documents/git/cfg-bkp/my-theme/*.zsh-theme"
 pk_target='.oh-my-zsh/custom/themes/'
 [ "${1}" = '/root' ] && {
 	home_path='/root'
