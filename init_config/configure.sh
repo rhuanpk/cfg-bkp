@@ -14,6 +14,8 @@ ncdu \
 ranger \
 tree \
 acpi \
+scrot \
+ristretto \
 copyq \
 progress \
 translate-shell \
