@@ -104,7 +104,7 @@ container_reboot() {
 outfind() {
 	tmp_find_path=/tmp/output_find.tmp
 	f_time=1
-	find / \( -path /proc -prune -o -path /sys -prune \) -o -name "*${1}*" >${tmp_find_path} 2>&- &
+	find / \( -path /proc -prune -o -path /sys -prune \) -o -iname "*${1}*" >${tmp_find_path} 2>&- &
 	while (ps ${!} >/dev/null); do sleep 1; echo -ne "\rtime: ${f_time}s"; let ++f_time; done; echo
 	less ${tmp_find_path}
 }
