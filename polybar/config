@@ -302,16 +302,16 @@ date = "%d/%m/%Y"
 date-alt = "%d/%m/%Y"
 
 ##### modified ---> adiciona espaço a esqueda
-time = "%H:%M"
+time = "%Hh%M"
 ##### modified ---> adiciona espaço a esqueda
-time-alt = "%H:%M:%S"
+time-alt = "%Hh%Ms%S"
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
 ##### modified ---> horas e depois a data
-label = "| %time% H - %date% "
+label = "| %time% - %date% "
 
 [module/pulseaudio]
 type = internal/pulseaudio
