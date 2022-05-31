@@ -304,7 +304,7 @@ date-alt = "%d/%m/%Y"
 ##### modified ---> adiciona espaço a esqueda
 time = "%Hh%M"
 ##### modified ---> adiciona espaço a esqueda
-time-alt = "%Hh%Ms%S"
+time-alt = "%Hh%Mm%S"
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
