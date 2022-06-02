@@ -16,6 +16,7 @@ tree \
 acpi \
 scrot \
 ristretto \
+brightnessctl \
 copyq \
 progress \
 translate-shell \
@@ -24,12 +25,9 @@ software-properties-common \
 netcat \
 network-manager \
 net-tools \
-sudo \
 curl \
 wget \
-ssh \
 hwinfo \
-openssh-server \
 ca-certificates \
 apt-transport-https \
 gnupg \
