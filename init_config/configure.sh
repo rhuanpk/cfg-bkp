@@ -17,6 +17,7 @@ acpi \
 scrot \
 ristretto \
 brightnessctl \
+color-picker \
 copyq \
 progress \
 translate-shell \
@@ -27,6 +28,7 @@ network-manager \
 net-tools \
 curl \
 wget \
+inxi \
 hwinfo \
 ca-certificates \
 apt-transport-https \
