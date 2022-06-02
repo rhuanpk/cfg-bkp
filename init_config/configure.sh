@@ -17,6 +17,7 @@ acpi \
 scrot \
 ristretto \
 brightnessctl \
+evince \
 color-picker \
 copyq \
 progress \
