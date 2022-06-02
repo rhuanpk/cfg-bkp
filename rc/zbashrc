@@ -8,7 +8,7 @@
 # zsh: setopt extendedglob
 # bash: shopt -s extglob
 #
-# export PATH=${PATH}:${HOME}/others/script:/tmp/script:${HOME}/others/executables
+# export PATH=${PATH}:${HOME}/others/executables:${HOME}/others/scripts:/tmp/scripts
 #
 # alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_conhecimento/utilitarios_bash.txt'
 #
