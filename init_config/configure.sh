@@ -6,6 +6,7 @@
 cd /tmp; sudo apt update; sudo apt install \
 vim \
 git \
+xsel \
 xclip \
 terminator \
 neofetch \
