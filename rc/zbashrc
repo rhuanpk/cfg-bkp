@@ -9,7 +9,7 @@
 # bash: shopt -s extglob
 #
 # para colocar na var ${PATH} em '/etc/environmente'
-# /tmp/scripts:/home/${USER}/others/scripts:/home/${USER}/others/executables
+# :/tmp/scripts:${HOME}/others/scripts:${HOME}/others/executables
 #
 # alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_conhecimento/utilitarios_bash.txt'
 #
