@@ -21,6 +21,8 @@ brightnessctl \
 evince \
 color-picker \
 copyq \
+parole \
+mousepad \
 progress \
 translate-shell \
 default-jdk \
