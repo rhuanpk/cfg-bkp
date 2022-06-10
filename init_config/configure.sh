@@ -17,8 +17,8 @@ tree \
 acpi \
 scrot \
 ristretto \
+zathura \
 brightnessctl \
-evince \
 color-picker \
 copyq \
 parole \
