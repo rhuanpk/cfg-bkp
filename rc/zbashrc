@@ -72,6 +72,14 @@ tlr() { sed -i "/^${*}/d" ${TODO}; tla ;}
 
 # >>> Standard Long Functions !
 
+prnt() {
+  time="${1}"
+  area="${2}"
+  pointer="${3}"
+  clipboard="${4}"
+  scrot -d 1 -s -p -e 'xclip -selection clipboard -target image/png $f'
+}
+
 comment_structure() {
 	echo -e "\
 		\r# ********** Declaração de Funções **********\n\
