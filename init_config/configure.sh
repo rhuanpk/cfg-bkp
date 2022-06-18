@@ -1,11 +1,59 @@
 #!/usr/bin/env bash
 
-# manualmente: instalar zsh e oh-my-zsh; crontab: backup, backup file; autostart: copyq; vcontrol, bcontrol; swapfile
-# programas: pcloud, eclipse, netbeans
+#########################################################################################################################################################################
+#
+# momento pré interface:
+#
+# sudo apt install \
+# xorg \
+# i3 \
+# rofi \
+# polybar -y
+#
+# ---
+#
+# instalar manualmente:
+#	- oh-my-zsh;
+#	- crontab: backup, backup file;
+#		- */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
+#		- */2 * * * * /usr/local/bin/pk-suspend_for_safety 2>/tmp/cron_error.log
+#	- autostart: copyq;
+#	- keybinding: vcontrol, bcontrol;
+#	- swapfile;
+#	- pcloud;
+#	- i3lock-color
+#
+# ---
+#
+# echo em '/etc/netplan/01-netcfg.yaml':
+#
+# # This file describes the network interfaces available on your system
+# # For more information, see netplan(5).
+# network:
+#   version: 2
+#   renderer: NetworkManager
+#
+# ---
+#
+# desabilitar serviços:
+#
+# sudo systemctl disable docker.service
+#
+# OBS: desabilitar do "apache2" e "mysql" também?
+# ---
+#
+# echo em '/etc/environment':
+#
+# PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/tmp/scripts:${HOME}/others/scripts:${HOME}/others/executables"
+# export QT_QPA_PLATFORMTHEME=qt5ct
+# export QT_AUTO_SCREEN_SCALE_FACTOR=0
+#
+#########################################################################################################################################################################
 
 cd /tmp; sudo apt update; sudo apt install \
 vim \
 git \
+zsh \
 xsel \
 xclip \
 terminator \
@@ -34,6 +82,8 @@ curl \
 wget \
 inxi \
 hwinfo \
+qt5ct \
+qt5-style-plugins \
 ca-certificates \
 apt-transport-https \
 gnupg \
@@ -70,11 +120,11 @@ install_programs() {
 	sudo dpkg -i /tmp/google-chrome_tmp.deb
 	# vs-code
 	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
-	echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
 	sudo apt update; sudo apt install code -y
 	# sublime
 	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
-	echo "deb [signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt update; sudo apt install sublime-text -y
 	# discord
 	wget -O discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
@@ -88,10 +138,11 @@ install_programs() {
 	clone_repos
 } || clone_repos
 
-[ ! -d "${executables_path}" ] && mkdir "${executables_path}"
-
-wget "https://2ton.com.au/standalone_binaries/toplip" -P "${executables_path}"
-sudo chmod +x "${executables_path}/toplip"
+[ ! -d "${executables_path}" ] && {
+	mkdir "${executables_path}"
+	wget "https://2ton.com.au/standalone_binaries/toplip" -P "${executables_path}"
+	sudo chmod +x "${executables_path}/toplip"
+}
 
 docker_install
 install_programs
