@@ -22,6 +22,7 @@
 #	- swapfile;
 #	- pcloud;
 #	- i3lock-color
+#	- colorpicker
 #
 # ---
 #
