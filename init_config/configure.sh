@@ -70,7 +70,7 @@ zathura \
 brightnessctl \
 color-picker \
 copyq \
-parole \
+mpv \
 mousepad \
 progress \
 translate-shell \
