@@ -189,5 +189,15 @@ print_array_expasion() {
 	EOF
 }
 
+print_extglob_bash() {
+	cat <<- EOF
+		?(padrão): Corresponde a uma ocorrência do padrão
+		*(padrão): Corresponde a qualquer número de ocorrências do padrão
+		+(padrão): Corresponde a pelo menos uma ocorrência do padrão
+		@(padrão): Corresponde exatamente a uma ocorrência do padrão
+		!(padrão): Corresponde a tudo, exceto o padrão
+	EOF
+}
+
 # =============================================================================================
 
