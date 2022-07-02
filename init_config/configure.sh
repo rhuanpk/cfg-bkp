@@ -43,7 +43,7 @@
 # OBS: desabilitar do "apache2" e "mysql" também?
 # ---
 #
-# echo em '/etc/environment':
+# cat << eof | sudo tee /etc/environment (para a variável conseguir expandir):
 #
 # PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/tmp/scripts:${HOME}/others/scripts:${HOME}/others/executables"
 # export QT_QPA_PLATFORMTHEME=qt5ct
