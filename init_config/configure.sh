@@ -119,6 +119,11 @@ install_programs() {
 	# chrome
 	wget -O google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	sudo dpkg -i /tmp/google-chrome_tmp.deb
+	# discord
+	wget -O discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
+	sleep 5
+	sudo dpkg -i discord_tmp.deb
+	sudo apt install -f -y
 	# vs-code
 	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
@@ -127,11 +132,6 @@ install_programs() {
 	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt update; sudo apt install sublime-text -y
-	# discord
-	wget -O discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
-	sleep 5
-	sudo dpkg -i discord_tmp.deb
-	sudo apt install -f -y
 }
 
 [ ! -d "${git_path}" ] && {
