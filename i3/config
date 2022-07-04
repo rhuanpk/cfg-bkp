@@ -238,4 +238,9 @@ client.unfocused        #111111 #111111 #888888 #000000   #111111
 # client.background       #ffffff
 
 # ----- MODIFIED -----
+
 bindsym --release $mod_alt+p exec --no-startup-id pk-sc2cb
+bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-vcontrol
+bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-bcontrol
+
+bindsym --release $mod+Shift+b exec --no-startup-id pk-i3suspend
