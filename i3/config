@@ -243,4 +243,5 @@ bindsym --release $mod_alt+p exec --no-startup-id pk-sc2cb
 bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-vcontrol
 bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-bcontrol
 
-bindsym --release $mod+Shift+b exec --no-startup-id pk-i3suspend
+bindsym --release $mod+Shift+b exec --no-startup-id pk-i3lock
+bindsym --release $mod+Shift+s exec --no-startup-id pk-i3suspend
