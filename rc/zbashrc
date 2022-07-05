@@ -160,23 +160,32 @@ rm_nxt_blnk_ln() {
 
 print_regex_classes() {
 	cat <<- EOF
-		[[:alnum:]] --- Alfabéticos e númericos [a-z A-Z 0-9]
-		[[:alpha:]] --- Alfabéticos [a-z A-Z]
-		[[:blank:]] --- Caractere em branco, espaço ou tab [ \t]
-		[[:cntrl:]] --- Caracteres de controle [\x00-\x1F\x7F]
-		[[:digit:]] --- Números [0-9]
-		[[:graph:]] --- Qualquer caractere visível(ou seja, exceto em branco) [\x20-\x7E]
-		[[:lower:]] --- Letras minúsculas [a-z]
-		[[:upper:]] --- Letras maiúsculas [A-Z]
-		[[:print:]] --- Caracteres visíveis (ou seja, exceto os de controle) [\x20-\x7E]
-		[[:punct:]] --- Pontuação [-!"#$%&'()*+,./:;?@[\\\]_{|}~].
-		[[:space:]] --- Espaço em branco [ \t\r\n\v\f]
-		[[:xdigit:]] -- Número hexadecimais [0-9 a-f A-F]
+		------------------------------------------------------------------------------------
+		Classes
+		[[:alnum:]] ------ Alfabéticos e númericos [a-z A-Z 0-9]
+		[[:alpha:]] ------ Alfabéticos [a-z A-Z]
+		[[:blank:]] ------ Caractere em branco, espaço ou tab [ \t]
+		[[:cntrl:]] ------ Caracteres de controle [\x00-\x1F\x7F]
+		[[:digit:]] ------ Números [0-9]
+		[[:graph:]] ------ Qualquer caractere visível(ou seja, exceto em branco) [\x20-\x7E]
+		[[:lower:]] ------ Letras minúsculas [a-z]
+		[[:upper:]] ------ Letras maiúsculas [A-Z]
+		[[:print:]] ------ Caracteres visíveis (ou seja, exceto os de controle) [\x20-\x7E]
+		[[:punct:]] ------ Pontuação [-!"#$%&'()*+,./:;?@[\\\]_{|}~].
+		[[:space:]] ------ Espaço em branco [ \t\r\n\v\f]
+		[[:xdigit:]] ----- Número hexadecimais [0-9 a-f A-F]
+		------------------------------------------------------------------------------------
+		Abreviações
+		[[:digit:]] ------ \d
+		[[:alnum:]] ------ \w
+		[[:space:]] ------ \s
+		------------------------------------------------------------------------------------
 	EOF
 }
 
 print_array_expasion() {
 	cat <<- EOF
+		-------------------------------------------------------------------------------
 		\${var[@]} -------- Imprime todos os elementos do array em strings protegidas.
 		\${var[*]} -------- Imprime todos os elementos do array em uma única expressão.
 		\${var[P]} -------- Imprime o elemento na posição ‘P’.
@@ -186,16 +195,19 @@ print_array_expasion() {
 		\${var[@]:N:M} ---- Imprime ‘M’ elementos a partir da posição ‘N’.
 		\${var[@]: -N} ---- Imprime os últimos ‘M’ elementos.
 		\${var[@]: -N:M} -- Imprime ‘M’ elementos a partir da última ‘N’ posição.
+		-------------------------------------------------------------------------------
 	EOF
 }
 
 print_extglob_bash() {
 	cat <<- EOF
+		-----------------------------------------------------------------
 		?(padrão): Corresponde a uma ocorrência do padrão
 		*(padrão): Corresponde a qualquer número de ocorrências do padrão
 		+(padrão): Corresponde a pelo menos uma ocorrência do padrão
 		@(padrão): Corresponde exatamente a uma ocorrência do padrão
 		!(padrão): Corresponde a tudo, exceto o padrão
+		-----------------------------------------------------------------
 	EOF
 }
 
