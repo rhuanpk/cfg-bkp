@@ -185,29 +185,41 @@ print_regex_classes() {
 
 print_array_expasion() {
 	cat <<- EOF
-		-------------------------------------------------------------------------------
-		\${var[@]} -------- Imprime todos os elementos do array em strings protegidas.
-		\${var[*]} -------- Imprime todos os elementos do array em uma única expressão.
-		\${var[P]} -------- Imprime o elemento na posição ‘P’.
-		\${#var[@]} ------- Imprime o total de elementos do array.
-		\${!var[@]} ------- Imprime os índices do array.
-		\${var[@]:N} ------ Imprime todos os elementos a partir da posição ‘N’.
-		\${var[@]:N:M} ---- Imprime ‘M’ elementos a partir da posição ‘N’.
-		\${var[@]: -N} ---- Imprime os últimos ‘M’ elementos.
-		\${var[@]: -N:M} -- Imprime ‘M’ elementos a partir da última ‘N’ posição.
-		-------------------------------------------------------------------------------
+		----------------------------------------------------------------------------------
+		\${var[@]} ----------- Imprime todos os elementos do array em strings protegidas.
+		\${var[*]} ----------- Imprime todos os elementos do array em uma única expressão.
+		\${var[P]} ----------- Imprime o elemento na posição ‘P’.
+		\${#var[@]} ---------- Imprime o total de elementos do array.
+		\${!var[@]} ---------- Imprime os índices do array.
+		\${var[@]:N} --------- Imprime todos os elementos a partir da posição ‘N’.
+		\${var[@]:N:M} ------- Imprime ‘M’ elementos a partir da posição ‘N’.
+		\${var[@]: -N} ------- Imprime os últimos ‘M’ elementos.
+		\${var[@]: -N:M} ----- Imprime ‘M’ elementos a partir da última ‘N’ posição.
+		----------------------------------------------------------------------------------
 	EOF
 }
 
 print_extglob_bash() {
 	cat <<- EOF
-		-----------------------------------------------------------------
-		?(padrão): Corresponde a uma ocorrência do padrão
-		*(padrão): Corresponde a qualquer número de ocorrências do padrão
-		+(padrão): Corresponde a pelo menos uma ocorrência do padrão
-		@(padrão): Corresponde exatamente a uma ocorrência do padrão
-		!(padrão): Corresponde a tudo, exceto o padrão
-		-----------------------------------------------------------------
+		-----------------------------------------------------------------------
+		?(padrão) .....: Corresponde a uma ocorrência do padrão
+		*(padrão) .....: Corresponde a qualquer número de ocorrências do padrão
+		+(padrão) .....: Corresponde a pelo menos uma ocorrência do padrão
+		@(padrão) .....: Corresponde exatamente a uma ocorrência do padrão
+		!(padrão) .....: Corresponde a tudo, exceto o padrão
+		-----------------------------------------------------------------------
+	EOF
+}
+
+print_extglob_zsh() {
+	cat <<- EOF
+		-------------------------------------------------
+		^foobar ........: Nega o padrão
+		^(foo|bar) .....: Nega os padrões
+		foo~bar ........: Aceita "foo" e nega "bar"
+		(foo)# .........: Zero ou mais ocorrências de foo
+		(foo)## ........: Uma ou mais ocorrências de foo
+		-------------------------------------------------
 	EOF
 }
 
