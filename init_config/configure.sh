@@ -13,6 +13,9 @@
 # ---
 #
 # instalar manualmente:
+#	- pcloud;
+#	- colorpicker
+#	- speedtest
 #	- oh-my-zsh;
 #	- crontab: backup, backup file;
 #		- */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
@@ -20,9 +23,7 @@
 #	- autostart: copyq;
 #	- keybinding: vcontrol, bcontrol;
 #	- swapfile;
-#	- pcloud;
 #	- i3lock-color
-#	- colorpicker
 #
 # ---
 #
@@ -45,7 +46,7 @@
 #
 # cat << eof | sudo tee /etc/environment (para a variável conseguir expandir):
 #
-# PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/tmp/scripts:${HOME}/others/scripts:${HOME}/others/executables"
+# PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
 # export QT_QPA_PLATFORMTHEME=qt5ct
 # export QT_AUTO_SCREEN_SCALE_FACTOR=0
 #
@@ -96,7 +97,6 @@ bash_file="${home_path}/.bashrc"
 comandos_repo='comandos-linux'
 cfg_repo='cfg-bkp'
 local_bin='/usr/local/bin'
-executables_path="${home_path}/others/executables"
 
 clone_repos() {
 	git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
@@ -139,11 +139,8 @@ install_programs() {
 	clone_repos
 } || clone_repos
 
-[ ! -d "${executables_path}" ] && {
-	mkdir "${executables_path}"
-	wget "https://2ton.com.au/standalone_binaries/toplip" -P "${executables_path}"
-	sudo chmod +x "${executables_path}/toplip"
-}
+wget "https://2ton.com.au/standalone_binaries/toplip" -P "/usr/local/bin"
+sudo chmod +x "/usr/local/bin/toplip"
 
 docker_install
 install_programs
