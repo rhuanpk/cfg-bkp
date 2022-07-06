@@ -1,1 +1,1 @@
-PROMPT='%F{green}$(hostname):%f '
+PROMPT='%F{#00FF94}$(hostname):%f '
