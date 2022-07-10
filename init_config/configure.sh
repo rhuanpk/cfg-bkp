@@ -20,20 +20,9 @@
 #	- crontab: backup, backup file;
 #		- */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
 #		- */2 * * * * /usr/local/bin/pk-suspend_for_safety 2>/tmp/cron_error.log
-#	- autostart: copyq;
 #	- keybinding: vcontrol, bcontrol;
 #	- swapfile;
 #	- i3lock-color
-#
-# ---
-#
-# echo em '/etc/netplan/01-netcfg.yaml':
-#
-# # This file describes the network interfaces available on your system
-# # For more information, see netplan(5).
-# network:
-#   version: 2
-#   renderer: NetworkManager
 #
 # ---
 #
@@ -42,13 +31,6 @@
 # sudo systemctl disable docker.service
 #
 # OBS: desabilitar do "apache2" e "mysql" também?
-# ---
-#
-# cat << eof | sudo tee /etc/environment (para a variável conseguir expandir):
-#
-# PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-# export QT_QPA_PLATFORMTHEME=qt5ct
-# export QT_AUTO_SCREEN_SCALE_FACTOR=0
 #
 #########################################################################################################################################################################
 
@@ -105,7 +87,43 @@ clone_repos() {
 	echo -e "\nsource ${git_path}/${cfg_repo}/rc/zbashrc" >> "${bash_file}"
 }
 
-docker_install() {
+set_network_config_file() {
+	cat <<- EOF > /etc/netplan/01-netcfg.yaml
+		# This file describes the network interfaces available on your system
+		# For more information, see netplan(5).
+		network:
+		  version: 2
+		  renderer: NetworkManager
+	EOF
+}
+
+set_vaiables_2qt() {
+	cat <<- EOF >> /etc/environment
+		export QT_QPA_PLATFORMTHEME=qt5ct
+		export QT_AUTO_SCREEN_SCALE_FACTOR=0
+	EOF
+}
+
+set_autostart_programs() {
+	cat <<- EOF | sudo tee /usr/local/bin/autostart_programs >/dev/null
+		#!/usr/bin/env bash
+
+		sleep 5; \$(which discord) &
+		sleep 5; \$(which copyq) &
+		sleep 5; \$(which pcloud) &
+	EOF
+	sudo chmod +x /usr/local/bin/autostart_programs
+	cat <<-EOF > ${HOME}/.config/autostart/autostart_programs.desktop
+		[Desktop Entry]
+		Type=Application
+		Name=autostart_programs
+		Exec=/usr/local/bin/autostart_programs
+		StartupNotify=false
+		Terminal=false
+	EOF
+}
+
+install_docker() {
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 	sudo apt update; sudo apt install \
@@ -113,6 +131,12 @@ docker_install() {
 	docker-ce-cli \
 	containerd.io \
 	docker-compose-plugin -y
+}
+
+install_appimages() {
+	# toplip
+	wget 'https://2ton.com.au/standalone_binaries/toplip' -P /usr/local/bin
+	sudo chmod +x /usr/local/bin/toplip
 }
 
 install_programs() {
@@ -134,13 +158,21 @@ install_programs() {
 	sudo apt update; sudo apt install sublime-text -y
 }
 
+disable_services() {
+	sudo systemctl disable NetworkManager-wait-online.servic
+}
+
+# >>> PROGRAMA <<<
+
 [ ! -d "${git_path}" ] && {
 	mkdir -p "${git_path}" 
 	clone_repos
 } || clone_repos
 
-wget "https://2ton.com.au/standalone_binaries/toplip" -P "/usr/local/bin"
-sudo chmod +x "/usr/local/bin/toplip"
-
-docker_install
+set_network_config_file
+set_vaiables_2qt
+set_autostart_programs
+# install_docker
+install_appimages
 install_programs
+disable_services
