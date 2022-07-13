@@ -32,6 +32,10 @@
 #
 # OBS: desabilitar do "apache2" e "mysql" também?
 #
+# ---
+#
+# colocar no sudoers.d -> NOPASSWD para systemctl suspend
+#
 #########################################################################################################################################################################
 
 cd /tmp; sudo apt update; sudo apt install \
