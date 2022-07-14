@@ -92,7 +92,7 @@ clone_repos() {
 }
 
 set_network_config_file() {
-	cat <<- EOF > /etc/netplan/01-netcfg.yaml
+	cat <<- EOF | sudo tee /etc/netplan/01-netcfg.yaml
 		# This file describes the network interfaces available on your system
 		# For more information, see netplan(5).
 		network:
@@ -102,14 +102,15 @@ set_network_config_file() {
 }
 
 set_vaiables_2qt() {
-	cat <<- EOF >> /etc/environment
+	cat <<- EOF | sudo tee /etc/environment
+		$(cat /etc/environment)
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
 	EOF
 }
 
 set_autostart_programs() {
-	cat <<- EOF | sudo tee /usr/local/bin/autostart_programs >/dev/null
+	cat <<- EOF | sudo tee /usr/local/bin/autostart_programs
 		#!/usr/bin/env bash
 
 		sleep 5; \$(which discord) &
@@ -117,7 +118,7 @@ set_autostart_programs() {
 		sleep 5; \$(which pcloud) &
 	EOF
 	sudo chmod +x /usr/local/bin/autostart_programs
-	cat <<-EOF > ${HOME}/.config/autostart/autostart_programs.desktop
+	cat <<- EOF > /home/$(whoami)/.config/autostart/autostart_programs.desktop
 		[Desktop Entry]
 		Type=Application
 		Name=autostart_programs
@@ -139,7 +140,7 @@ install_docker() {
 
 install_appimages() {
 	# toplip
-	wget 'https://2ton.com.au/standalone_binaries/toplip' -P /usr/local/bin
+	sudo curl -fsSLo /usr/local/bin/toplip 'https://2ton.com.au/standalone_binaries/toplip'
 	sudo chmod +x /usr/local/bin/toplip
 }
 
