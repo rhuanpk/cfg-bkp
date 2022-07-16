@@ -47,7 +47,7 @@ bottom = true
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 ##### modified ---> altura da barra
-height = 20
+height = 19
 ;offset-x = 1%
 ;offset-y = 1%
 ##### modified ---> arredondamento da barra
@@ -74,7 +74,7 @@ module-margin-left = 1
 module-margin-right = 0
 
 ##### modified ---> size de todos elementos da barra
-font-0 = fixed:pixelsize=8.5;1
+font-0 = fixed:pixelsize=8.5;2
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
