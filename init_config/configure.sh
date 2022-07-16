@@ -54,6 +54,7 @@ acpi \
 scrot \
 ristretto \
 zathura \
+alsa-utils \
 brightnessctl \
 color-picker \
 copyq \
