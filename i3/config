@@ -234,7 +234,7 @@ for_window [all] floating enable
 # }
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #111111 #111111 #00FF94 #000000   #00FF94
+client.focused          #111111 #111111 #00FF94 #000000   #0f2e24
 client.focused_inactive #111111 #111111 #00FF94 #000000   #111111
 client.unfocused        #111111 #111111 #14754C #000000   #111111
 # client.urgent           #2f343a #900000 #ffffff #900000   #900000
