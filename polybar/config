@@ -32,7 +32,7 @@
 ;background = ${xrdb:color0:#222}
 ##### modified ---> cor da barra
 background = #111
-background-alt = #003d0a
+background-alt = #000
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
