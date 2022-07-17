@@ -81,7 +81,7 @@ font-2 = siji:pixelsize=10;1
 modules-left = bspwm i3
 modules-center = mpd
 ##### modified ---> deixado somente ip's e data
-modules-right = eth wlan1 wlan2 my-battery memory date
+modules-right = eth wlan1 wlan2 memory my-battery date
 
 tray-position = right
 tray-padding = 1
