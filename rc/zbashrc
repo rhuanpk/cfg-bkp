@@ -36,7 +36,7 @@ alias ggd='git diff --color | cat'
 alias ggs='git status'
 alias ggp='git pull origin $(git branch --show-current)'
 alias ggsa='pk-push_script "git status"'
-alias ggpa='pk-push_script "git pull origin $(git branch --show-current)"'
+alias ggpa='pk-push_script "git pull origin master"'
 
 alias insp='viewvar ${1}'
 alias sz='source ~/.zshrc'
