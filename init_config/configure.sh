@@ -14,27 +14,23 @@
 #
 # instalar manualmente:
 #	- pcloud;
-#	- colorpicker
-#	- speedtest
 #	- oh-my-zsh;
+#	- speedtest
+#	- colorpicker
+#	- i3lock-color
+#	- swapfile;
 #	- crontab: backup, backup file;
 #		- */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
 #		- */2 * * * * /usr/local/bin/pk-suspend_for_safety 2>/tmp/cron_error.log
-#	- keybinding: vcontrol, bcontrol;
-#	- swapfile;
-#	- i3lock-color
-#
-# ---
-#
-# desabilitar serviços:
-#
-# sudo systemctl disable docker.service
-#
-# OBS: desabilitar do "apache2" e "mysql" também?
+#	- ly (dm (display manager))
 #
 # ---
 #
 # colocar no sudoers.d -> NOPASSWD para systemctl suspend
+#
+# ---
+#
+# configurar temas gtk, qt e thunar
 #
 #########################################################################################################################################################################
 
@@ -60,6 +56,8 @@ color-picker \
 copyq \
 mpv \
 mousepad \
+thunar \
+falkon \
 progress \
 translate-shell \
 default-jdk \
