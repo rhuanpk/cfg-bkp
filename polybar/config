@@ -81,7 +81,7 @@ font-2 = siji:pixelsize=10;1
 modules-left = bspwm i3
 modules-center = mpd
 ##### modified ---> deixado somente ip's e data
-modules-right = eth wlan1 wlan2 memory date
+modules-right = eth wlan1 wlan2 my-battery memory date
 
 tray-position = right
 tray-padding = 1
@@ -424,6 +424,11 @@ animation-discharging-1 = 
 animation-discharging-2 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
+
+[module/my-battery]
+type = custom/script
+interval = 5
+exec = pk-polybar_battery
 
 [module/temperature]
 type = internal/temperature
