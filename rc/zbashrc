@@ -33,7 +33,7 @@ alias cb="tr -d '\n' | xclip -selection clipboard"
 
 alias ggb='git branch -l --color | cat'
 alias ggl='git log --all --oneline --patch'
-alias ggd='git diff --color | cat'
+alias ggd='git diff --word-diff=color | cat'
 alias ggs='git status'
 alias ggp='git pull origin $(git branch --show-current)'
 alias ggsa='pk-push_script "git status"'
