@@ -17,7 +17,7 @@
 
 # >>> Unset Alias'es <<<
 
-aliases_array=(ll lla ggl ggd ggs ggp ggsa ggpa)
+aliases_array=(ll lla ggb ggl ggd ggs ggp ggsa ggpa)
 for index in ${aliases_array[@]}; do
 	if alias ${index} >/dev/null 2>&1; then unalias ${index}; fi
 done
@@ -31,6 +31,7 @@ alias c='xclip'
 alias v='xclip -o'
 alias cb="tr -d '\n' | xclip -selection clipboard"
 
+alias ggb='git branch -l --color | cat'
 alias ggl='git log --all --oneline --patch'
 alias ggd='git diff --color | cat'
 alias ggs='git status'
