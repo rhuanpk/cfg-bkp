@@ -60,6 +60,7 @@ thunar \
 falkon \
 progress \
 translate-shell \
+genius \
 default-jdk \
 software-properties-common \
 netcat \
