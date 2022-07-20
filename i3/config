@@ -250,6 +250,7 @@ bindsym --release $mod_alt+Control+s exec --no-startup-id pk-pwc -s
 
 bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-vcontrol
 bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-bcontrol
+bindsym --release $mod_alt+Control+p exec --no-startup-id terminator --borderless --geometry=200x30 --command=pk-pcontrol
 
 bindsym --release $mod+Shift+b exec --no-startup-id pk-i3lock
 bindsym --release $mod+Shift+s exec --no-startup-id pk-i3suspend
