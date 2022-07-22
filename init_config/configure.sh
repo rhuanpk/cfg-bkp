@@ -114,9 +114,9 @@ set_autostart_programs() {
 	cat <<- EOF | sudo tee /usr/local/bin/autostart_programs
 		#!/usr/bin/env bash
 
-		sleep 5; \$(which discord) &
 		sleep 5; \$(which copyq) &
 		sleep 5; \$(which pcloud) &
+		sleep 5; \$(which discord) &
 	EOF
 	sudo chmod +x /usr/local/bin/autostart_programs
 	cat <<- EOF > /home/$(whoami)/.config/autostart/autostart_programs.desktop
