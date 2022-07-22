@@ -73,6 +73,7 @@ hwinfo \
 qt5ct \
 qt5-style-plugins \
 ca-certificates \
+libnotify-bin \
 apt-transport-https \
 gnupg \
 lsb-release -y
