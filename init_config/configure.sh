@@ -56,6 +56,7 @@ color-picker \
 copyq \
 mpv \
 mousepad \
+ghostwriter \
 thunar \
 falkon \
 progress \
