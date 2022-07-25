@@ -50,6 +50,7 @@ acpi \
 scrot \
 ristretto \
 zathura \
+chafa \
 alsa-utils \
 brightnessctl \
 color-picker \
