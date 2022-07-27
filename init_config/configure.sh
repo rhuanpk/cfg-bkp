@@ -74,6 +74,11 @@ inxi \
 hwinfo \
 qt5ct \
 qt5-style-plugins \
+zip \
+unzip \
+p7zip-full \
+p7zip-rar \
+unrar \
 ca-certificates \
 libnotify-bin \
 apt-transport-https \
