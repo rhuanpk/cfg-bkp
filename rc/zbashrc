@@ -17,7 +17,7 @@
 
 # >>> Unset Alias'es <<<
 
-aliases_array=(ll lla ggb ggl ggd ggs ggp ggsa ggpa)
+aliases_array=(ll lla ggb ggl ggd ggs ggr ggp ggsa ggpa)
 for index in ${aliases_array[@]}; do
 	if alias ${index} >/dev/null 2>&1; then unalias ${index}; fi
 done
@@ -35,6 +35,7 @@ alias ggb='git branch -l --color | cat'
 alias ggl='git log --all --oneline --patch'
 alias ggd='git diff --color | cat'
 alias ggs='git status'
+alias ggr='git restore .'
 alias ggp='git pull origin $(git branch --show-current)'
 alias ggsa='pk-push_script "git status"'
 alias ggpa='pk-push_script "git pull origin master"'
