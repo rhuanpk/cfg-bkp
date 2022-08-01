@@ -79,6 +79,9 @@ unzip \
 p7zip-full \
 p7zip-rar \
 unrar \
+pandoc \
+lynx \
+links2 \
 ca-certificates \
 libnotify-bin \
 apt-transport-https \
