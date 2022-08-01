@@ -15,10 +15,6 @@
 # instalar manualmente:
 #	- pcloud;
 #	- oh-my-zsh;
-#	- speedtest
-#	- colorpicker
-#	- i3lock-color
-#	- swapfile;
 #	- crontab: backup, backup file;
 #		- */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
 #		- */2 * * * * /usr/local/bin/pk-suspend_for_safety 2>/tmp/cron_error.log
@@ -86,6 +82,11 @@ ca-certificates \
 libnotify-bin \
 apt-transport-https \
 gnupg \
+autoconf \
+pkg-config \
+make \
+gcc \
+build-essential \
 lsb-release -y
 
 home_path="/home/${USER}"
@@ -94,7 +95,12 @@ bash_file="${home_path}/.bashrc"
 comandos_repo='comandos-linux'
 cfg_repo='cfg-bkp'
 local_bin='/usr/local/bin'
-
+autostart_path="/home/$(whoami)/.config/autostart"
+folders2create=(\
+	${git_path} \
+	${autostart_path}\
+)
+	
 clone_repos() {
 	git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
 	git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
@@ -112,7 +118,7 @@ set_network_config_file() {
 	EOF
 }
 
-set_vaiables_2qt() {
+set_variables_2qt() {
 	cat <<- EOF | sudo tee /etc/environment
 		$(cat /etc/environment)
 		export QT_QPA_PLATFORMTHEME=qt5ct
@@ -121,15 +127,15 @@ set_vaiables_2qt() {
 }
 
 set_autostart_programs() {
-	cat <<- EOF | sudo tee /usr/local/bin/autostart_programs
+	cat <<- EOF | sudo tee ${local_bin}/autostart_programs
 		#!/usr/bin/env bash
 
 		sleep 5; \$(which copyq) &
 		sleep 5; \$(which pcloud) &
 		sleep 5; \$(which discord) &
 	EOF
-	sudo chmod +x /usr/local/bin/autostart_programs
-	cat <<- EOF > /home/$(whoami)/.config/autostart/autostart_programs.desktop
+	sudo chmod +x ${local_bin}/autostart_programs
+	cat <<- EOF > ${autostart_path}/autostart_programs.desktop
 		[Desktop Entry]
 		Type=Application
 		Name=autostart_programs
@@ -137,6 +143,15 @@ set_autostart_programs() {
 		StartupNotify=false
 		Terminal=false
 	EOF
+}
+
+set_swapfile() {
+	sudo swapoff
+	sudo rm /swapfile
+	sudo fallocate -l 4G /swapfile
+	sudo chmod 600 /swapfile
+	sudo mkswap /swapfile
+	sudo swapon /swapfile
 }
 
 install_docker() {
@@ -151,8 +166,12 @@ install_docker() {
 
 install_appimages() {
 	# toplip
-	sudo curl -fsSLo /usr/local/bin/toplip 'https://2ton.com.au/standalone_binaries/toplip'
-	sudo chmod +x /usr/local/bin/toplip
+	sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip'
+	sudo chmod +x ${local_bin}/toplip
+	# speedtest
+	wget -O speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.1.1-linux-x86_64.tgz'
+	tar -zxvf speedtest.tgz
+	sudo mv speedtest ${local_bin}/
 }
 
 install_programs() {
@@ -174,21 +193,39 @@ install_programs() {
 	sudo apt update; sudo apt install sublime-text -y
 }
 
+compile_programs() {
+	# colorpicker
+	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
+	git clone https://github.com/Jack12816/colorpicker.git
+	cd ./colorpicker
+	sudo make -j4
+	sudo mv ./colorpicker ${local_bin}/
+	cd ../
+	# i3lock-color
+	sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
+	git clone https://github.com/Raymo111/i3lock-color.git
+	cd ./i3lock-color
+	./install-i3lock-color.sh
+	cd ../
+}
+
 disable_services() {
 	sudo systemctl disable NetworkManager-wait-online.servic
 }
 
 # >>> PROGRAMA <<<
 
-[ ! -d "${git_path}" ] && {
-	mkdir -p "${git_path}" 
-	clone_repos
-} || clone_repos
+for folder in ${folders2create[@]}; do
+	[ ! -d ${folder} ] && mkdir -p ${folder}
+done
 
+clone_repos
 set_network_config_file
-set_vaiables_2qt
+set_variables_2qt
 set_autostart_programs
+set_swapfile
 # install_docker
 install_appimages
 install_programs
+compile_programs
 disable_services
