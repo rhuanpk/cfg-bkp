@@ -15,6 +15,7 @@
 # instalar manualmente:
 #	- pcloud;
 #	- oh-my-zsh;
+#	- yt-dlp
 #	- crontab: backup, backup file;
 #		- */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
 #		- */2 * * * * /usr/local/bin/pk-suspend_for_safety 2>/tmp/cron_error.log
