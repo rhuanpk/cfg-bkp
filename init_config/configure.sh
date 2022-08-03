@@ -148,7 +148,7 @@ set_autostart_programs() {
 }
 
 set_swapfile() {
-	sudo swapoff
+	sudo swapoff /swapfile
 	sudo rm /swapfile
 	sudo fallocate -l 4G /swapfile
 	sudo chmod 600 /swapfile
