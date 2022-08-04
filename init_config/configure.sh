@@ -84,6 +84,7 @@ ca-certificates \
 libnotify-bin \
 apt-transport-https \
 gnupg \
+dbus-x11 \
 autoconf \
 pkg-config \
 make \
