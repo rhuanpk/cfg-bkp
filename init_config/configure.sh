@@ -56,6 +56,7 @@ copyq \
 mpv \
 mousepad \
 ghostwriter \
+gnumeric \
 thunar \
 falkon \
 progress \
