@@ -210,6 +210,10 @@ compile_programs() {
 	cd ./i3lock-color
 	./install-i3lock-color.sh
 	cd ../
+	# abiword
+	sudo apt install libfribidi-dev libglib2.0-dev libwv-dev libxslt1-dev libgio2.0-cil-dev libgtk3.0-cil-dev libgtk-3-dev librsvg2-dev libabiword-3.0 libboost-dev -y
+	mkdir ./abiword && cd ./abiword && wget 'http://www.abisource.com/downloads/abiword/3.0.5/source/abiword-3.0.5.tar.gz' && tar -zxvf abiword-3.0.5.tar.gz && cd ./abiword-3.0.5 && ./configure && sudo make -j8 && sudo make install
+	cd ../../
 }
 
 disable_services() {
