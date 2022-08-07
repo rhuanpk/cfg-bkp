@@ -176,6 +176,9 @@ install_appimages() {
 	wget -O speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.1.1-linux-x86_64.tgz'
 	tar -zxvf speedtest.tgz
 	sudo mv speedtest ${local_bin}/
+	# yt-dlp
+	sudo curl -fsSLo ${local_bin}/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
+	sudo chmod a+rx ${local_bin}/yt-dlp
 }
 
 install_programs() {
