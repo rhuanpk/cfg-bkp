@@ -2,16 +2,6 @@
 
 #########################################################################################################################################################################
 #
-# momento pré interface:
-#
-# sudo apt install \
-# xorg \
-# i3 \
-# rofi \
-# polybar -y
-#
-# ---
-#
 # instalar manualmente:
 #	- pcloud;
 #	- oh-my-zsh;
@@ -28,17 +18,21 @@
 #
 # ---
 #
-# configurar temas gtk, qt e thunar
+# configurar temas gtk, qt e thunar, touchpad
 #
 #########################################################################################################################################################################
 
 cd /tmp; sudo apt update; sudo apt install \
+xorg \
+i3 \
+rofi \
+polybar \
 vim \
+terminator \
 git \
 zsh \
 xsel \
 xclip \
-terminator \
 neofetch \
 htop \
 ncdu \
@@ -158,6 +152,12 @@ set_swapfile() {
 	sudo swapon /swapfile
 }
 
+set_symlinks() {
+	${git_path}/${cfg_repo}/i3/symlink-create.sh
+	${git_path}/${cfg_repo}/rofi/symlink-create.sh
+	${git_path}/${cfg_repo}/polybar/symlink-create.sh
+}
+
 install_docker() {
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
@@ -232,8 +232,10 @@ set_network_config_file
 set_variables_2qt
 set_autostart_programs
 set_swapfile
+set_symlinks
 # install_docker
 install_appimages
 install_programs
 compile_programs
 disable_services
+pk-pleno
