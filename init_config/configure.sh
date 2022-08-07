@@ -65,6 +65,7 @@ curl \
 wget \
 inxi \
 hwinfo \
+mtools \
 qt5ct \
 qt5-style-plugins \
 zip \
