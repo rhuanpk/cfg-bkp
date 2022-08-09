@@ -57,6 +57,9 @@ alias TOKEN="toplip -d /home/${USER}/Documents/git/cfg-bkp/enkrypted/nekot.txt |
 alias utilitarios='less ~/Documents/git/comandos-linux/comandos_uteis.md'
 alias default_montage='sudo mount -o rw,showexec,uid=$(id -u),gid=$(id -g) ${1} ${2}'
 
+alias pgcat='pygmentize -l'
+alias hlcat='highlight -O ansi'
+
 # >>> Standard Functions <<<
 
 viewvar() { eval echo "\${${1}}" ;}
