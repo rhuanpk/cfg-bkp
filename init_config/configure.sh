@@ -46,6 +46,8 @@ chafa \
 alsa-utils \
 brightnessctl \
 color-picker \
+python3-pygments \
+highlight \
 copyq \
 mpv \
 mousepad \
