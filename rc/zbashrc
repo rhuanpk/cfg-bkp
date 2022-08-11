@@ -13,6 +13,12 @@
 #
 # alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_conhecimento/utilitarios_bash.txt'
 #
+# >>> Wallpaper <<<
+# feh --bg-scale ~/Pictures/wallpaper/wallpaper.png
+#
+# >>> Color Pallet <<<
+# cat ~/.cache/current-palette
+#
 ##################################################################################################################
 
 # >>> Unset Alias'es <<<
