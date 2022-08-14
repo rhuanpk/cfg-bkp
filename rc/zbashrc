@@ -8,11 +8,6 @@
 # zsh: setopt extendedglob
 # bash: shopt -s extglob
 #
-# para colocar na var ${PATH} em '/etc/environmente'
-# :/tmp/scripts:${HOME}/others/scripts:${HOME}/others/executables
-#
-# alias utilitarios='less /home/rhuan/Documents/git/comandos-linux/others/base_conhecimento/utilitarios_bash.txt'
-#
 # >>> Wallpaper <<<
 # feh --bg-scale ~/Pictures/wallpaper/wallpaper.png
 #
