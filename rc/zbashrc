@@ -60,8 +60,8 @@ alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp
 alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
 alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
 alias TOKEN="toplip -d /home/${USER}/Documents/git/cfg-bkp/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
-alias utilitarios='less ~/Documents/git/comandos-linux/comandos_uteis.md'
 alias default_montage='sudo mount -o rw,showexec,uid=$(id -u),gid=$(id -g) ${1} ${2}'
+alias mychecking='clear; ggsa; tree -FL 2 ~; find ~/ -path ~/pCloudDrive -prune -o -iname "*confli*"'
 
 alias pgcat='pygmentize -l'
 alias hlcat='highlight -O ansi'
@@ -96,6 +96,11 @@ tlr() { hostname=$(hostname); sed -i "/^(${hostname}) ${1}/d" ${TODO}; clear; tl
 # =============================================================================================
 
 # >>> Standard Long Functions !
+
+alias utilitarios() {
+	path=$(find ~/ -name 'comandos_uteis.md' | grep -F comandos-linux | grep -viF pclouddrive)
+	hlcat $path | less
+}
 
 comment_structure() {
 	echo -e "\

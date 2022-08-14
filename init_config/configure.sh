@@ -38,6 +38,7 @@ htop \
 ncdu \
 ranger \
 tree \
+mlocate \
 acpi \
 scrot \
 ristretto \
