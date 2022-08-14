@@ -97,7 +97,7 @@ tlr() { hostname=$(hostname); sed -i "/^(${hostname}) ${1}/d" ${TODO}; clear; tl
 
 # >>> Standard Long Functions !
 
-alias utilitarios() {
+utilitarios() {
 	path=$(find ~/ -name 'comandos_uteis.md' | grep -F comandos-linux | grep -viF pclouddrive)
 	hlcat $path | less
 }
