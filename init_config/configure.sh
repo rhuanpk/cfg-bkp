@@ -209,7 +209,7 @@ compile_programs() {
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
 	git clone https://github.com/Jack12816/colorpicker.git
 	cd ./colorpicker
-	sudo make -j4
+	sudo make -j8
 	sudo mv ./colorpicker ${local_bin}/
 	cd ../
 	# i3lock-color
