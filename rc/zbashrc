@@ -54,7 +54,7 @@ alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp
 alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
 alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
 alias TOKEN="toplip -d /home/${USER}/Documents/git/cfg-bkp/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
-alias default_montage='sudo mount -o rw,showexec,uid=$(id -u),gid=$(id -g) ${1} ${2}'
+alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
 alias mychecking='clear; ggsa; tree -FL 2 ~; find ~/ -path ~/pCloudDrive -prune -o -iname "*confli*"'
 alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
