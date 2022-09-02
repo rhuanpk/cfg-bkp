@@ -41,6 +41,8 @@ mlocate \
 acpi \
 scrot \
 ristretto \
+okular \
+pdfgrep \
 zathura \
 chafa \
 alsa-utils \
