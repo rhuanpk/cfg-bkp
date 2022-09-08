@@ -60,6 +60,9 @@ falkon \
 progress \
 translate-shell \
 genius \
+fortune \
+cowsay \
+lolcat \
 default-jdk \
 software-properties-common \
 netcat \
