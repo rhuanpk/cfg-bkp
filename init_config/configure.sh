@@ -57,6 +57,7 @@ ghostwriter \
 gnumeric \
 thunar \
 falkon \
+wkhtmltopdf \
 progress \
 translate-shell \
 genius \
