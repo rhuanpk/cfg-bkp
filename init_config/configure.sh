@@ -58,6 +58,7 @@ gnumeric \
 thunar \
 falkon \
 wkhtmltopdf \
+pdftk \
 progress \
 translate-shell \
 genius \
