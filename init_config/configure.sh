@@ -65,6 +65,8 @@ genius \
 fortune \
 cowsay \
 lolcat \
+texinfo \
+colordiff \
 default-jdk \
 software-properties-common \
 netcat \
