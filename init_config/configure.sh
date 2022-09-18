@@ -216,6 +216,8 @@ install_programs() {
 }
 
 compile_programs() {
+	local abiword=abiword
+	local wdiff=wdiff
 	# colorpicker
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
 	git clone https://github.com/Jack12816/colorpicker.git
@@ -231,7 +233,11 @@ compile_programs() {
 	cd ../
 	# abiword
 	sudo apt install libfribidi-dev libglib2.0-dev libwv-dev libxslt1-dev libgio2.0-cil-dev libgtk3.0-cil-dev libgtk-3-dev librsvg2-dev libabiword-3.0 libboost-dev -y
-	mkdir ./abiword && cd ./abiword && wget 'http://www.abisource.com/downloads/abiword/3.0.5/source/abiword-3.0.5.tar.gz' && tar -zxvf abiword-3.0.5.tar.gz && cd ./abiword-3.0.5 && ./configure && sudo make -j8 && sudo make install
+	mkdir ./${abiword}/ && cd ./${abiword}/ && curl -Lo ${abiword}.tar.gz 'http://www.abisource.com/downloads/abiword/3.0.5/source/abiword-3.0.5.tar.gz' && tar -zxvf ./${abiword}.tar.gz && cd $(ls -1 | grep -E "(${abiword}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
+	cd ../../
+	# wdiff
+	sudo apt install texinfo colordiff -y
+	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
 	cd ../../
 }
 
