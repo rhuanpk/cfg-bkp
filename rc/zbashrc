@@ -69,7 +69,7 @@ translate() { trans -b en:pt-br "${*}" ;}
 translatebr() { trans -b pt-br:en "${*}" ;}
 translatef() { trans -b en:pt-br -i "${1}" ;}
 translatebrf() { trans -b pt-br:en -i "${1}" ;}
-readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
+# readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
 pick_alias() { alias "${1}" | cut -d '=' -f 2 | tr -d "'" ;}
 ae() { [ -e "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
 diffstr() { if diff <(echo "${1}") <(echo "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
