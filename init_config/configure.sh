@@ -40,9 +40,9 @@ tree \
 mlocate \
 acpi \
 scrot \
-ristretto \
 okular \
 pdfgrep \
+zathura \
 feh \
 photoflare \
 chafa \
