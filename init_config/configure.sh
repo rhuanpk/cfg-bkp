@@ -43,7 +43,8 @@ scrot \
 ristretto \
 okular \
 pdfgrep \
-zathura \
+feh \
+photoflare \
 chafa \
 alsa-utils \
 brightnessctl \
