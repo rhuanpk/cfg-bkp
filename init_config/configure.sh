@@ -77,6 +77,7 @@ curl \
 wget \
 inxi \
 hwinfo \
+cpu-x \
 mtools \
 qt5ct \
 qt5-style-plugins \
