@@ -72,8 +72,7 @@ translatebrf() { trans -b pt-br:en -i "${1}" ;}
 # readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
 pick_alias() { alias "${1}" | cut -d '=' -f 2 | tr -d "'" ;}
 ae() { [ -e "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
-diffstr() { if diff <(echo "${1}") <(echo "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
-mydiff() { wdiff "${1}" "${2}" | colordiff | sed -E 's/\[-|-\]|\{\+|\+\}//g' ;}
+# diffstr() { if diff <(echo "${1}") <(echo "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
 
 # >>> Standard Unalias/Functions <<<
 
@@ -93,6 +92,15 @@ tlr() { hostname=$(hostname); sed -i "/^(${hostname}) ${1}/d" ${TODO}; clear; tl
 # =============================================================================================
 
 # >>> Standard Long Functions !
+
+diffstr() {
+	local phrase
+	if phrase=$(wdiff <(pk-rtstr "${1}") <(pk-rtstr "${2}")); then
+		echo -e "\e[1;32;40mNo differences ✔\e[m"
+	else
+		colordiff <<< $phrase | sed -E 's/\[-|-\]|\{\+|\+\}//g'
+	fi
+}
 
 utilitarios() {
 	file=$(find ~/ -name 'comandos_uteis.md' | grep -F comandos-linux | grep -viE '(pclouddrive|others)')
