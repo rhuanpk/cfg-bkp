@@ -27,6 +27,7 @@ i3 \
 rofi \
 polybar \
 vim \
+vim-gtk \
 terminator \
 git \
 zsh \
