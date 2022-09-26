@@ -47,6 +47,7 @@ zathura \
 feh \
 photoflare \
 chafa \
+libimage-exiftool-perl \
 alsa-utils \
 brightnessctl \
 color-picker \
