@@ -10,7 +10,6 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $mod_alt Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -42,28 +41,17 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-# ----- DEFAULT -----
 # Use Mouse+$mod to drag floating windows to their wanted position
 # floating_modifier $mod
-# ----- MODIFIED -----
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod_alt
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
-# ----- DEFAULT -----
 # kill focused window
 # bindsym $mod+Shift+q kill
-# ----- MODIFIED -----
-# kill focused window
-bindsym $mod+q kill
 
-# ----- DEFAULT -----
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
-# ----- MODIFIED -----
-bindsym $mod+d exec --no-startup-id pk-rofi
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -107,9 +95,6 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
-
-# ----- MODIFIED -----
-workspace_layout tabbed
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -160,10 +145,6 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# ----- MODIFIED -----
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -171,7 +152,6 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-# ----- DEFAULT -----
 # resize window (you can also use the mouse for that)
 # mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -199,62 +179,71 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # bindsym $mod+r mode "resize"
 
-# ----- MODIFIED -----
-bindsym $mod+Control+j resize shrink width 10 px or 10 ppt
-bindsym $mod+Control+k resize grow height 10 px or 10 ppt
-bindsym $mod+Control+l resize shrink height 10 px or 10 ppt
-bindsym $mod+Control+ccedilla resize grow width 10 px or 10 ppt
-
-# ----- DEFAULT -----
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # bar {
 #         status_command i3status
 # }
-# ----- MODIFIED -----
-exec_always --no-startup-id polybar 'my-bar'
-
-# ----- MODIFIED -----
-# exec feh --bg-scale ~/Pictures/wallpaper/wallpaper.png
-
-# ----- MODIFIED -----
-bindsym --release $mod+Prior exec --no-startup-id xdotool key --clearmodifiers Home
-bindsym --release $mod+Next exec --no-startup-id xdotool key --clearmodifiers End
 
 bindsym $mod+Prior focus left
 bindsym $mod+End focus down
 bindsym $mod+Home focus up
 bindsym $mod+Next focus right
 
-# ----- MODIFIED -----
+# ----- My modifieds -----
+
+# set alt mod key
+set $mod_alt Mod1
+
+# set alt mod key to drag floating windows to their wanted position
+floating_modifier $mod_alt
+
+# kill focused window
+bindsym $mod+q kill
+
+# set workspace mode dor tabs
+workspace_layout tabbed
+
+# defines that containers have no title
 default_border pixel
 
-# ----- MODIFIED -----
+# defines that containers starts in floating mode
 for_window [all] floating enable
 
-# ----- MODIFIED -----
-# colors {
-#	binding_mode #00FF94 #00FF94 #00FF94
-# }
+# set polybar as default bar
+exec_always --no-startup-id polybar "my-bar"
 
-# class                 border  backgr. text    indicator child_border
+# set rofi as dmenu (program launcher)
+bindsym $mod+d exec --no-startup-id pk-rofi
+
+# start program that enable transparency effect
+exec_always --no-startup-id xcompmgr -n
+
+# ???
+bindsym --release $mod+Prior exec --no-startup-id xdotool key --clearmodifiers Home
+bindsym --release $mod+Next exec --no-startup-id xdotool key --clearmodifiers End
+
+# set bindings to toggle previous and next workspace
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+# set bindings to resize windows
+bindsym $mod+Control+j resize shrink width 10 px or 10 ppt
+bindsym $mod+Control+k resize grow height 10 px or 10 ppt
+bindsym $mod+Control+l resize shrink height 10 px or 10 ppt
+bindsym $mod+Control+ccedilla resize grow width 10 px or 10 ppt
+
+# alter colors of clients
 client.focused          #111111 #111111 #00ff84 #000000   #14754C
 client.focused_inactive #111111 #111111 #00ff84 #000000   #111111
 client.unfocused        #111111 #111111 #14754C #000000   #111111
-# client.urgent           #2f343a #900000 #ffffff #900000   #900000
-# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
-# client.background       #ffffff
 
-# ----- MODIFIED -----
-
+# set my bindings
 bindsym --release $mod_alt+p exec --no-startup-id pk-sc2cb
-
 bindsym --release $mod_alt+s exec --no-startup-id pk-pwc
 bindsym --release $mod_alt+Control+s exec --no-startup-id pk-pwc -s
-
 bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-vcontrol
 bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-bcontrol
 bindsym --release $mod_alt+Control+p exec --no-startup-id terminator --borderless --geometry=200x30 --command=pk-pcontrol
-
 bindsym --release $mod+Shift+b exec --no-startup-id pk-i3lock
 bindsym --release $mod+Shift+s exec --no-startup-id pk-i3suspend
