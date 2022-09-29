@@ -58,6 +58,7 @@ alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
 alias mychecking='clear; ggsa; tree -FL 2 ~; find ~/ -path ~/pCloudDrive -prune -o -iname "*confli*"'
 alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
+alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 
 alias pgcat='pygmentize -l'
 alias hlcat='highlight -O ansi'
