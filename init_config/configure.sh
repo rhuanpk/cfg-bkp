@@ -90,6 +90,7 @@ unrar \
 pandoc \
 lynx \
 links2 \
+preload \
 ca-certificates \
 libnotify-bin \
 apt-transport-https \
