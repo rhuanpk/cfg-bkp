@@ -81,7 +81,7 @@ font-2 = siji:pixelsize=10;1
 modules-left = bspwm i3
 modules-center = mpd
 ##### modified ---> deixado somente ip's e data
-modules-right = eth1 eth2 eth3 eth4 wlan1 wlan2 memory my-battery date
+modules-right = eth1 eth2 eth3 eth4 eth5 wlan1 wlan2 memory my-battery date
 
 tray-position = right
 tray-padding = 1
@@ -355,6 +355,24 @@ format-disconnected =
 [module/eth4]
 type = internal/network
 interface = enp0s3
+interval = 3.0
+
+format-connected-underline = #55aa55
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+##### original ---> label-connected = %local_ip%
+##### modified ---> coloca o um descrição para o elemento
+label-connected = "e_IP: %local_ip% |"
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/eth5]
+type = internal/network
+interface = ens133
 interval = 3.0
 
 format-connected-underline = #55aa55
