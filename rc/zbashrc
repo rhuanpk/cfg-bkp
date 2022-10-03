@@ -1,10 +1,13 @@
 
 ##################################################################################################################
 #
+# >>> carregamento do arquivo <<<
 # source ~/Documents/git/cfg-bkp/rc/zbashrc
 #
+# >>> noti-notify <<<
 # export NOTI_DEFAULT="banner telegram slack"
 #
+# >>> extendeds globs <<<
 # zsh: setopt extendedglob
 # bash: shopt -s extglob
 #
@@ -16,11 +19,18 @@
 #
 ##################################################################################################################
 
+# >>> The Ultimate Home <<<
+
+home=${HOME:-"/home/${USER:-$(whoami)}"}
+
 # >>> Unset Alias'es <<<
 
 aliases_array=(ll lla ggb ggl ggd ggs ggr ggp ggsa ggpa)
+
 for index in ${aliases_array[@]}; do
-	if alias ${index} >/dev/null 2>&1; then unalias ${index}; fi
+	if alias ${index} >/dev/null 2>&1; then
+		unalias ${index}
+	fi
 done
 
 # >>> Standard Aliases <<<
@@ -53,15 +63,15 @@ alias intrr='echo "${?}"'
 alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp/tmp'
 alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
 alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
-alias TOKEN="toplip -d /home/${USER}/Documents/git/cfg-bkp/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
+alias TOKEN="toplip -d ${home}/Documents/git/cfg-bkp/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
 alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
 alias mychecking='clear; ggsa; tree -FL 2 ~; find ~/ -path ~/pCloudDrive -prune -o -iname "*confli*"'
 alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
-
 alias pgcat='pygmentize -l'
 alias hlcat='highlight -O ansi'
+alias mocp='mocp --theme darkdot_theme'
 
 # >>> Standard Functions <<<
 
@@ -70,7 +80,7 @@ translate() { trans -b en:pt-br "$(pk-rtstr ${1})" ;}
 translatebr() { trans -b pt-br:en "$(pk-rtstr ${1})" ;}
 # readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
 pick_alias() { alias "${1}" | cut -d '=' -f 2 | tr -d "'" ;}
-ae() { [ -e "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
+ae() { [ -f "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
 diffstr() { if diff <(pk-rtstr "${1}") <(pk-rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
 
 # >>> Standard Unalias/Functions <<<
@@ -82,11 +92,11 @@ lla() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhAF --time-style=+%% -
 
 # ToDo List (SlackJeff)
 
-export TODO="${HOME}/Documents/anotacoes/.todo_list.txt"
+TODO="${home}/Documents/anotacoes/.todo_list.txt"
 
 rand() { RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done ;}
 tla() { rand; [ ${#} -eq 0 ] && cat "${TODO}" || echo "($(hostname)) ${RAND} » ${*}" >> ${TODO} ;}
-tlr() { hostname=$(hostname); sed -i "/^(${hostname}) ${1}/d" ${TODO}; clear; tla ;}
+tlr() { sed -i "/^($(hostname)) ${1}/d" ${TODO}; clear; tla ;}
 
 # =============================================================================================
 
@@ -125,62 +135,12 @@ repita() {
 	while :; do sleep ${time}; clear; eval ${command}; done
 }
 
-container_reboot() {
-	echo '---ENCERRANDO CONTAINER---'
-	docker stop "${1}" &&
-	sleep 1
-	docker ps -a &&
-	echo '---INICIANDO CONTAINER---'
-	docker start "${1}" &&
-	sleep 1
-	docker ps -a
-}
-
 outfind() {
 	tmp_find_path=/tmp/output_find.tmp
 	f_time=1
 	find / \( -path /proc -prune -o -path /sys -prune \) -o -iname "*${1}*" >${tmp_find_path} 2>&- &
 	while (ps ${!} >/dev/null); do sleep 1; echo -ne "\rtime: ${f_time}s"; let ++f_time; done; echo
 	less ${tmp_find_path}
-}
-
-add_ln_nxt() {
-	[ ! "$(basename ${0})" = 'bash' ] && {
-		echo -e "\e[40;31;1m>>> Logue numa sesão BASH !\e[m"
-	} || {
-		index=0
-		expression="${1}"
-		file="${2}"
-		for i in $(egrep -n "${expression}" "${file}" | cut -d ':' -f '1'); do
-			lines_arr[${index}]=${i}
-			let ++index
-		done && {
-			line=0
-			for i in ${lines_arr[@]}; do
-				next_line=$((${i}+${line}))
-				line_content=$(sed -n "${next_line}p" "${file}")
-				sed -i "${next_line}s/.*/${line_content}\n/" "${file}"
-				let ++line
-			done
-		}
-	}
-}
-
-rm_nxt_blnk_ln() {
-	line=1
-	file="${1}"
-        while :; do
-		next_line=$((${line}+1))
-		lines_total=$(wc -l ${file} | cut -d ' ' -f '1')
-		[ ${line} -eq ${lines_total} ] && break || {
-			[ "$(sed -n ${line}p ${file})" = "" ] && {
-				[ "$(sed -n ${next_line}p ${file})" = "" ] && {
-					sed -i "${next_line}d" "${file}"
-				}
-			}
-		}
-		let ++line
-	done
 }
 
 print_regex_classes() {
