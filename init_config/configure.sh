@@ -31,14 +31,12 @@ vim-gtk \
 terminator \
 git \
 zsh \
-xsel \
 xclip \
 neofetch \
 htop \
 ncdu \
 ranger \
 tree \
-mlocate \
 acpi \
 scrot \
 okular \
@@ -46,7 +44,6 @@ pdfgrep \
 zathura \
 feh \
 photoflare \
-chafa \
 libimage-exiftool-perl \
 alsa-utils \
 brightnessctl \
@@ -54,26 +51,20 @@ color-picker \
 python3-pygments \
 highlight \
 copyq \
-mpv \
+moc \
+mplayer \
 mousepad \
-ghostwriter \
 gnumeric \
 thunar \
-falkon \
 wkhtmltopdf \
 pdftk \
 progress \
 translate-shell \
 genius \
-fortune \
-cowsay \
-lolcat \
 colordiff \
-default-jdk \
 software-properties-common \
 netcat \
 network-manager \
-net-tools \
 curl \
 wget \
 inxi \
@@ -91,9 +82,7 @@ pandoc \
 lynx \
 links2 \
 preload \
-ca-certificates \
 libnotify-bin \
-apt-transport-https \
 gnupg \
 dbus-x11 \
 autoconf \
@@ -184,7 +173,7 @@ install_docker() {
 	docker-compose-plugin -y
 }
 
-install_appimages() {
+install_portables() {
 	# toplip
 	sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip'
 	sudo chmod +x ${local_bin}/toplip
@@ -193,8 +182,11 @@ install_appimages() {
 	tar -zxvf speedtest.tgz
 	sudo mv speedtest ${local_bin}/
 	# yt-dlp
-	sudo curl -fsSLo ${local_bin}/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
-	sudo chmod a+rx ${local_bin}/yt-dlp
+	sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'
+	sudo chmod +x ${local_bin}/yt-dlp
+	# mdr
+	sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/download/v0.2.5/mdr_linux_amd64'
+	sudo chmod +x ${local_bin}/mdr
 }
 
 install_programs() {
@@ -249,7 +241,7 @@ disable_services() {
 	sudo systemctl disable NetworkManager-wait-online.service
 }
 
-# >>> PROGRAMA <<<
+# >>> START <<<
 
 for folder in ${folders2create[@]}; do
 	[ ! -d ${folder} ] && mkdir -p ${folder}
@@ -262,7 +254,7 @@ set_autostart_programs
 set_swapfile
 set_symlinks
 # install_docker
-install_appimages
+install_portables
 install_programs
 compile_programs
 disable_services
