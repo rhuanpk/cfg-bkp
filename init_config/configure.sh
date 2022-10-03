@@ -233,7 +233,7 @@ compile_programs() {
 	cd ../../
 	# wdiff
 	sudo apt install texinfo colordiff -y
-	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
+	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
 	cd ../../
 }
 
