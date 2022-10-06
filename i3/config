@@ -192,6 +192,9 @@ bindsym $mod+Next focus right
 
 # ----- My modifieds -----
 
+# include files
+include ~/.i3/config
+
 # set alt mod key
 set $mod_alt Mod1
 
