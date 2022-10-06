@@ -25,7 +25,7 @@ home=${HOME:-"/home/${USER:-$(whoami)}"}
 
 # >>> Unset Alias'es <<<
 
-aliases_array=(ll lla ggb ggl ggd ggs ggr ggp ggsa ggpa)
+aliases_array=(ll lla ggb ggl ggd ggs ggr ggp ggsa ggpa ggra)
 
 for index in ${aliases_array[@]}; do
 	if alias ${index} >/dev/null 2>&1; then
@@ -46,10 +46,11 @@ alias ggb='git branch -l --color | cat'
 alias ggl='git log --all --oneline --patch'
 alias ggd='git diff --color | cat'
 alias ggs='git status'
-alias ggr='git restore .'
+alias ggr='git restore ./; git clean -f'
 alias ggp='git pull origin $(git branch --show-current)'
 alias ggsa='pk-push_script "git status"'
 alias ggpa='pk-push_script "git pull origin master"'
+alias ggra='pk-push_script "git restore ./"; pk-push_script "git clean -f"'
 
 alias insp='viewvar ${1}'
 alias sz='source ~/.zshrc'
