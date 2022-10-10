@@ -179,7 +179,7 @@ print_array_expasion() {
 		\${!var[@]} ---------- Imprime os índices do array.
 		\${var[@]:N} --------- Imprime todos os elementos a partir da posição ‘N’.
 		\${var[@]:N:M} ------- Imprime ‘M’ elementos a partir da posição ‘N’.
-		\${var[@]: -N} ------- Imprime os últimos ‘M’ elementos.
+		\${var[@]: -N} ------- Imprime os últimos ‘N’ elementos.
 		\${var[@]: -N:M} ----- Imprime ‘M’ elementos a partir da última ‘N’ posição.
 		----------------------------------------------------------------------------------
 	EOF
