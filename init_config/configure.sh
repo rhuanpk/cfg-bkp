@@ -136,7 +136,6 @@ set_autostart_programs() {
 		sleep 5; \$(which copyq) &
 		sleep 5; \$(which pcloud) &
 		sleep 5; \$(which discord) &
-		sleep 5; noti-notify --start
 	EOF
 	sudo chmod +x ${local_bin}/autostart_programs
 	cat <<- EOF > ${autostart_path}/autostart_programs.desktop
