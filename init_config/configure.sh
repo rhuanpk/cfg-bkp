@@ -112,7 +112,7 @@ clone_repos() {
 }
 
 set_network_config_file() {
-	cat <<- EOF | sudo tee /etc/netplan/01-netcfg.yaml
+	sudo tee /etc/netplan/01-netcfg.yaml <<- EOF
 		# This file describes the network interfaces available on your system
 		# For more information, see netplan(5).
 		network:
@@ -122,7 +122,7 @@ set_network_config_file() {
 }
 
 set_variables_2qt() {
-	cat <<- EOF | sudo tee /etc/environment
+	sudo tee /etc/environment  <<- EOF
 		$(cat /etc/environment)
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
@@ -130,12 +130,13 @@ set_variables_2qt() {
 }
 
 set_autostart_programs() {
-	cat <<- EOF | sudo tee ${local_bin}/autostart_programs
+	sudo tee ${local_bin}/autostart_programs  <<- EOF
 		#!/usr/bin/env bash
 
 		sleep 5; \$(which copyq) &
 		sleep 5; \$(which pcloud) &
 		sleep 5; \$(which discord) &
+		sleep 5; noti-notify --start
 	EOF
 	sudo chmod +x ${local_bin}/autostart_programs
 	cat <<- EOF > ${autostart_path}/autostart_programs.desktop
