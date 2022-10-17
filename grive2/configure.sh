@@ -4,7 +4,7 @@ script=${0}
 home=${HOME:-"/home/${USER:-$(whoami)}"}
 folder=${home}/googleDrive
 
-[ ! -d $folder ] && { mkdir -pv $folder; cd $folder; } || cd $folder
+[ ! -d $folder ] && { mkdir -pv $folder; cd $folder; } || { echo 'Folder already exists?? :/'; exit 1; }
 if ! grive -a; then
 	echo "${script}: Error in grive configuration!"
 	exit 1
