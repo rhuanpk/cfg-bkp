@@ -99,6 +99,10 @@ comandos_repo='comandos-linux'
 cfg_repo='cfg-bkp'
 local_bin='/usr/local/bin'
 autostart_path="/home/$(whoami)/.config/autostart"
+log_file=$(mktemp /tmp/init_config_XXXXXXX.log)
+denied_list=(\
+	"install_docker"\
+)
 folders2create=(\
 	${git_path} \
 	${autostart_path}\
@@ -244,18 +248,9 @@ disable_services() {
 # >>> START <<<
 
 for folder in ${folders2create[@]}; do
-	[ ! -d ${folder} ] && mkdir -p ${folder}
+	[ ! -d $folder ] && mkdir -vp $folder
 done
-
-clone_repos
-set_network_config_file
-set_variables_2qt
-set_autostart_programs
-set_swapfile
-set_symlinks
-# install_docker
-install_portables
-install_programs
-compile_programs
-disable_services
+for y_function in $(declare -F | awk '{print $3}'); do
+	[[ ! ${denied_list[*]} =~ (${y_function}) ]] && $y_function 2> $log_file
+done
 pk-pleno
