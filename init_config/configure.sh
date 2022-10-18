@@ -239,6 +239,15 @@ compile_programs() {
 	sudo apt install texinfo colordiff -y
 	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
 	cd ../../
+	# grive2
+	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
+	mkdir ./${grive2}/ && cd ./${grive2}/
+	git clone 'https://github.com/vitalif/grive2' $grive2
+	cd ./${grive2}/
+	dpkg-buildpackage -j8 --no-sign
+	cd ../
+	sudo dpkg --install ./*.deb
+	cd ../
 }
 
 disable_services() {
