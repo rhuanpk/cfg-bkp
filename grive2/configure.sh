@@ -7,6 +7,7 @@ folder=${home}/googleDrive
 [ ! -d $folder ] && { mkdir -pv $folder; cd $folder; } || { echo 'Folder already exists?? :/'; exit 1; }
 if ! grive -a; then
 	echo "${script}: Error in grive configuration!"
+	rm -rfv $folder
 	exit 1
 else
 	echo "${script}: Success in grive configuration!"
@@ -23,6 +24,7 @@ sudo tee /etc/systemd/system/grive.service <<- eof
 eof
 if ! sudo systemctl enable grive.service; then
 	echo "${script}: Error on enabling service!"
+	rm -rfv $folder
 	exit 1
 else
 	echo "${script}: Success on enabling service!"
