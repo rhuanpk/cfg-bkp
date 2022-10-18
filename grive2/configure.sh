@@ -19,9 +19,9 @@ sudo tee /etc/systemd/system/grive.service <<- eof
 	WorkingDirectory=${folder}
 	ExecStart=grive
 	Restart=always
-	RestartSec=10
+	RestartSec=300
 eof
-if ! sudo systemctl enable --now grive.service; then
+if ! sudo systemctl enable grive.service; then
 	echo "${script}: Error on enabling service!"
 	exit 1
 else
