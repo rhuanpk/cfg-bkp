@@ -1,4 +1,4 @@
 declare -g default_channels='--banner --pushsafer --slack'
 declare -g ram_default=1
 declare -i ram_overload=$(free -m | tr -s '[[:blank:]]' | grep -iE '(mem)' | cut -d ' ' -f 3)
-[ ${ram_overload:0:1} -ge $ram_default ] && noti $default_channels -t "Consumo de RAM elevado!" -m "O consumo de memória RAM está acima de ${ram_default}GB."
+[ ${ram_overload:0:1} -ge $ram_default -a ${#ram_overload} -ge 4 ] && noti $default_channels -t "Consumo de RAM elevado!" -m "O consumo de memória RAM está acima de ${ram_default}GB."
