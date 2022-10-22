@@ -20,95 +20,133 @@
 # configurar temas gtk, qt e thunar, touchpad
 #
 #########################################################################################################################################################################
+		
+# ********** Declaração de Variáveis **********
 
-cd /tmp; sudo apt update; sudo apt install \
-xorg \
-i3 \
-rofi \
-polybar \
-vim \
-vim-gtk \
-terminator \
-git \
-zsh \
-xclip \
-neofetch \
-htop \
-ncdu \
-ranger \
-tree \
-acpi \
-scrot \
-okular \
-pdfgrep \
-zathura \
-feh \
-photoflare \
-libimage-exiftool-perl \
-alsa-utils \
-brightnessctl \
-color-picker \
-python3-pygments \
-highlight \
-copyq \
-moc \
-mplayer \
-mousepad \
-abiword \
-gnumeric \
-thunar \
-wkhtmltopdf \
-pdftk \
-progress \
-translate-shell \
-genius \
-colordiff \
-software-properties-common \
-netcat \
-network-manager \
-curl \
-wget \
-inxi \
-hwinfo \
-cpu-x \
-mtools \
-qt5ct \
-qt5-style-plugins \
-zip \
-unzip \
-p7zip-full \
-p7zip-rar \
-unrar \
-pandoc \
-lynx \
-links2 \
-preload \
-libnotify-bin \
-gnupg \
-dbus-x11 \
-autoconf \
-pkg-config \
-make \
-gcc \
-build-essential \
-lsb-release -y
+# Variáveis principais:
+home="${HOME:-/home/${USER:-$(whoami)}}"
+hit_log_file=$(mktemp /tmp/init_config_hit_XXXXXXX.log)
+error_log_file=$(mktemp /tmp/init_config_error_XXXXXXX.log)
+declare -i count_success
+declare -a failed_processes
+banner='
+    _____   ____________  __________  _   __________________
+   /  _/ | / /  _/_  __/ / ____/ __ \/ | / / ____/  _/ ____/
+   / //  |/ // /  / /   / /   / / / /  |/ / /_   / // / __
+ _/ // /|  // /  / /   / /___/ /_/ / /|  / __/ _/ // /_/ /
+/___/_/ |_/___/ /_/____\____/\____/_/ |_/_/   /___/\____/
+                 /_____/
+'
 
-home_path="/home/${USER}"
-git_path="${home_path}/Documents/git"
-bash_file="${home_path}/.bashrc"
-comandos_repo='comandos-linux'
-cfg_repo='cfg-bkp'
+# Variáveis de caminhos:
 local_bin='/usr/local/bin'
-autostart_path="/home/$(whoami)/.config/autostart"
-log_file=$(mktemp /tmp/init_config_XXXXXXX.log)
+bash_file="${home}/.bashrc"
+autostart_path="${home}/.config/autostart"
+git_path="${home}/Documents/git"
+
+# Variáveis de nomes:
+cfg_repo='cfg-bkp'
+comandos_repo='comandos-linux'
+
+# Arrays
 denied_list=(\
-	"install_docker"\
+	'install_docker'\
+	'end_message' \
+	'loading_message'\
 )
 folders2create=(\
 	${git_path} \
 	${autostart_path}\
 )
-	
+
+# Variáveis de cores:
+green_color='\e[1;32m'
+red_color='\e[1;31m'
+yellow_color='\e[33m'
+bold_effect='\e[1m'
+reset_color='\e[m'
+
+# ********** Declaração de Funções **********
+
+# Processo pré instalação: atualização do sistema e instalação dos pacotes via `apt`.
+pre_install() {
+	cd /tmp
+	sudo apt update
+	sudo apt install \
+		xorg \
+		i3 \
+		rofi \
+		polybar \
+		vim \
+		vim-gtk \
+		terminator \
+		git \
+		zsh \
+		xclip \
+		neofetch \
+		htop \
+		ncdu \
+		ranger \
+		tree \
+		acpi \
+		scrot \
+		okular \
+		pdfgrep \
+		zathura \
+		feh \
+		photoflare \
+		libimage-exiftool-perl \
+		alsa-utils \
+		brightnessctl \
+		color-picker \
+		python3-pygments \
+		highlight \
+		copyq \
+		moc \
+		mplayer \
+		mousepad \
+		abiword \
+		gnumeric \
+		thunar \
+		wkhtmltopdf \
+		pdftk \
+		progress \
+		translate-shell \
+		genius \
+		colordiff \
+		software-properties-common \
+		netcat \
+		network-manager \
+		curl \
+		wget \
+		inxi \
+		hwinfo \
+		cpu-x \
+		mtools \
+		qt5ct \
+		qt5-style-plugins \
+		zip \
+		unzip \
+		p7zip-full \
+		p7zip-rar \
+		unrar \
+		pandoc \
+		lynx \
+		links2 \
+		preload \
+		libnotify-bin \
+		gnupg \
+		dbus-x11 \
+		autoconf \
+		pkg-config \
+		make \
+		gcc \
+		build-essential \
+		lsb-release \
+	-y
+}
+
+# Clona os repositórios padrões e os coloca no diretório padrão.
 clone_repos() {
 	git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
 	git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
@@ -116,7 +154,8 @@ clone_repos() {
 	echo -e "\nsource ${git_path}/${cfg_repo}/rc/zbashrc" >> "${bash_file}"
 }
 
-set_network_config_file() {
+# Seta o arquivo de configura de rede.
+set_network_file() {
 	sudo tee /etc/netplan/01-netcfg.yaml <<- EOF
 		# This file describes the network interfaces available on your system
 		# For more information, see netplan(5).
@@ -126,6 +165,7 @@ set_network_config_file() {
 	EOF
 }
 
+# Seta as variáveis de ambiente do `qt`.
 set_variables_2qt() {
 	sudo tee /etc/environment  <<- EOF
 		$(cat /etc/environment)
@@ -134,6 +174,7 @@ set_variables_2qt() {
 	EOF
 }
 
+# Seta o arquivo de autostart e o script dos programas do autostart.
 set_autostart_programs() {
 	sudo tee ${local_bin}/autostart_programs  <<- EOF
 		#!/usr/bin/env bash
@@ -153,6 +194,7 @@ set_autostart_programs() {
 	EOF
 }
 
+# Seta o novo swapfile.
 set_swapfile() {
 	sudo swapoff /swapfile
 	sudo rm /swapfile
@@ -162,12 +204,14 @@ set_swapfile() {
 	sudo swapon /swapfile
 }
 
+# Seta os symlinks necessários.
 set_symlinks() {
 	${git_path}/${cfg_repo}/i3/symlink-create.sh
 	${git_path}/${cfg_repo}/rofi/symlink-create.sh
 	${git_path}/${cfg_repo}/polybar/symlink-create.sh
 }
 
+# Instala o docker (depreciado).
 install_docker() {
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
@@ -178,6 +222,7 @@ install_docker() {
 	docker-compose-plugin -y
 }
 
+# Instala os programas pré compilados.
 install_portables() {
 	# toplip
 	sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip'
@@ -194,6 +239,7 @@ install_portables() {
 	sudo chmod +x ${local_bin}/mdr
 }
 
+# Instala os programas `.deb`.
 install_programs() {
 	# chrome
 	wget -O google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -216,6 +262,7 @@ install_programs() {
 	sudo apt install -f -y
 }
 
+# Compila os programas que são disponibilizados apenas nesse formato.
 compile_programs() {
 	local abiword=abiword
 	local grive2=grive2
@@ -247,16 +294,68 @@ compile_programs() {
 	cd ../
 }
 
+# Desabilita os serviços desnecessários.
 disable_services() {
 	sudo systemctl disable NetworkManager-wait-online.service
 }
 
-# >>> START <<<
+# Printa a mensagem de carregamento do processo atual.
+loading_message() {
+	y_command="${1}"
+	while :; do
+		for character in \\ \| \/ \- \\ \| \/ \-; do
+			sleep .1
+			echo -en " \rexecutando ${yellow_color}${y_command}${reset_color} ... ${character}"
+		done
+	done
+}
+
+# Printa a mensagem do final do programa.
+end_message() {
+	count_errors=${#failed_processes[@]}
+	cat <<- eof
+		Execuções com sucesso: $count_success
+		Execuções com falha: $count_errors
+
+	eof
+	[ $count_errors -gt 0 ] && {
+		echo 'Processos que falharam:'
+		for index in $(seq 0 $((${count_errors}-1))); do
+			echo -e "\t- ${failed_processes[${index}]}"
+		done
+		echo ""
+	}
+}
+
+# ********** Início do Programa **********	
 
 for folder in ${folders2create[@]}; do
 	[ ! -d $folder ] && mkdir -vp $folder
 done
-for y_function in $(declare -F | awk '{print $3}'); do
-	[[ ! ${denied_list[*]} =~ (${y_function}) ]] && $y_function 2>> $log_file
+for any in $(seq 1 $(tput cols)); do
+	blank+=' '
 done
+
+clear
+
+echo -e "${bold_effect}${banner}${reset_color}"
+for y_function in $(declare -F | awk '{print $3}'); do
+	[[ ! ${denied_list[*]} =~ (${y_function}) ]] && {
+		loading_message $y_function &
+		if ! $y_function 1>> $hit_log_file 2>> $error_log_file; then
+			kill $!
+			echo -en "\r${blank}"
+			echo -e "\r>>> ${bold_effect}Falhou${reset_color} -> ${red_color}$y_function${reset_color} !"
+			failed_processes[${#failed_processes[@]}]=${y_function}
+		else
+			kill $!
+			echo -en "\r${blank}"
+			echo -e "\r>>> ${bold_effect}Sucesso${reset_color} -> ${green_color}$y_function${reset_color} !"
+			let ++count_success
+		fi
+	}
+done
+echo ""
+
+end_message
 pk-pleno
