@@ -71,9 +71,9 @@ reset_color='\e[m'
 
 # Processo pré instalação: atualização do sistema e instalação dos pacotes via `apt`.
 pre_install() {
-	cd /tmp
-	sudo -v apt update
-	sudo -v apt install \
+	sudo -v
+	sudo apt update
+	sudo apt install \
 		xorg \
 		i3 \
 		rofi \
@@ -157,7 +157,8 @@ clone_repos() {
 
 # Seta o arquivo de configura de rede.
 set_network_file() {
-	sudo -v tee /etc/netplan/01-netcfg.yaml <<- EOF
+	sudo -v
+	sudo tee /etc/netplan/01-netcfg.yaml <<- EOF
 		# This file describes the network interfaces available on your system
 		# For more information, see netplan(5).
 		network:
@@ -168,7 +169,8 @@ set_network_file() {
 
 # Seta as variáveis de ambiente do `qt`.
 set_variables_2qt() {
-	sudo -v tee /etc/environment  <<- EOF
+	sudo -v
+	sudo tee /etc/environment  <<- EOF
 		$(cat /etc/environment)
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
@@ -177,14 +179,15 @@ set_variables_2qt() {
 
 # Seta o arquivo de autostart e o script dos programas do autostart.
 set_autostart_programs() {
-	sudo -v tee ${local_bin}/autostart_programs  <<- EOF
+	sudo -v
+	sudo tee ${local_bin}/autostart_programs  <<- EOF
 		#!/usr/bin/env bash
 
 		sleep 5; \$(which copyq) &
 		sleep 5; \$(which pcloud) &
 		sleep 5; \$(which discord) &
 	EOF
-	sudo -v chmod +x ${local_bin}/autostart_programs
+	sudo chmod +x ${local_bin}/autostart_programs
 	cat <<- EOF > ${autostart_path}/autostart_programs.desktop
 		[Desktop Entry]
 		Type=Application
@@ -197,12 +200,13 @@ set_autostart_programs() {
 
 # Seta o novo swapfile.
 set_swapfile() {
-	sudo -v swapoff /swapfile
-	sudo -v rm /swapfile
-	sudo -v fallocate -l 4G /swapfile
-	sudo -v chmod 600 /swapfile
-	sudo -v mkswap /swapfile
-	sudo -v swapon /swapfile
+	sudo -v
+	sudo swapoff /swapfile
+	sudo rm /swapfile
+	sudo fallocate -l 4G /swapfile
+	sudo chmod 600 /swapfile
+	sudo mkswap /swapfile
+	sudo swapon /swapfile
 }
 
 # Seta os symlinks necessários.
@@ -214,9 +218,10 @@ set_symlinks() {
 
 # Instala o docker (depreciado).
 install_docker() {
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo -v gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo -v tee /etc/apt/sources.list.d/docker.list >/dev/null
-	sudo -v apt update; sudo -v apt install \
+	sudo -v
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+	sudo apt update; sudo apt install \
 	docker-ce \
 	docker-ce-cli \
 	containerd.io \
@@ -225,83 +230,88 @@ install_docker() {
 
 # Instala os programas pré compilados.
 install_portables() {
+	sudo -v
 	# toplip
-	sudo -v curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip'
-	sudo -v chmod +x ${local_bin}/toplip
+	sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip'
+	sudo chmod +x ${local_bin}/toplip
 	# speedtest
 	wget -O speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.1.1-linux-x86_64.tgz'
 	tar -zxvf speedtest.tgz
-	sudo -v mv speedtest ${local_bin}/
+	sudo mv speedtest ${local_bin}/
 	# yt-dlp
-	sudo -v curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'
-	sudo -v chmod +x ${local_bin}/yt-dlp
+	sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'
+	sudo chmod +x ${local_bin}/yt-dlp
 	# mdr
-	sudo -v curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/download/v0.2.5/mdr_linux_amd64'
-	sudo -v chmod +x ${local_bin}/mdr
+	sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/download/v0.2.5/mdr_linux_amd64'
+	sudo chmod +x ${local_bin}/mdr
 }
 
 # Instala os programas `.deb`.
 install_programs() {
+	sudo -v
 	# chrome
 	wget -O google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-	sudo -v dpkg -i /tmp/google-chrome_tmp.deb
-	sudo -v apt install -f -y
+	sudo dpkg -i /tmp/google-chrome_tmp.deb
+	sudo apt install -f -y
 	# discord
 	wget -O discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
 	sleep 5
-	sudo -v dpkg -i discord_tmp.deb
-	sudo -v apt install -f -y
+	sudo dpkg -i discord_tmp.deb
+	sudo apt install -f -y
 	# vs-code
-	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo -v tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo -v tee /etc/apt/sources.list.d/vscode.list >/dev/null
-	sudo -v apt update; sudo -v apt install code -y
-	sudo -v apt install -f -y
+	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
+	sudo apt update; sudo apt install code -y
+	sudo apt install -f -y
 	# sublime
-	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo -v tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo -v tee /etc/apt/sources.list.d/sublime-text.list
-	sudo -v apt update; sudo -v apt install sublime-text -y
-	sudo -v apt install -f -y
+	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+	sudo apt update; sudo apt install sublime-text -y
+	sudo apt install -f -y
 }
 
 # Compila os programas que são disponibilizados apenas nesse formato.
 compile_programs() {
+	sudo -v
 	local abiword=abiword
 	local grive2=grive2
 	# colorpicker
-	sudo -v apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
+	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
 	git clone https://github.com/Jack12816/colorpicker.git
 	cd ./colorpicker
-	sudo -v make -j8
-	sudo -v mv ./colorpicker ${local_bin}/
+	sudo make -j8
+	sudo mv ./colorpicker ${local_bin}/
 	cd ../
 	# i3lock-color
-	sudo -v apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
+	sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
 	git clone https://github.com/Raymo111/i3lock-color.git
 	cd ./i3lock-color
 	./install-i3lock-color.sh
 	cd ../
 	# wdiff
-	sudo -v apt install texinfo colordiff -y
-	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo -v ./configure && sudo -v make -j8 && sudo -v make install
+	sudo apt install texinfo colordiff -y
+	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
 	cd ../../
 	# grive2
-	sudo -v apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
+	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
 	mkdir ./${grive2}/ && cd ./${grive2}/
 	git clone 'https://github.com/vitalif/grive2' $grive2
 	cd ./${grive2}/
 	dpkg-buildpackage -j8 --no-sign
 	cd ../
-	sudo -v dpkg --install ./*.deb
+	sudo dpkg --install ./*.deb
 	cd ../
 }
 
 # Desabilita os serviços desnecessários.
 disable_services() {
-	sudo -v systemctl disable NetworkManager-wait-online.service
+	sudo -v
+	sudo systemctl disable NetworkManager-wait-online.service
 }
 
 pos_install() {
-	sudo -v; pk-pleno
+	sudo -v
+	pk-pleno
 }
 
 # Printa a mensagem de carregamento do processo atual.
@@ -310,7 +320,7 @@ loading_message() {
 	while :; do
 		for character in \\ \| \/ \- \\ \| \/ \-; do
 			sleep .1
-			echo -en " \rExecutando ${yellow_color}${y_command}${reset_color} ... ${character}"
+			echo -en " \rExecutando ${yellow_color}${y_command}${reset_color}... ${character}"
 		done
 	done
 }
@@ -339,7 +349,6 @@ print_banner() {
 # ********** Início do Programa **********	
 
 clear
-
 print_banner
 read -rsp 'Entre com a senha do usuário [sudo]: ' password
 if ! echo ${password} | sudo -Sv &>/dev/null; then
@@ -353,9 +362,7 @@ done
 for any in $(seq 1 $(tput cols)); do
 	blank+=' '
 done
-
 clear
-
 print_banner
 for y_function in pre_install $(echo $(declare -F | awk '{print $3}' | sed -E '/(pre|pos)_install/d')) pos_install; do
 	[[ ! ${denied_list[*]} =~ (${y_function}) ]] && {
