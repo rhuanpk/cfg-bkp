@@ -342,7 +342,7 @@ clear
 
 print_banner
 read -rsp 'Entre com a senha do usuário [sudo]: ' password
-if ! echo ${password} | sudo -Sv; then
+if ! echo ${password} | sudo -Sv &>/dev/null; then
 	echo -e "\n${red_color}Error: senha do usuário [sudo] incorreta!${reset_color}\n"
 	exit 1
 fi
