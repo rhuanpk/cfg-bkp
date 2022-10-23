@@ -348,6 +348,7 @@ print_banner() {
 
 # ********** Início do Programa **********	
 
+cd /tmp
 clear
 print_banner
 read -rsp 'Entre com a senha do usuário [sudo]: ' password
