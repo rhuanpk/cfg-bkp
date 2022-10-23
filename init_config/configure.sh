@@ -311,7 +311,9 @@ disable_services() {
 
 pos_install() {
 	sudo -v
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 	pk-pleno
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
 }
 
 # Printa a mensagem de carregamento do processo atual.
