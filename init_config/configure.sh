@@ -61,6 +61,20 @@ folders2create=(\
 	${git_path} \
 	${autostart_path}\
 )
+commands=(
+	'autostart_programs' \
+	'toplip' \
+	'speedtest' \
+	'yt-dlp' \
+	'mdr' \
+	'google-chrome' \
+	'discord' \
+	'code' \
+	'subl' \
+	'colorpicker' \
+	'wdiff' \
+	'grive'\
+)
 
 # Variáveis de cores:
 green_color='\e[1;32m'
@@ -341,6 +355,7 @@ loading_message() {
 
 # Printa a mensagem em branco para limpar a linha corrente
 print_blank() {
+	local blank
 	for any in $(seq 1 $(tput cols)); do
 		blank+=' '
 	done
