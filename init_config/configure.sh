@@ -437,3 +437,4 @@ for y_command in ${commands[@]}; do {
 	done
 	echo -e "Total de aplicativos sem êxito: ${#error_commands[@]}"
 }
+echo ""
