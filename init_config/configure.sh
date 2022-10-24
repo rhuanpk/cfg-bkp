@@ -52,7 +52,9 @@ comandos_repo='comandos-linux'
 denied_list=(\
 	'install_docker'\
 	'print_banner' \
+	'sudo_validate' \
 	'loading_message' \
+	'print_blank' \
 	'end_message'\
 )
 folders2create=(\
@@ -309,6 +311,16 @@ disable_services() {
 	sudo systemctl disable NetworkManager-wait-online.service
 }
 
+# Primeira parte do programa para validar a senha do usuário
+sudo_validate() {
+	read -rsp 'Entre com a senha do usuário [sudo]: ' password
+	if ! echo ${password} | sudo -Sv &>/dev/null; then
+		echo -e "\n\n${red_color}Error: senha do usuário [sudo] incorreta!${reset_color}\n"
+		exit 1
+	fi
+}
+
+# Processo pós instalação: faz a atualização completa do sistema.
 pos_install() {
 	sudo -v
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
@@ -325,6 +337,14 @@ loading_message() {
 			echo -en " \rExecutando ${yellow_color}${y_command}${reset_color}... ${character}"
 		done
 	done
+}
+
+# Printa a mensagem em branco para limpar a linha corrente
+print_blank() {
+	for any in $(seq 1 $(tput cols)); do
+		blank+=' '
+	done
+	echo -en "\r${blank}"
 }
 
 # Printa a mensagem do final do programa.
@@ -344,6 +364,7 @@ end_message() {
 	}
 }
 
+# Printa o banner do script
 print_banner() {
 	echo -e "${bold_effect}${banner}${reset_color}"
 }
@@ -353,17 +374,10 @@ print_banner() {
 cd /tmp
 clear
 print_banner
-read -rsp 'Entre com a senha do usuário [sudo]: ' password
-if ! echo ${password} | sudo -Sv &>/dev/null; then
-	echo -e "\n\n${red_color}Error: senha do usuário [sudo] incorreta!${reset_color}\n"
-	exit 1
-fi
+sudo_validate
 
 for folder in ${folders2create[@]}; do
 	[ ! -d $folder ] && mkdir -vp $folder
-done
-for any in $(seq 1 $(tput cols)); do
-	blank+=' '
 done
 clear
 print_banner
@@ -375,12 +389,12 @@ for y_function in pre_install $(echo $(declare -F | awk '{print $3}' | sed -E '/
 		loading_message $y_function &
 		if ! $y_function 1>> $hit_log_file 2>> $error_log_file; then
 			kill $!
-			echo -en "\r${blank}"
+			print_blank
 			echo -e "\r>>> ${bold_effect}Falhou${reset_color} -> ${red_color}$y_function${reset_color} !"
 			failed_processes[${#failed_processes[@]}]=${y_function}
 		else
 			kill $!
-			echo -en "\r${blank}"
+			print_blank
 			echo -e "\r>>> ${bold_effect}Sucesso${reset_color} -> ${green_color}$y_function${reset_color} !"
 			let ++count_success
 		fi
@@ -389,3 +403,22 @@ done
 echo ""
 
 end_message
+
+loading_message 'complex installations' &
+for y_command in ${commands[@]}; do {
+	${y_command} --help &>/dev/null
+	[ $? -eq 127 ] && error_commands[${#error_commands[@]}]=${package}
+}; done
+[ -z ${error_commands} ] && {
+	kill $!
+	print_blank
+	echo -e "\r>>> ${green_color}Sucesso${reset_color} -> ${bold_effect}aplicativos com instalação complexa tiveram êxito${reset_color} !"
+} || {
+	kill $!
+	print_blank
+	echo -e "\r>>> ${red_color}Falhou${reset_color} -> ${bold_effect}aplicativos com instalação complexa não tiveram êxito${reset_color} !"
+	for y_command in ${error_commands[@]}; do
+		echo -e "\t- ${y_command}"
+	done
+	echo -e "Total de aplicativos sem êxito: ${#error_commands[@]}"
+}
