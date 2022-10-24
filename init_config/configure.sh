@@ -289,7 +289,7 @@ install_programs() {
 # Compila os programas que são disponibilizados apenas nesse formato.
 compile_programs() {
 	sudo -v
-	local abiword=abiword
+	local wdiff=wdiff
 	local grive2=grive2
 	# colorpicker
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
@@ -422,7 +422,7 @@ end_message
 loading_message 'complex installations' &
 for y_command in ${commands[@]}; do {
 	${y_command} --help &>/dev/null
-	[ $? -eq 127 ] && error_commands[${#error_commands[@]}]=${package}
+	[ $? -eq 127 ] && error_commands[${#error_commands[@]}]=${y_command}
 }; done
 [ -z ${error_commands} ] && {
 	kill $!
