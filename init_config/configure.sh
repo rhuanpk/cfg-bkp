@@ -29,6 +29,7 @@ hit_log_file=$(mktemp /tmp/init_config_hit_XXXXXXX.log)
 error_log_file=$(mktemp /tmp/init_config_error_XXXXXXX.log)
 declare -i count_success
 declare -a failed_processes
+complex_installations='complex installations'
 banner='
     _____   ____________  __________  _   __________________
    /  _/ | / /  _/_  __/ / ____/ __ \/ | / / ____/  _/ ____/
@@ -419,19 +420,20 @@ echo ""
 
 end_message
 
-loading_message 'complex installations' &
-for y_command in ${commands[@]}; do {
-	${y_command} --help &>/dev/null
-	[ $? -eq 127 ] && error_commands[${#error_commands[@]}]=${y_command}
-}; done
+loading_message $complex_installations &
+for y_command in ${commands[@]}; do
+	if ! which ${y_command}; then
+		error_commands[${#error_commands[@]}]=${y_command}
+	fi
+done
 [ -z ${error_commands} ] && {
 	kill $!
 	print_blank
-	echo -e "\r>>> ${green_color}Sucesso${reset_color} -> ${bold_effect}aplicativos com instalação complexa tiveram êxito${reset_color} !"
+	echo -e "\r>>> ${bold_effect}Sucesso${reset_color} -> ${green_color}${complex_installations}${reset_color} !"
 } || {
 	kill $!
 	print_blank
-	echo -e "\r>>> ${red_color}Falhou${reset_color} -> ${bold_effect}aplicativos com instalação complexa não tiveram êxito${reset_color} !"
+	echo -e "\r>>> ${bold_effect}Falhou${reset_color} -> ${red_color}${complex_installations}${reset_color} !"
 	for y_command in ${error_commands[@]}; do
 		echo -e "\t- ${y_command}"
 	done
