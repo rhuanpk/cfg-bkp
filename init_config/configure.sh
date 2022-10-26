@@ -422,7 +422,7 @@ end_message
 
 loading_message $complex_installations &
 for y_command in ${commands[@]}; do
-	if ! which ${y_command}; then
+	if ! which ${y_command} &>/dev/null; then
 		error_commands[${#error_commands[@]}]=${y_command}
 	fi
 done
