@@ -341,6 +341,7 @@ pos_install() {
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 	pk-pleno
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
+	sudo apt purge kdeconnect kded5 -y
 }
 
 # Printa a mensagem de carregamento do processo atual.
