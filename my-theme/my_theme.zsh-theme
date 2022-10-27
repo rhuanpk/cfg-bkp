@@ -10,7 +10,7 @@ get_symbol() {
 }
 
 user_symbol() {
-	if [ ${UID} -eq 0 ] && echo '#' || echo '$'
+	if [ ${UID} -eq 0 ] && echo -e "\n#" || echo -e "\n$"
 }
 
 user_name() {
