@@ -391,6 +391,7 @@ format-disconnected =
 [module/eth6]
 type = internal/network
 interface = usb0
+unknown-as-up = true
 interval = 3.0
 
 format-connected-underline = #55aa55
