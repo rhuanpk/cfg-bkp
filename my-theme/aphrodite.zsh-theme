@@ -49,7 +49,7 @@ aphrodite_get_prompt() {
 	echo -n "%F{8} %f" # in 
 	echo -n "%{$reset_color%}%~" # Dir
 	echo -n "$(aphrodite_get_current_branch) " # Git branch
-	echo -n "$(aphrodite_get_welcome_symbol)%{$reset_color%} " # $ or #
+	echo -n "\n$(aphrodite_get_welcome_symbol)%{$reset_color%} " # $ or #
 }
 
 export GREP_COLOR='1;31'

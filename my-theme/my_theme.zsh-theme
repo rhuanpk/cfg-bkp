@@ -18,4 +18,3 @@ user_name() {
 }
 
 PROMPT='$(user_name)%F{red}$(get_symbol)%f%B%F{cyan}$(hostname)%f%b%F{red}:%f%B%F{magenta}%0~%f%b $(git_prompt_info)%F{red}$(user_symbol)%f '
-
