@@ -74,6 +74,8 @@ alias pgcat='pygmentize -l'
 alias hlcat='highlight -O ansi'
 alias mocp='mocp --theme darkdot_theme'
 
+alias sudo='sudo -k'
+
 # >>> Standard Functions <<<
 
 viewvar() { eval echo "\${${1}}" ;}
