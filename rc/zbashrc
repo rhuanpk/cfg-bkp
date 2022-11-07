@@ -81,7 +81,7 @@ alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target 
 viewvar() { eval echo "\${${1}}" ;}
 translate() { trans -b en:pt-br "$(pk-rtstr ${1})" ;}
 translatebr() { trans -b pt-br:en "$(pk-rtstr ${1})" ;}
-pick_alias() { alias "${1}" | cut -d '=' -f 2 | tr -d "'" ;}
+pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g' ;}
 ae() { [ -f "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
 diffstr() { if diff <(pk-rtstr "${1}") <(pk-rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
 # readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
