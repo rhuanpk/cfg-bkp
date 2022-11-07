@@ -35,8 +35,8 @@ done
 
 # >>> Standard Aliases <<<
 
-alias cbfull='xclip -selection clipboard'
 alias cb="tr -d '\n' | xclip -selection clipboard"
+alias cbfull='xclip -selection clipboard'
 
 alias ggb='git branch -l --color | cat'
 alias ggl='git log --all --oneline --patch'
@@ -71,6 +71,9 @@ alias hlcat='highlight -O ansi'
 alias mocp='mocp --theme darkdot_theme'
 
 alias sudo='sudo -k'
+
+alias lsblkf='lsblk --output=NAME,LABEL,SIZE,FSUSED,FSUSE%,FSAVAIL,MOUNTPOINTS'
+alias lsblkd='lsblk --output=MODEL,STATE,TYPE,PATH,RO,RM,FSTYPE,LABEL,UUID'
 
 # >>> Standard Short Functions <<<
 
