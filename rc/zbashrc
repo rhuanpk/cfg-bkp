@@ -72,8 +72,9 @@ alias mocp='mocp --theme darkdot_theme'
 
 alias sudo='sudo -k'
 
-alias lsblkf='lsblk --output=NAME,LABEL,SIZE,FSUSED,FSUSE%,FSAVAIL,MOUNTPOINTS'
-alias lsblkd='lsblk --output=MODEL,STATE,TYPE,PATH,RO,RM,FSTYPE,LABEL,UUID'
+alias lsblkf='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
+alias lsblkd='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
+alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target -h'
 
 # >>> Standard Short Functions <<<
 
