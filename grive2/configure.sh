@@ -14,7 +14,7 @@ else
 fi
 sudo tee /etc/systemd/system/grive.service <<- eof
 	[Unit]
-	Description=CLI synchronizer service for GoogleDrive
+	Description=CLI synchronizer service for GoogleDrive!
 
 	[Service]
 	WorkingDirectory=${folder}
