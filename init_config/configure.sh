@@ -168,8 +168,6 @@ pre_install() {
 clone_repos() {
 	git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
 	git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
-	${git_path}/${comandos_repo}/standard_scripts/move2symlink.sh
-	echo -e "\nsource ${git_path}/${cfg_repo}/rc/zbashrc" >> "${bash_file}"
 }
 
 # Seta o arquivo de configura de rede.
@@ -185,12 +183,14 @@ set_network_file() {
 }
 
 # Seta as variáveis de ambiente do `qt`.
-set_variables_2qt() {
+set_environment_variables() {
 	sudo -v
 	sudo tee /etc/environment  <<- EOF
 		$(cat /etc/environment)
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
+		export PK_LOAD_ZBASHRC=null
+		export PK_LOAD_STANDARDUTILS=null
 	EOF
 }
 
@@ -227,10 +227,12 @@ set_swapfile() {
 }
 
 # Seta os symlinks necessários.
-set_symlinks() {
+set_configurations() {
 	${git_path}/${cfg_repo}/i3/symlink-create.sh
 	${git_path}/${cfg_repo}/rofi/symlink-create.sh
 	${git_path}/${cfg_repo}/polybar/symlink-create.sh
+	${git_path}/${cfg_repo}/setload/configure.sh
+	${git_path}/${comandos_repo}/standard_scripts/move2symlink.sh
 }
 
 # Instala o docker (depreciado).
@@ -326,6 +328,17 @@ disable_services() {
 	sudo systemctl disable NetworkManager-wait-online.service
 }
 
+# Processo pós instalação: faz a atualização completa do sistema.
+pos_install() {
+	sudo -v
+	echo -e $'\nsource $PK_LOAD_ZBASHRC' >> "${bash_file}"
+	sudo cp -v ${git_path}/${comandos_repo}/standard_scripts/.pessoal/setload.sh ${local_bin}/setload
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
+	pk-pleno
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
+	sudo apt purge kdeconnect kded5 -y
+}
+
 # Primeira parte do programa para validar a senha do usuário
 sudo_validate() {
 	read -rsp 'Entre com a senha do usuário [sudo]: ' password
@@ -333,15 +346,6 @@ sudo_validate() {
 		echo -e "\n\n${red_color}Error: senha do usuário [sudo] incorreta!${reset_color}\n"
 		exit 1
 	fi
-}
-
-# Processo pós instalação: faz a atualização completa do sistema.
-pos_install() {
-	sudo -v
-	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
-	pk-pleno
-	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
-	sudo apt purge kdeconnect kded5 -y
 }
 
 # Printa a mensagem de carregamento do processo atual.
