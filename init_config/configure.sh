@@ -190,6 +190,7 @@ set_environment_variables() {
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
 		export PK_LOAD_ZBASHRC=null
+		export PK_LOAD_STANDARDSCRIPTS=null
 		export PK_LOAD_STANDARDUTILS=null
 	EOF
 }

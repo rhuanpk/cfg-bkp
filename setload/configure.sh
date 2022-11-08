@@ -6,6 +6,7 @@
 # 2. rodar este *script*.
 # 3. definir as variáveis em `/etc/environment`.
 # 	- `export PK_LOAD_ZBASHRC=null`.
+#	- `export PK_LOAD_STANDARDSCRIPTS=null`.
 # 	- `export PK_LOAD_STANDARDUTILS=null`.
 # 4. definir o `source` nos `*rc`'s.
 # 	- `source $PK_LOAD_ZBASHRC`.
