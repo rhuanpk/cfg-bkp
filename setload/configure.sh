@@ -5,11 +5,11 @@
 # 1. copiar o `setload` para `/usr/local/bin/`.
 # 2. rodar este *script*.
 # 3. definir as variáveis em `/etc/environment`.
-# 	- `export PK_LOAD_ZBASHRC=null`.
-#	- `export PK_LOAD_STANDARDSCRIPTS=null`.
-# 	- `export PK_LOAD_STANDARDUTILS=null`.
+# 	- `export PK_LOAD_CFGBKP=null`.
+#	- `export PK_LOAD_LINUXCOMMANDS=null`.
+# 	- `export PK_LOAD_PKUTILS=null`.
 # 4. definir o `source` nos `*rc`'s.
-# 	- `source $PK_LOAD_ZBASHRC`.
+# 	- `source $PK_LOAD_LINUXCOMMANDS`.
 
 script=${0}
 

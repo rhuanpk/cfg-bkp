@@ -189,9 +189,9 @@ set_environment_variables() {
 		$(cat /etc/environment)
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
-		export PK_LOAD_ZBASHRC=null
-		export PK_LOAD_STANDARDSCRIPTS=null
-		export PK_LOAD_STANDARDUTILS=null
+		export PK_LOAD_CFGBKP=null
+		export PK_LOAD_LINUXCOMMANDS=null
+		export PK_LOAD_PKUTILS=null
 	EOF
 }
 
@@ -332,7 +332,7 @@ disable_services() {
 # Processo pós instalação: faz a atualização completa do sistema.
 pos_install() {
 	sudo -v
-	echo -e $'\nsource $PK_LOAD_ZBASHRC' >> "${bash_file}"
+	echo -e $'\nsource $PK_LOAD_CFGBKP/rc/zbashrc' >> "${bash_file}"
 	sudo cp -v ${git_path}/${comandos_repo}/standard_scripts/.pessoal/setload.sh ${local_bin}/setload
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 	pk-pleno
