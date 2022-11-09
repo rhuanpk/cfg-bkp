@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
-symlink_create() {
-	[ -e ${rofi_config_file_old} ] && rm -fv ${rofi_config_file_old}
-	ln -svf ${rofi_config_file} ${rofi_config_path}
-	sudo ln -svf /home/${USER}/Documents/git/cfg-bkp/rofi/my-dmenu.rasi ${rofi_theme_path}
-}
-rofi_config_path="/home/${USER}/.config/rofi"
-rofi_config_file="/home/${USER}/Documents/git/cfg-bkp/rofi/config.rasi"
+
+home=${HOME:-"/home/${USER:-$(whoami)}"}
+git_url='https://raw.githubusercontent.com/rhuan-pk/comandos-linux/master/standard_scripts/.pessoal/setload.sh'
+final_path=${PK_LOAD_CFGBKP:-$(wget -qO - $git_url | bash - 2>&- | grep -F cfg-bkp)/rofi}
+
+rofi_config_path="${home}/.config/rofi"
+rofi_config_file="${final_path}/config.rasi"
 rofi_config_file_old="${rofi_config_path}/config.rasi"
 rofi_theme_path=/usr/share/rofi/themes/
+
+symlink_create() {
+	[ -e ${rofi_config_file_old} ] && rm -fv ${rofi_config_file_old}
+	ln -sfv ${rofi_config_file} ${rofi_config_path}
+	sudo ln -sfv ${final_path}/my-dmenu.rasi ${rofi_theme_path}
+}
+
 [ ! -d ${rofi_config_path} ] && {
 	mkdir -pv ${rofi_config_path}
 	symlink_create
