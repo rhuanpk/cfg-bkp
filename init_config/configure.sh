@@ -29,7 +29,7 @@ hit_log_file=$(mktemp /tmp/init_config_hit_XXXXXXX.log)
 error_log_file=$(mktemp /tmp/init_config_error_XXXXXXX.log)
 declare -i count_success
 declare -a failed_processes
-complex_installations='complex installations'
+complex_installations='complex_installations'
 banner='
     _____   ____________  __________  _   __________________
    /  _/ | / /  _/_  __/ / ____/ __ \/ | / / ____/  _/ ____/
@@ -74,7 +74,8 @@ commands=(
 	'subl' \
 	'colorpicker' \
 	'wdiff' \
-	'grive'\
+	'grive' \
+	'setload'\
 )
 
 # Variáveis de cores:

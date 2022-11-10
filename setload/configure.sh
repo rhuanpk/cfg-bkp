@@ -23,7 +23,6 @@ sudo tee /etc/systemd/system/setload.service <<- eof
 
 	[Install]
 	WantedBy=multi-user.target
-
 eof
 [ $? -ne 0 ] && {
 	echo "${script}: Error on create systemd unit file!"
