@@ -63,7 +63,6 @@ alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
 alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
 alias TOKEN="toplip -d ${home}/Documents/git/cfg-bkp/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
 alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
-alias mychecking='clear; ggsa; tree -FL 2 ~; find ~/ -path ~/pCloudDrive -prune -o -iname "*confli*"'
 alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
@@ -103,6 +102,13 @@ tlr() { sed -i "/^($(hostname)) ${1}/d" ${TODO}; clear; tla ;}
 # =============================================================================================
 
 # >>> Standard Long Functions !
+
+mychecking() {
+	clear
+	ggsa
+	tree -FL 2 ~
+	find ~/ -iname '*confli*' | sed -E '/(\.icons|\.themes|\.private|pCloudDrive|Code\/CachedData|share\/Trash)/d'
+}
 
 difftext() {
 	local phrase
