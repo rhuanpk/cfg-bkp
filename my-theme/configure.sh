@@ -2,7 +2,7 @@
 
 home=${HOME:-"/home/${USER:-$(whoami)}"}
 git_url='https://raw.githubusercontent.com/rhuan-pk/comandos-linux/master/standard_scripts/.pessoal/setload.sh'
-final_path=${PK_LOAD_CFGBKP:-$(wget -qO - $git_url | bash - 2>&- | grep -F cfg-bkp)/my-theme}
+final_path=${PK_LOAD_CFGBKP:-$(wget -qO - $git_url | bash - 2>&- | grep -F cfg-bkp)}/my-theme
 pk_command="ln -sfv ${final_path}/*.zsh-theme"
 pk_target='.oh-my-zsh/custom/themes/'
 
