@@ -107,7 +107,7 @@ mychecking() {
 	clear
 	ggsa
 	tree -FL 2 ~
-	find ~/ -iname '*confli*' | sed -E '/(\.icons|\.themes|\.private|pCloudDrive|Code\/CachedData|share\/Trash)/d'
+	find ~/ -iname '*confli*' | sed -E '/(\.icons|\.themes|\.private|pCloudDrive|Code\/CachedData|share\/Trash|\.go\/pkg)/d'
 }
 
 difftext() {
