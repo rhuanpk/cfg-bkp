@@ -162,6 +162,7 @@ pre_install() {
 		gcc \
 		build-essential \
 		lsb-release \
+		ubuntu-drivers-common \
 	-y
 }
 
