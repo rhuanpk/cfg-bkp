@@ -42,9 +42,11 @@ alert = #bd2c40
 
 [bar/my-bar]
 
+##### modified ---> descomentado para deixar pollybar em todos os monitores junto com script de launch
+monitor = ${env:MONITOR:}
+
 ##### modified ---> Deixa a barra em baixo
 bottom = true
-;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 ##### modified ---> altura da barra
 height = 19
