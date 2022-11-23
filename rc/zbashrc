@@ -151,6 +151,21 @@ outfind() {
 	less ${tmp_find_path}
 }
 
+set_polybar_all() {
+	{
+		echo -e $'#!/bin/bash\nMONITOR=MERGE-1 polybar my-bar' | \
+		tee /tmp/polybar.sh
+	} && \
+	chmod -v +x /tmp/polybar.sh && \
+	killall polybar && \
+	{
+		echo 'success on killall!'
+		sleep 3
+		nohup /tmp/polybar.sh &
+	} || \
+	echo 'failed on killall!'
+}
+
 print_regex_classes() {
 	cat <<- EOF
 		------------------------------------------------------------------------------------
