@@ -21,6 +21,9 @@ sudo tee /etc/systemd/system/grive.service <<- eof
 	ExecStart=grive
 	Restart=always
 	RestartSec=300
+
+	[Install]
+	WantedBy=multi-user.target
 eof
 if ! sudo systemctl enable grive.service; then
 	echo "${script}: Error on enabling service!"
