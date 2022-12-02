@@ -28,7 +28,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- pk-i3lock
+exec --no-startup-id xss-lock --transfer-sleep-lock -- yi3lock
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -217,7 +217,7 @@ for_window [all] floating enable
 exec_always --no-startup-id polybar "my-bar"
 
 # set rofi as dmenu (program launcher)
-bindsym $mod+d exec --no-startup-id pk-rofi
+bindsym $mod+d exec --no-startup-id yrofi
 
 # start program that enable transparency effect
 # exec_always --no-startup-id xcompmgr -n
@@ -242,11 +242,11 @@ client.focused_inactive #111111 #111111 #00ff84 #000000   #111111
 client.unfocused        #111111 #111111 #14754C #000000   #111111
 
 # set my bindings
-bindsym --release $mod_alt+p exec --no-startup-id pk-sc2cb
-bindsym --release $mod_alt+s exec --no-startup-id pk-pwc
-bindsym --release $mod_alt+Control+s exec --no-startup-id pk-pwc -s
-bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-vcontrol
-bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=175x30 --command=pk-bcontrol
-bindsym --release $mod_alt+Control+p exec --no-startup-id terminator --borderless --geometry=200x30 --command=pk-pcontrol
-bindsym --release $mod+Shift+b exec --no-startup-id pk-i3lock
-bindsym --release $mod+Shift+s exec --no-startup-id pk-i3suspend
+bindsym --release $mod_alt+p exec --no-startup-id sc2cb
+bindsym --release $mod_alt+s exec --no-startup-id pwc
+bindsym --release $mod_alt+Control+s exec --no-startup-id pwc -s
+bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=175x30 --command=vcontrol
+bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=175x30 --command=bcontrol
+bindsym --release $mod_alt+Control+p exec --no-startup-id terminator --borderless --geometry=200x30 --command=pcontrol
+bindsym --release $mod+Shift+b exec --no-startup-id yi3lock
+bindsym --release $mod+Shift+s exec --no-startup-id i3suspend

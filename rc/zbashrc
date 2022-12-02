@@ -45,9 +45,9 @@ alias ggs='git status'
 alias ggr='git restore ./; git clean -f ./'
 alias ggp='git pull origin $(git branch --show-current)'
 alias ggls='git log --all --oneline'
-alias ggpa='pk-push_script -g'
-alias ggsa='pk-push_script "git status"'
-alias ggra='pk-push_script "git restore ./"; pk-push_script "git clean -f"'
+alias ggpa='push_script -g'
+alias ggsa='push_script "git status"'
+alias ggra='push_script "git restore ./"; push_script "git clean -f"'
 
 alias insp='viewvar ${1}'
 alias sz='source ~/.zshrc'
@@ -79,11 +79,11 @@ alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target 
 # >>> Standard Short Functions <<<
 
 viewvar() { eval echo "\${${1}}" ;}
-translate() { trans -b en:pt-br "$(pk-rtstr ${1})" ;}
-translatebr() { trans -b pt-br:en "$(pk-rtstr ${1})" ;}
+translate() { trans -b en:pt-br "$(rtstr ${1})" ;}
+translatebr() { trans -b pt-br:en "$(rtstr ${1})" ;}
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g' ;}
 ae() { [ -f "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
-diffstr() { if diff <(pk-rtstr "${1}") <(pk-rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
+diffstr() { if diff <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
 # readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
 
 ll() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color ${route}; echo "count $(ls -1 ${route} | wc -l)" ;}
@@ -112,7 +112,7 @@ mychecking() {
 
 difftext() {
 	local phrase
-	if phrase=$(wdiff <(pk-rtstr "${1}") <(pk-rtstr "${2}")); then
+	if phrase=$(wdiff <(rtstr "${1}") <(rtstr "${2}")); then
 		echo -e "\e[1;32;40mNo differences ✔\e[m"
 	else
 		colordiff <<< $phrase | sed -E 's/\[-|-\]|\{\+|\+\}//g'

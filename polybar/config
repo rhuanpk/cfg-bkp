@@ -250,7 +250,7 @@ label = "RAM: %mb_used%"
 [module/my-memory]
 type = custom/script
 interval = 2
-exec = pk-htop_memory
+exec = htop_memory
 
 [module/wlan1]
 type = internal/network
@@ -521,7 +521,7 @@ animation-discharging-framerate = 750
 [module/my-battery]
 type = custom/script
 interval = 5
-exec = pk-polybar_battery
+exec = polybar_battery
 
 [module/temperature]
 type = internal/temperature

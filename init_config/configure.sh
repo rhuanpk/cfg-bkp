@@ -6,9 +6,9 @@
 #	- pcloud;
 #	- oh-my-zsh;
 #	- crontab: backup, backup file;
-# 		- 0 * * * * export DISPLAY=:0; /usr/local/bin/pk-todo_notify 2>/tmp/cron_error.log
-#		- */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
-#		- */2 * * * * export DISPLAY=:0; /usr/local/bin/pk-suspend_for_safety 2>/tmp/cron_error.log
+# 		- 0 * * * * export DISPLAY=:0; /usr/local/bin/pk/todo_notify 2>/tmp/cron_error.log
+#		- */30 * * * * /usr/local/bin/pk/pick_bkp_file 2>/tmp/cron_error.log
+#		- */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend_for_safety 2>/tmp/cron_error.log
 #	- ly (dm (display manager))
 #
 # ---
@@ -337,7 +337,7 @@ pos_install() {
 	echo -e $'\nsource $PK_LOAD_CFGBKP/rc/zbashrc' >> "${bash_file}"
 	sudo cp -v ${git_path}/${comandos_repo}/standard_scripts/.pessoal/setload.sh ${local_bin}/setload
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
-	pk-pleno
+	pleno
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
 	sudo apt purge kdeconnect kded5 -y
 }
