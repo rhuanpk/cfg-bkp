@@ -90,6 +90,7 @@ reset_color='\e[m'
 # Processo pré instalação: atualização do sistema e instalação dos pacotes via `apt`.
 pre_install() {
 	sudo -v
+	sudo mkdir -v /usr/local/bin/pk/
 	sudo apt update
 	sudo apt install \
 		xorg \
@@ -184,7 +185,15 @@ set_network_file() {
 	EOF
 }
 
-# Seta as variáveis de ambiente do `qt`.
+# Seta o path para o scripts pessoais.
+set_personal_path() {
+	sudo -v
+	original_path='/usr/local/bin:'
+	concatenated_path="${original_path}/usr/local/bin/pk:"
+	sudo sed -Ei "s~(${original_path})~${concatenated_path}~" /etc/environment
+}
+
+# Seta as variáveis de ambiente *qt* e *PK_LOAD*.
 set_environment_variables() {
 	sudo -v
 	sudo tee /etc/environment  <<- EOF
@@ -206,6 +215,7 @@ set_autostart_programs() {
 		sleep 5; \$(which copyq) &
 		sleep 5; \$(which pcloud) &
 		sleep 5; \$(which discord) &
+		sleep 5; noti-notify --start
 	EOF
 	sudo chmod +x ${local_bin}/autostart_programs
 	cat <<- EOF > ${autostart_path}/autostart_programs.desktop
