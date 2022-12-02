@@ -345,7 +345,7 @@ disable_services() {
 pos_install() {
 	sudo -v
 	PATH=$(sed -nE 's/PATH="(.*)"/\1/p' /etc/environment)
-	echo -e $'\nsource $PK_LOAD_CFGBKP/rc/zbashrc' >> "${bash_file}"
+	echo -e $'\nsource ${PK_LOAD_CFGBKP}/rc/zbashrc' >> "${bash_file}"
 	sudo cp -v ${git_path}/${comandos_repo}/standard_scripts/.pessoal/setload.sh ${local_bin}/setload
 	sudo apt purge kdeconnect kded5 -y
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
@@ -441,7 +441,7 @@ end_message
 
 loading_message $complex_installations &
 for y_command in ${commands[@]}; do
-	if ! which ${y_command} &>/dev/null; then
+	if ! type ${y_command} &>/dev/null; then
 		error_commands[${#error_commands[@]}]=${y_command}
 	fi
 done
