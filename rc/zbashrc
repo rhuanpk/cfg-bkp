@@ -1,24 +1,3 @@
-
-##################################################################################################################
-#
-# >>> carregamento do arquivo <<<
-# source ~/Documents/git/cfg-bkp/rc/zbashrc
-#
-# >>> noti-notify <<<
-# export NOTI_DEFAULT="banner telegram slack"
-#
-# >>> extendeds globs <<<
-# zsh: setopt extendedglob
-# bash: shopt -s extglob
-#
-# >>> Wallpaper <<<
-# feh --bg-scale ~/Pictures/wallpaper/wallpaper.png
-#
-# >>> Color Pallet <<<
-# cat ~/.cache/current-palette
-#
-##################################################################################################################
-
 # >>> The Ultimate Home <<<
 
 home=${HOME:-"/home/${USER:-$(whoami)}"}
@@ -122,25 +101,6 @@ difftext() {
 utilitarios() {
 	file=$(find ~/ -name 'comandos_uteis.md' | grep -F comandos-linux | grep -viE '(pclouddrive|others)')
 	hlcat $file | less
-}
-
-comment_structure() {
-	echo -e "\
-		\r# ********** Declaração de Funções **********\n\
-		\r# ********** Declaração de Variáveis **********\n\
-		\r# ********** Início do Programa **********\
-	" | xclip -selection clipboard
-}
-
-repita() {
-	time=1
-	[ ${#} -eq 0 ] && command='ls -lhF --color' || {
-		[ ${#} -eq 1 ] && command="${1}" || {
-			command="${1}"
-			time=${2}
-		}
-	}
-	while :; do sleep ${time}; clear; eval ${command}; done
 }
 
 outfind() {

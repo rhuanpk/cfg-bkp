@@ -1,26 +1,59 @@
 #!/usr/bin/env bash
 
-#########################################################################################################################################################################
+##################################################################################################################
 #
-# instalar manualmente:
-#	- pcloud;
-#	- oh-my-zsh;
-#	- crontab: backup, backup file;
-# 		- 0 * * * * export DISPLAY=:0; /usr/local/bin/pk/todo_notify 2>/tmp/cron_error.log
-#		- */30 * * * * /usr/local/bin/pk/pick_bkp_file 2>/tmp/cron_error.log
-#		- */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend_for_safety 2>/tmp/cron_error.log
-#	- ly (dm (display manager))
+# *** pos installations ***
 #
-# ---
+# >>> configuração manual
 #
-# colocar no sudoers.d -> NOPASSWD para systemctl suspend
+# - pcloud;
+# - oh-my-zsh;
+# - gtk;
+# - qt5ct;
+# - thunar;
+# - touchpad;
 #
-# ---
+# -----------------------
 #
-# configurar temas gtk, qt e thunar, touchpad
+# >>> crontab
 #
-#########################################################################################################################################################################
-		
+# - 0 * * * * export DISPLAY=:0; /usr/local/bin/pk/todo_notify 2>/tmp/cron_error.log
+# - */30 * * * * /usr/local/bin/pk/pick_bkp_file 2>/tmp/cron_error.log
+# - */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend_for_safety 2>/tmp/cron_error.log
+#
+# -------------------------------------------------------------------------------------------
+#
+# >>> noti-notify
+#
+# export NOTI_DEFAULT="banner telegram slack"
+#
+# -------------------------------------------
+#
+# >>> extendeds globs
+#
+# - bash: shopt -s extglob
+# - zsh: setopt extendedglob
+#
+# --------------------------
+#
+# >>> Wallpaper
+#
+# feh --bg-scale ~/Pictures/wallpaper/wallpaper.png
+#
+# -------------------------------------------------
+#
+# >>> Color Pallet
+#
+# cat ~/.cache/current-palette
+#
+# ----------------------------
+#
+# >>> sudoers
+#
+# user ALL=NOPASSWD:/usr/bin/systemctl suspend,/usr/bin/mkdir,/usr/bin/rmdir,/usr/bin/mount,/usr/bin/umount
+#
+##################################################################################################################
+
 # ********** Declaração de Variáveis **********
 
 # Variáveis principais:
