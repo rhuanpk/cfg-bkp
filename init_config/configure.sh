@@ -165,7 +165,6 @@ pre_install() {
 		pdftk \
 		progress \
 		translate-shell \
-		genius \
 		colordiff \
 		software-properties-common \
 		netcat \
