@@ -126,76 +126,69 @@ pre_install() {
 	sudo mkdir -v /usr/local/bin/pk/
 	sudo apt update
 	sudo apt install \
+
 		xorg \
 		i3 \
 		rofi \
 		polybar \
-		vim \
-		vim-gtk \
-		terminator \
+		dbus-x11 \
+
 		git \
 		zsh \
-		xclip \
-		neofetch \
-		htop \
-		ncdu \
-		ranger \
-		tree \
-		acpi \
-		scrot \
-		okular \
-		pdfgrep \
-		zathura \
-		feh \
-		photoflare \
-		libimage-exiftool-perl \
-		alsa-utils \
-		brightnessctl \
-		color-picker \
-		python3-pygments \
-		highlight \
-		copyq \
-		moc \
-		mplayer \
-		mousepad \
-		abiword \
-		gnumeric \
+		terminator \
+
 		thunar \
-		wkhtmltopdf \
-		pdftk \
-		progress \
-		translate-shell \
+		copyq \	
+		neofetch \
+
 		colordiff \
-		software-properties-common \
-		netcat \
-		network-manager \
-		curl \
-		wget \
-		inxi \
-		hwinfo \
-		cpu-x \
-		mtools \
-		qt5ct \
-		qt5-style-plugins \
-		zip \
-		unzip \
-		p7zip-full \
-		p7zip-rar \
-		unrar \
-		pandoc \
-		lynx \
-		links2 \
-		preload \
-		libnotify-bin \
-		gnupg \
-		dbus-x11 \
-		autoconf \
+		mousepad \
+		gnumeric \
+		abiword \
+		xclip \
+		vim \
+		translate-shell \
+
+		zathura \
+
+		mplayer \
+		scrot \
+		feh \
+		color-picker \
+
 		pkg-config \
+		autoconf \
 		make \
 		gcc \
 		build-essential \
-		lsb-release \
+
+		qt5ct \
+		unzip \
+		gnupg \
+		zip \
+		alsa-utils \
+
+		links2 \
+		wget \
+		curl \
+		network-manager \
+
+		ranger \
+		tree \
+		ncdu \
+		progress \
+
+		hwinfo \
+		inxi \
+		preload \
+
+		libnotify-bin \
+		qt5-style-plugins \
+
 		ubuntu-drivers-common \
+		lsb-release \
+		software-properties-common \
+
 	-y
 }
 
