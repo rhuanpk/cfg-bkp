@@ -44,7 +44,7 @@ alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
 alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
-alias pgcat='pygmentize -l'
+#alias pgcat='pygmentize -l'
 alias hlcat='highlight -O ansi'
 
 alias sudo='sudo -k'
@@ -61,7 +61,7 @@ ytsbr() { trans -b pt-br:en "$(rtstr ${1})"; }
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
 ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
 diffstr() { if diff <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
-# readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
+#readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
 rlbc() { file="${1}"; [ -z $file ] && echo 'needs a file to execute!' || sed -Ei 's/[[:blank:]]+$//g' "${file}"; }
 
 ll() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color ${route}; echo "count $(ls -1 ${route} | wc -l)"; }
