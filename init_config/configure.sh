@@ -167,6 +167,7 @@ pre_install() {
 		unzip                      \
 		gnupg                      \
 		zip                        \
+		bc                         \
 		alsa-utils                 \
 		                           \
 		links2                     \
