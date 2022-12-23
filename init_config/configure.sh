@@ -151,6 +151,7 @@ pre_install() {
 
 		zathura \
 
+		kolourpaint \
 		mplayer \
 		scrot \
 		feh \
@@ -183,6 +184,7 @@ pre_install() {
 		preload \
 
 		libnotify-bin \
+		vim-gtk \
 		qt5-style-plugins \
 
 		ubuntu-drivers-common \
