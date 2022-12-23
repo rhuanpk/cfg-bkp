@@ -141,6 +141,7 @@ pre_install() {
 		copyq                      \
 		neofetch                   \
 		                           \
+		highlight                  \
 		colordiff                  \
 		mousepad                   \
 		gnumeric                   \
