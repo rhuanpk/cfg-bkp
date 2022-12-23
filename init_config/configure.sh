@@ -50,7 +50,7 @@
 #
 # >>> sudoers
 #
-# user ALL=NOPASSWD:/usr/bin/systemctl suspend,/usr/bin/mkdir,/usr/bin/rmdir,/usr/bin/mount,/usr/bin/umount
+# user ALL=NOPASSWD:/usr/bin/systemctl suspend,/usr/bin/mkdir,/usr/bin/rmdir,/usr/bin/mount,/usr/bin/umount,/usr/bin/brightnessctl
 #
 ##################################################################################################################
 
