@@ -126,71 +126,71 @@ pre_install() {
 	sudo mkdir -v /usr/local/bin/pk/
 	sudo apt update
 	sudo apt install \
-
-		xorg \
-		i3 \
-		rofi \
-		polybar \
-		dbus-x11 \
-
-		git \
-		zsh \
-		terminator \
-
-		thunar \
-		copyq \	
-		neofetch \
-
-		colordiff \
-		mousepad \
-		gnumeric \
-		abiword \
-		xclip \
-		vim \
-		translate-shell \
-
-		zathura \
-
-		kolourpaint \
-		mplayer \
-		scrot \
-		feh \
-		color-picker \
-
-		pkg-config \
-		autoconf \
-		make \
-		gcc \
-		build-essential \
-
-		qt5ct \
-		unzip \
-		gnupg \
-		zip \
-		alsa-utils \
-
-		links2 \
-		wget \
-		curl \
-		network-manager \
-
-		ranger \
-		tree \
-		ncdu \
-		progress \
-
-		hwinfo \
-		inxi \
-		preload \
-
-		libnotify-bin \
-		vim-gtk \
-		qt5-style-plugins \
-
-		ubuntu-drivers-common \
-		lsb-release \
+		                           \
+		xorg                       \
+		i3                         \
+		rofi                       \
+		polybar                    \
+		dbus-x11                   \
+		                           \
+		git                        \
+		zsh                        \
+		terminator                 \
+		                           \
+		thunar                     \
+		copyq                      \
+		neofetch                   \
+		                           \
+		colordiff                  \
+		mousepad                   \
+		gnumeric                   \
+		abiword                    \
+		xclip                      \
+		vim                        \
+		translate-shell            \
+		                           \
+		zathura                    \
+		                           \
+		kolourpaint                \
+		mplayer                    \
+		scrot                      \
+		feh                        \
+		color-picker               \
+		                           \
+		pkg-config                 \
+		autoconf                   \
+		make                       \
+		gcc                        \
+		build-essential            \
+		                           \
+		qt5ct                      \
+		unzip                      \
+		gnupg                      \
+		zip                        \
+		alsa-utils                 \
+		                           \
+		links2                     \
+		wget                       \
+		curl                       \
+		network-manager            \
+		                           \
+		ranger                     \
+		tree                       \
+		ncdu                       \
+		progress                   \
+		                           \
+		hwinfo                     \
+		inxi                       \
+		preload                    \
+		                           \
+		libnotify-bin              \
+		vim-gtk                    \
+		qt5-style-plugins          \
+		                           \
+		ubuntu-drivers-common      \
+		lsb-release                \
 		software-properties-common \
-
+		                           \
 	-y
 }
 
@@ -437,7 +437,7 @@ print_banner() {
 	echo -e "${bold_effect}${banner}${reset_color}"
 }
 
-# ********** Início do Programa **********	
+# ********** Início do Programa **********
 
 cd /tmp
 clear
