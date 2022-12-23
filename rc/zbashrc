@@ -35,7 +35,6 @@ alias vimz='vim ~/.zshrc'
 alias vimb='vim ~/.bashrc'
 alias catz='cat ~/.zshrc'
 alias catb='cat ~/.bashrc'
-alias horas='date +%T'
 alias intrr='echo "${?}"'
 alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp/tmp'
 alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
@@ -47,7 +46,6 @@ alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 alias pgcat='pygmentize -l'
 alias hlcat='highlight -O ansi'
-alias mocp='mocp --theme darkdot_theme'
 
 alias sudo='sudo -k'
 
@@ -58,10 +56,10 @@ alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target 
 # >>> Standard Short Functions <<<
 
 viewvar() { eval echo "\${${1}}" ;}
-translate() { trans -b en:pt-br "$(rtstr ${1})" ;}
-translatebr() { trans -b pt-br:en "$(rtstr ${1})" ;}
+yts() { trans -b en:pt-br "$(rtstr ${1})" ;}
+ytsbr() { trans -b pt-br:en "$(rtstr ${1})" ;}
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g' ;}
-ae() { [ -f "${1}" ] && echo "Arquivo existe!" || echo "Arquivo não existe!" ;}
+ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!' ;}
 diffstr() { if diff <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
 # readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
 
