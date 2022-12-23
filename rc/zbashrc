@@ -98,6 +98,7 @@ difftext() {
 }
 
 utilitarios() {
+	cd /tmp/
 	file=$(find ~/ -name 'comandos_uteis.md' | grep -F comandos-linux | grep -viE '(pclouddrive|others)')
 	hlcat $file | less
 }
