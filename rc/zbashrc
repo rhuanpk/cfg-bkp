@@ -55,17 +55,17 @@ alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target 
 
 # >>> Standard Short Functions <<<
 
-viewvar() { eval echo "\${${1}}" ;}
-yts() { trans -b en:pt-br "$(rtstr ${1})" ;}
-ytsbr() { trans -b pt-br:en "$(rtstr ${1})" ;}
-pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g' ;}
-ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!' ;}
-diffstr() { if diff <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi ;}
-# readmd() { pandoc -f markdown "${1}" | lynx -stdin ;}
-rlbc() { file="${1}"; [ -z $file ] && echo 'needs a file to execute!' || sed -Ei 's/[[:blank:]]+$//g' "${file}" ;}
+viewvar() { eval echo "\${${1}}"; }
+yts() { trans -b en:pt-br "$(rtstr ${1})"; }
+ytsbr() { trans -b pt-br:en "$(rtstr ${1})"; }
+pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
+ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
+diffstr() { if diff <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
+# readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
+rlbc() { file="${1}"; [ -z $file ] && echo 'needs a file to execute!' || sed -Ei 's/[[:blank:]]+$//g' "${file}"; }
 
-ll() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color ${route}; echo "count $(ls -1 ${route} | wc -l)" ;}
-lla() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhAF --time-style=+%% --color ${route}; echo "count $(ls -A1 ${route} | wc -l)" ;}
+ll() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color ${route}; echo "count $(ls -1 ${route} | wc -l)"; }
+lla() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhAF --time-style=+%% --color ${route}; echo "count $(ls -A1 ${route} | wc -l)"; }
 
 # =============================================================================================
 
@@ -73,9 +73,9 @@ lla() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhAF --time-style=+%% -
 
 TODO="${home}/Documents/anotacoes/.todo_list.txt"
 
-rand() { RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done ;}
-tla() { rand; [ ${#} -eq 0 ] && cat "${TODO}" || echo "($(hostname)) ${RAND} » ${*}" >> ${TODO} ;}
-tlr() { sed -i "/^($(hostname)) ${1}/d" ${TODO}; clear; tla ;}
+rand() { RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done; }
+tla() { rand; [ ${#} -eq 0 ] && cat "${TODO}" || echo "($(hostname)) ${RAND} » ${*}" >> ${TODO}; }
+tlr() { sed -i "/^($(hostname)) ${1}/d" ${TODO}; clear; tla; }
 
 # =============================================================================================
 
