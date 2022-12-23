@@ -374,7 +374,7 @@ pos_install() {
 	PATH=$(sed -nE 's/PATH="(.*)"/\1/p' /etc/environment)
 	echo -e $'\nsource ${PK_LOAD_CFGBKP}/rc/zbashrc' >> "${bash_file}"
 	sudo cp -v ${git_path}/${comandos_repo}/standard_scripts/.pessoal/setload.sh ${local_bin}/setload
-	sudo apt purge kdeconnect kded5 -y
+	sudo apt purge kdeconnect imagemagick* -y
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 	pleno
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
