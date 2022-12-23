@@ -245,8 +245,8 @@ client.unfocused        #111111 #111111 #14754C #000000   #111111
 bindsym --release $mod_alt+p exec --no-startup-id sc2cb
 bindsym --release $mod_alt+s exec --no-startup-id pwc
 bindsym --release $mod_alt+Control+s exec --no-startup-id pwc -s
-bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=175x30 --command=vcontrol
-bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=175x30 --command=bcontrol
-bindsym --release $mod_alt+Control+p exec --no-startup-id terminator --borderless --geometry=200x30 --command=pcontrol
+bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=250x30 --command=vcontrol
+bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=250x30 --command=bcontrol
+bindsym --release $mod_alt+Control+p exec --no-startup-id terminator --borderless --geometry=250x30 --command=pcontrol
 bindsym --release $mod+Shift+b exec --no-startup-id yi3lock
 bindsym --release $mod+Shift+s exec --no-startup-id i3suspend
