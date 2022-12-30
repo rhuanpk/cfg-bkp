@@ -164,26 +164,22 @@ pre_install() {
 		gcc                        \
 		build-essential            \
 		                           \
-		qt5ct                      \
-		unzip                      \
-		gnupg                      \
-		zip                        \
-		bc                         \
-		alsa-utils                 \
-		                           \
 		links2                     \
 		wget                       \
 		curl                       \
 		network-manager            \
 		                           \
+		preload                    \
+		gnupg                      \
+		unzip                      \
+		qt5ct                      \
+		zip                        \
+		bc                         \
+		alsa-utils                 \
+		                           \
 		ranger                     \
 		tree                       \
-		ncdu                       \
 		progress                   \
-		                           \
-		hwinfo                     \
-		inxi                       \
-		preload                    \
 		                           \
 		libnotify-bin              \
 		vim-gtk                    \
