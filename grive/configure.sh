@@ -21,6 +21,7 @@ sudo tee /etc/systemd/system/grive.service <<- eof
 	ExecStart=grive
 	Restart=always
 	RestartSec=300
+	RuntimeMaxSec=3600
 
 	[Install]
 	WantedBy=multi-user.target

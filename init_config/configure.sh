@@ -331,7 +331,7 @@ install_programs() {
 compile_programs() {
 	sudo -v
 	local wdiff=wdiff
-	local grive2=grive2
+	local grive=grive
 	# colorpicker
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
 	git clone https://github.com/Jack12816/colorpicker.git
@@ -349,11 +349,11 @@ compile_programs() {
 	sudo apt install texinfo colordiff -y
 	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
 	cd ../../
-	# grive2
+	# grive
 	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
-	mkdir ./${grive2}/ && cd ./${grive2}/
-	git clone 'https://github.com/vitalif/grive2' $grive2
-	cd ./${grive2}/
+	mkdir ./${grive}/ && cd ./${grive}/
+	git clone 'https://github.com/vitalif/grive2' $grive
+	cd ./${grive}/
 	dpkg-buildpackage -j8 --no-sign
 	cd ../
 	sudo dpkg --install ./*.deb
