@@ -301,12 +301,6 @@ install_portables() {
 	# mdr
 	sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/download/v0.2.5/mdr_linux_amd64' \
 	&& sudo chmod +x ${local_bin}/mdr
-	# marktext
-	curl -fsSL 'https://api.github.com/repos/marktext/marktext/releases/latest' \
-		| sed -nE 's/(.*browser_download_url.*")(.*\.[aA]pp[aI]mage)(.*)/\2/p' \
-		| wget -qO marktext -i - \
-	&& chmod -v +x ./marktext \
-	&& sudo mv -v ./marktext /usr/local/bin/
 }
 
 # Instala os programas `.deb`.
