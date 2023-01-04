@@ -26,7 +26,7 @@ alias ggp='git pull origin $(git branch --show-current); git fetch --tags'
 alias ggls='git log --all --oneline'
 alias ggpa='push_script -g'
 alias ggsa='push_script "git status"'
-alias ggra='push_script "git restore ./"; push_script "git clean -f"'
+alias ggra='push_script "git restore ./"; push_script "git clean -f ./"'
 
 alias insp='viewvar ${1}'
 alias sz='source ~/.zshrc'
