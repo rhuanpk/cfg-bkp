@@ -126,7 +126,7 @@ set_polybar_all() {
 	echo 'failed on killall!'
 }
 
-print_regex_classes() {
+print_unix_classes() {
 	cat <<- EOF
 		------------------------------------------------------------------------------------
 		Classes
