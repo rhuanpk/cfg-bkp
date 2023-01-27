@@ -294,7 +294,7 @@ install_portables() {
 	# speedtest
 	wget -O ./speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz' \
 	&& tar -zxvf ./speedtest.tgz \
-	&& sudo mv speedtest ${local_bin}/
+	&& sudo mv ./speedtest ${local_bin}/
 	# yt-dlp
 	sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp' \
 	&& sudo chmod +x ${local_bin}/yt-dlp
@@ -317,7 +317,7 @@ install_programs() {
 	# vscode
 	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
-	sudo apt update; sudo apt apt-transport-https install code -y
+	sudo apt update; sudo apt install apt-transport-https code -y
 	sudo apt install -fy
 	# sublime
 	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
@@ -353,7 +353,7 @@ compile_programs() {
 	mkdir ./${grive}/ && cd ./${grive}/
 	git clone https://github.com/vitalif/grive2 $grive
 	cd ./${grive}/
-	dpkg-buildpackage -j8 --no-sign
+	sudo dpkg-buildpackage -j8 --no-sign
 	cd ../
 	sudo dpkg --install ./*.deb
 	cd ../
