@@ -182,7 +182,7 @@ pre_install() {
 		progress                   \
 		                           \
 		libnotify-bin              \
-		vim-gtk                    \
+		vim-gtk3                   \
 		qt5-style-plugins          \
 		                           \
 		ubuntu-drivers-common      \
@@ -292,14 +292,14 @@ install_portables() {
 	sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip' \
 	&& sudo chmod +x ${local_bin}/toplip
 	# speedtest
-	wget -O speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.1.1-linux-x86_64.tgz' \
-	&& tar -zxvf speedtest.tgz \
+	wget -O ./speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz' \
+	&& tar -zxvf ./speedtest.tgz \
 	&& sudo mv speedtest ${local_bin}/
 	# yt-dlp
 	sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp' \
 	&& sudo chmod +x ${local_bin}/yt-dlp
 	# mdr
-	sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/download/v0.2.5/mdr_linux_amd64' \
+	sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64' \
 	&& sudo chmod +x ${local_bin}/mdr
 }
 
@@ -307,31 +307,30 @@ install_portables() {
 install_programs() {
 	sudo -v
 	# chrome
-	wget -O google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-	sudo dpkg -i /tmp/google-chrome_tmp.deb
-	sudo apt install -f -y
+	wget -O ./google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	sudo dpkg -i ./google-chrome_tmp.deb
+	sudo apt install -fy
 	# discord
-	wget -O discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
-	sleep 5
-	sudo dpkg -i discord_tmp.deb
-	sudo apt install -f -y
-	# vs-code
+	wget -O ./discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
+	sudo dpkg -i ./discord_tmp.deb
+	sudo apt install -fy
+	# vscode
 	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
-	sudo apt update; sudo apt install code -y
-	sudo apt install -f -y
+	sudo apt update; sudo apt apt-transport-https install code -y
+	sudo apt install -fy
 	# sublime
 	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt update; sudo apt install sublime-text -y
-	sudo apt install -f -y
+	sudo apt install -fy
 }
 
 # Compila os programas que são disponibilizados apenas nesse formato.
 compile_programs() {
 	sudo -v
-	local wdiff=wdiff
-	local grive=grive
+	wdiff=wdiff
+	grive=grive
 	# colorpicker
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
 	git clone https://github.com/Jack12816/colorpicker.git
@@ -352,7 +351,7 @@ compile_programs() {
 	# grive
 	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
 	mkdir ./${grive}/ && cd ./${grive}/
-	git clone 'https://github.com/vitalif/grive2' $grive
+	git clone https://github.com/vitalif/grive2 $grive
 	cd ./${grive}/
 	dpkg-buildpackage -j8 --no-sign
 	cd ../
