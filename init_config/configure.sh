@@ -196,8 +196,8 @@ pre_install() {
 # Clona os repositórios padrões e os coloca no diretório padrão.
 clone_repos() {
 	default_action
-	git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
-	git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
+	action_repeater git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
+	action_repeater git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
 }
 
 # Seta o arquivo de configura de rede.
@@ -300,11 +300,11 @@ install_portables() {
 	&& sudo mv ./speedtest ${local_bin}/
 	# yt-dlp
 	default_action
-	sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp' \
+	action_repeater sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp' \
 	&& sudo chmod +x ${local_bin}/yt-dlp
 	# mdr
 	default_action
-	sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64' \
+	action_repeater sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64' \
 	&& sudo chmod +x ${local_bin}/mdr
 }
 
@@ -342,7 +342,7 @@ compile_programs() {
 	# colorpicker
 	default_action
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
-	git clone https://github.com/Jack12816/colorpicker.git
+	action_repeater git clone https://github.com/Jack12816/colorpicker.git
 	cd ./colorpicker
 	sudo make -j8
 	sudo mv ./colorpicker ${local_bin}/
@@ -350,7 +350,7 @@ compile_programs() {
 	# i3lock-color
 	default_action
 	sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
-	git clone https://github.com/Raymo111/i3lock-color.git
+	action_repeater git clone https://github.com/Raymo111/i3lock-color.git
 	cd ./i3lock-color
 	./install-i3lock-color.sh
 	cd ../
@@ -363,7 +363,7 @@ compile_programs() {
 	default_action
 	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
 	mkdir ./${grive}/ && cd ./${grive}/
-	git clone https://github.com/vitalif/grive2 $grive
+	action_repeater git clone https://github.com/vitalif/grive2 $grive
 	cd ./${grive}/
 	sudo dpkg-buildpackage -j8 --no-sign
 	cd ../
@@ -389,7 +389,7 @@ pos_install() {
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
 }
 
-# Primeira parte do programa para validar a senha do usuário
+# Primeira parte do programa para validar a senha do usuário.
 sudo_validate() {
 	read -rsp 'Entre com a senha do usuário [sudo]: ' password
 	if ! echo ${password} | sudo -Sv &>/dev/null; then
@@ -409,7 +409,7 @@ loading_message() {
 	done
 }
 
-# Printa a mensagem em branco para limpar a linha corrente
+# Printa a mensagem em branco para limpar a linha corrente.
 print_blank() {
 	local blank
 	for any in $(seq 1 $(tput cols)); do
@@ -435,13 +435,21 @@ end_message() {
 	}
 }
 
-# Printa o banner do script
+# Printa o banner do script.
 print_banner() {
 	echo -e "${bold_effect}${banner}${reset_color}"
 }
 
-# Executa ações padrões antes de executar cada ação
+# Executa ações padrões antes de executar cada ação.
 default_action() { cd /tmp; sudo -v; }
+
+# Executa a ação passada por uma quantidade de vezes pré definida por questões de conexão (timeout?).
+action_repeater() {
+	for _ in {0..2}; do
+		eval "${*}" && break
+		sleep 5
+	done
+}
 
 # ********** Início do Programa **********
 
