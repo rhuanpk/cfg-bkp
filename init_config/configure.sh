@@ -89,7 +89,8 @@ denied_list=(\
 	'sudo_validate' \
 	'loading_message' \
 	'print_blank' \
-	'end_message'\
+	'end_message' \
+	'default_action'\
 )
 folders2create=(\
 	${git_path} \
@@ -122,7 +123,7 @@ reset_color='\e[m'
 
 # Processo pré instalação: atualização do sistema e instalação dos pacotes via `apt`.
 pre_install() {
-	sudo -v
+	default_action
 	sudo mkdir -v /usr/local/bin/pk/
 	sudo apt update
 	sudo apt install \
@@ -194,13 +195,14 @@ pre_install() {
 
 # Clona os repositórios padrões e os coloca no diretório padrão.
 clone_repos() {
+	default_action
 	git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
 	git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
 }
 
 # Seta o arquivo de configura de rede.
 set_network_file() {
-	sudo -v
+	default_action
 	sudo tee /etc/netplan/01-netcfg.yaml <<- EOF
 		# This file describes the network interfaces available on your system
 		# For more information, see netplan(5).
@@ -212,7 +214,7 @@ set_network_file() {
 
 # Seta o path para o scripts pessoais.
 set_personal_path() {
-	sudo -v
+	default_action
 	original_path='/usr/local/bin:'
 	concatenated_path="${original_path}/usr/local/bin/pk:"
 	sudo sed -Ei "s~(${original_path})~${concatenated_path}~" /etc/environment
@@ -220,7 +222,7 @@ set_personal_path() {
 
 # Seta as variáveis de ambiente *qt* e *PK_LOAD*.
 set_environment_variables() {
-	sudo -v
+	default_action
 	sudo tee /etc/environment  <<- EOF
 		$(cat /etc/environment)
 		export QT_QPA_PLATFORMTHEME=qt5ct
@@ -233,7 +235,7 @@ set_environment_variables() {
 
 # Seta o arquivo de autostart e o script dos programas do autostart.
 set_autostart_programs() {
-	sudo -v
+	default_action
 	sudo tee ${local_bin}/autostart_programs  <<- EOF
 		#!/usr/bin/env bash
 
@@ -255,7 +257,7 @@ set_autostart_programs() {
 
 # Seta o novo swapfile.
 set_swapfile() {
-	sudo -v
+	default_action
 	sudo swapoff /swapfile
 	sudo rm /swapfile
 	sudo fallocate -l 4G /swapfile
@@ -275,7 +277,7 @@ set_configurations() {
 
 # Instala o docker (depreciado).
 install_docker() {
-	sudo -v
+	default_action
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 	sudo apt update; sudo apt install \
@@ -287,39 +289,45 @@ install_docker() {
 
 # Instala os programas pré compilados.
 install_portables() {
-	sudo -v
 	# toplip
+	default_action
 	sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip' \
 	&& sudo chmod +x ${local_bin}/toplip
 	# speedtest
+	default_action
 	wget -O ./speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz' \
 	&& tar -zxvf ./speedtest.tgz \
 	&& sudo mv ./speedtest ${local_bin}/
 	# yt-dlp
+	default_action
 	sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp' \
 	&& sudo chmod +x ${local_bin}/yt-dlp
 	# mdr
+	default_action
 	sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64' \
 	&& sudo chmod +x ${local_bin}/mdr
 }
 
 # Instala os programas `.deb`.
 install_programs() {
-	sudo -v
 	# chrome
+	default_action
 	wget -O ./google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	sudo dpkg -i ./google-chrome_tmp.deb
 	sudo apt install -fy
 	# discord
+	default_action
 	wget -O ./discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
 	sudo dpkg -i ./discord_tmp.deb
 	sudo apt install -fy
 	# vscode
+	default_action
 	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
 	sudo apt update; sudo apt install apt-transport-https code -y
 	sudo apt install -fy
 	# sublime
+	default_action
 	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt update; sudo apt install sublime-text -y
@@ -328,10 +336,11 @@ install_programs() {
 
 # Compila os programas que são disponibilizados apenas nesse formato.
 compile_programs() {
-	sudo -v
+	# variables
 	wdiff=wdiff
 	grive=grive
 	# colorpicker
+	default_action
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
 	git clone https://github.com/Jack12816/colorpicker.git
 	cd ./colorpicker
@@ -339,16 +348,19 @@ compile_programs() {
 	sudo mv ./colorpicker ${local_bin}/
 	cd ../
 	# i3lock-color
+	default_action
 	sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
 	git clone https://github.com/Raymo111/i3lock-color.git
 	cd ./i3lock-color
 	./install-i3lock-color.sh
 	cd ../
 	# wdiff
+	default_action
 	sudo apt install texinfo colordiff -y
 	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
 	cd ../../
 	# grive
+	default_action
 	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
 	mkdir ./${grive}/ && cd ./${grive}/
 	git clone https://github.com/vitalif/grive2 $grive
@@ -361,13 +373,13 @@ compile_programs() {
 
 # Desabilita os serviços desnecessários.
 disable_services() {
-	sudo -v
+	default_action
 	sudo systemctl disable NetworkManager-wait-online.service
 }
 
 # Processo pós instalação: faz a atualização completa do sistema.
 pos_install() {
-	sudo -v
+	default_action
 	PATH=$(sed -nE 's/PATH="(.*)"/\1/p' /etc/environment)
 	echo -e $'\nsource ${PK_LOAD_CFGBKP}/rc/zbashrc' >> "${bash_file}"
 	sudo cp -v ${git_path}/${comandos_repo}/standard_scripts/.pessoal/setload.sh ${local_bin}/setload
@@ -428,19 +440,20 @@ print_banner() {
 	echo -e "${bold_effect}${banner}${reset_color}"
 }
 
+# Executa ações padrões antes de executar cada ação
+default_action() { cd /tmp; sudo -v; }
+
 # ********** Início do Programa **********
 
-cd /tmp
-clear
-print_banner
-sudo_validate
+clear; print_banner; sudo_validate
 
 for folder in ${folders2create[@]}; do
 	[ ! -d $folder ] && mkdir -vp $folder
 done
-clear
-print_banner
+
+clear; print_banner
 for y_function in pre_install $(echo $(declare -F | awk '{print $3}' | sed -E '/(pre|pos)_install/d')) pos_install; do
+	default_action
 	[[ ! ${denied_list[*]} =~ (${y_function}) ]] && {
 		tee -a $hit_log_file 1>> $error_log_file <<- eof
 			---------- $y_function ----------
