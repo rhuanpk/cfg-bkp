@@ -90,7 +90,8 @@ denied_list=(\
 	'loading_message' \
 	'print_blank' \
 	'end_message' \
-	'default_action'\
+	'default_action' \
+	'action_repeater'\
 )
 folders2create=(\
 	${git_path} \
