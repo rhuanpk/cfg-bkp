@@ -301,11 +301,11 @@ install_portables() {
 	&& sudo mv ./speedtest ${local_bin}/
 	# yt-dlp
 	default_action
-	action_repeater sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp' \
+	{ action_repeater sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'; } \
 	&& sudo chmod +x ${local_bin}/yt-dlp
 	# mdr
 	default_action
-	action_repeater sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64' \
+	{ action_repeater sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64'; } \
 	&& sudo chmod +x ${local_bin}/mdr
 }
 
@@ -345,7 +345,7 @@ compile_programs() {
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
 	action_repeater git clone https://github.com/Jack12816/colorpicker.git
 	cd ./colorpicker
-	sudo make -j8
+	sudo make -j$(processors2use)
 	sudo mv ./colorpicker ${local_bin}/
 	cd ../
 	# i3lock-color
@@ -358,7 +358,7 @@ compile_programs() {
 	# wdiff
 	default_action
 	sudo apt install texinfo colordiff -y
-	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j8 && sudo make install
+	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j$(processors2use) && sudo make install
 	cd ../../
 	# grive
 	default_action
@@ -366,7 +366,7 @@ compile_programs() {
 	mkdir ./${grive}/ && cd ./${grive}/
 	action_repeater git clone https://github.com/vitalif/grive2 $grive
 	cd ./${grive}/
-	sudo dpkg-buildpackage -j8 --no-sign
+	sudo dpkg-buildpackage -j$(processors2use) --no-sign
 	cd ../
 	sudo dpkg --install ./*.deb
 	cd ../
@@ -390,6 +390,24 @@ pos_install() {
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
 }
 
+# Executa ações padrões antes de executar cada ação.
+default_action() { cd /tmp; sudo -v; }
+
+# Executa a ação passada por uma quantidade de vezes pré definida por questões de conexão (timeout?).
+action_repeater() {
+	for _ in {0..2}; do
+		eval "${*}" && return 0
+		sleep 5
+	done
+	return 7
+}
+
+# Retorna a quantidade máxima de processadores para usar.
+processors2use() {
+	processors=$(nproc)
+	[ $processors -eq 1 ] && echo 1 || echo $((${processors}-1))
+}
+
 # Primeira parte do programa para validar a senha do usuário.
 sudo_validate() {
 	read -rsp 'Entre com a senha do usuário [sudo]: ' password
@@ -397,6 +415,11 @@ sudo_validate() {
 		echo -e "\n\n${red_color}Error: senha do usuário [sudo] incorreta!${reset_color}\n"
 		exit 1
 	fi
+}
+
+# Printa o banner do script.
+print_banner() {
+	echo -e "${bold_effect}${banner}${reset_color}"
 }
 
 # Printa a mensagem de carregamento do processo atual.
@@ -434,22 +457,6 @@ end_message() {
 		done
 		echo ""
 	}
-}
-
-# Printa o banner do script.
-print_banner() {
-	echo -e "${bold_effect}${banner}${reset_color}"
-}
-
-# Executa ações padrões antes de executar cada ação.
-default_action() { cd /tmp; sudo -v; }
-
-# Executa a ação passada por uma quantidade de vezes pré definida por questões de conexão (timeout?).
-action_repeater() {
-	for _ in {0..2}; do
-		eval "${*}" && break
-		sleep 5
-	done
 }
 
 # ********** Início do Programa **********
