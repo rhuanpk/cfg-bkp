@@ -282,11 +282,11 @@ set_configurations() {
 install_portables() {
 	# toplip
 	default_action
-	sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip' \
+	{ action_repeater sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip'; } \
 	&& sudo chmod +x ${local_bin}/toplip
 	# speedtest
 	default_action
-	wget -O ./speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz' \
+	{ action_repeater wget -O ./speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz'; } \
 	&& tar -zxvf ./speedtest.tgz \
 	&& sudo mv ./speedtest ${local_bin}/
 	# mdr
@@ -299,23 +299,23 @@ install_portables() {
 install_programs() {
 	# chrome
 	default_action
-	wget -O ./google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	action_repeater wget -O ./google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	sudo dpkg -i ./google-chrome_tmp.deb
 	sudo apt install -fy
 	# discord
 	default_action
-	wget -O ./discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
+	action_repeater wget -O ./discord_tmp.deb 'https://discord.com/api/download?platform=linux&format=deb'
 	sudo dpkg -i ./discord_tmp.deb
 	sudo apt install -fy
 	# vscode
 	default_action
-	wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
+	action_repeater wget -O - https://packages.microsoft.com/keys/microsoft.asc | sudo tee /etc/apt/keyrings/packages.microsoft.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
 	sudo apt update; sudo apt install apt-transport-https code -y
 	sudo apt install -fy
 	# sublime
 	default_action
-	wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
+	action_repeater wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 	sudo apt update; sudo apt install sublime-text -y
 	sudo apt install -fy
