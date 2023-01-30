@@ -84,7 +84,6 @@ comandos_repo='comandos-linux'
 
 # Arrays
 denied_list=(\
-	'install_docker'\
 	'print_banner' \
 	'sudo_validate' \
 	'loading_message' \
@@ -274,18 +273,6 @@ set_configurations() {
 	${git_path}/${cfg_repo}/polybar/symlink-create.sh
 	${git_path}/${cfg_repo}/setload/configure.sh
 	${git_path}/${comandos_repo}/standard_scripts/move2symlink.sh
-}
-
-# Instala o docker (depreciado).
-install_docker() {
-	default_action
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
-	sudo apt update; sudo apt install \
-	docker-ce \
-	docker-ce-cli \
-	containerd.io \
-	docker-compose-plugin -y
 }
 
 # Instala os programas pré compilados.
