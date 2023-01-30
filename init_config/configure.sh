@@ -148,6 +148,7 @@ pre_install() {
 		mousepad                   \
 		gnumeric                   \
 		abiword                    \
+		wdiff                      \
 		xclip                      \
 		vim                        \
 		translate-shell            \
@@ -156,6 +157,7 @@ pre_install() {
 		                           \
 		kolourpaint                \
 		mplayer                    \
+		yt-dlp                     \
 		scrot                      \
 		feh                        \
 		color-picker               \
@@ -287,10 +289,6 @@ install_portables() {
 	wget -O ./speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz' \
 	&& tar -zxvf ./speedtest.tgz \
 	&& sudo mv ./speedtest ${local_bin}/
-	# yt-dlp
-	default_action
-	{ action_repeater sudo curl -fsSLo ${local_bin}/yt-dlp 'https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp'; } \
-	&& sudo chmod +x ${local_bin}/yt-dlp
 	# mdr
 	default_action
 	{ action_repeater sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64'; } \
@@ -326,7 +324,6 @@ install_programs() {
 # Compila os programas que são disponibilizados apenas nesse formato.
 compile_programs() {
 	# variables
-	wdiff=wdiff
 	grive=grive
 	# colorpicker
 	default_action
@@ -343,11 +340,6 @@ compile_programs() {
 	cd ./i3lock-color
 	./install-i3lock-color.sh
 	cd ../
-	# wdiff
-	default_action
-	sudo apt install texinfo colordiff -y
-	mkdir ./${wdiff}/ && cd ./${wdiff}/ && curl -Lo ${wdiff}.tar.gz 'http://ftp.gnu.org/gnu/wdiff/wdiff-latest.tar.gz' && tar -zxvf ./${wdiff}.tar.gz && cd $(ls -1 | grep -E "(${wdiff}-([[:digit:]]+\.?)+)") && sudo ./configure && sudo make -j$(processors2use) && sudo make install
-	cd ../../
 	# grive
 	default_action
 	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
