@@ -140,6 +140,7 @@ pre_install() {
 		                           \
 		thunar                     \
 		copyq                      \
+		acpi                       \
 		neofetch                   \
 		                           \
 		highlight                  \
