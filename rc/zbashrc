@@ -1,10 +1,14 @@
-# >>> The Ultimate Home <<<
+# =============================================================================================
+
+# >>> The ultimate home <<<
 
 home=${HOME:-"/home/${USER:-$(whoami)}"}
 
-# >>> Unset Alias'es <<<
+# =============================================================================================
 
-aliases_array=(ll lla ggb ggl ggd ggs ggr ggp ggls ggsa ggpa ggra)
+# >>> Unset alias'es <<<
+
+aliases_array=(ll lla ggb ggl ggd ggs ggr ggp ggls ggba ggsa ggpa ggra)
 
 for index in ${aliases_array[@]}; do
 	if alias ${index} >/dev/null 2>&1; then
@@ -12,18 +16,19 @@ for index in ${aliases_array[@]}; do
 	fi
 done
 
-# >>> Standard Aliases <<<
+# >>> Standard aliases <<<
 
 alias cb="tr -d '\n' | xclip -selection clipboard"
 alias cbfull='xclip -selection clipboard'
 
-alias ggb='git branch -l --color | cat'
+alias ggb='cat <(git branch --color --list)'
 alias ggl='git log --all --oneline --patch'
-alias ggd='git diff --color | cat'
+alias ggd='cat <(git diff --color)'
 alias ggs='git status'
 alias ggr='git restore ./; git clean -f ./'
 alias ggp='git pull origin $(git branch --show-current); git fetch --tags'
 alias ggls='git log --all --oneline'
+alias ggba='cat <(git branch --color --all)'
 alias ggpa='push_script -g'
 alias ggsa='push_script "git status"'
 alias ggra='push_script "git restore ./"; push_script "git clean -f ./"'
@@ -46,12 +51,16 @@ alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 #alias pgcat='pygmentize -l'
 alias hlcat='highlight -O ansi'
-
-alias sudo='sudo -k'
+alias mkdir='mkdir -pv'
+alias ips='ip -br -c address'
 
 alias lsblkf='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
 alias lsblkd='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
 alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target -h'
+
+alias sudo='sudo -k'
+
+# =============================================================================================
 
 # >>> Standard Short Functions <<<
 
@@ -63,23 +72,23 @@ ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
 diffstr() { if diff <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 #readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
 rlbc() { file="${1}"; [ -z $file ] && echo 'needs a file to execute!' || sed -Ei 's/[[:blank:]]+$//g' "${file}"; }
+psgrep(){ pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep -iF --color=always "${pattern}" | head -n -1; }
 
 ll() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color ${route}; echo "count $(ls -1 ${route} | wc -l)"; }
 lla() { route=$([ ${#} -eq 0 ] && pwd || echo ${1}); ls -lhAF --time-style=+%% --color ${route}; echo "count $(ls -A1 ${route} | wc -l)"; }
 
-# =============================================================================================
+# >>> Standard Long Functions <<<
 
-# ToDo List (SlackJeff)
-
-TODO="${home}/Documents/anotacoes/.todo_list.txt"
-
-rand() { RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done; }
-tla() { rand; [ ${#} -eq 0 ] && cat "${TODO}" || echo "($(hostname)) ${RAND} » ${*}" >> ${TODO}; }
-tlr() { sed -i "/^($(hostname)) ${1}/d" ${TODO}; clear; tla; }
-
-# =============================================================================================
-
-# >>> Standard Long Functions !
+twch() {
+	mode=${1:?need a mode to set!}
+	file=${2:?need a file to create!}
+	[ -e "${file}" ] && {
+		echo "$(basename ${0}): file already exists!"
+		return 1
+	} || {
+		touch "${file}" && chmod -v "${mode}" "${file}"
+	}
+}
 
 mychecking() {
 	clear
@@ -126,13 +135,15 @@ set_polybar_all() {
 	echo 'failed on killall!'
 }
 
+# >>> Printer long functions <<<
+
 print_unix_classes() {
-	cat <<- EOF
+	cat <<- \EOF
 		------------------------------------------------------------------------------------
 		Classes
 		[[:alnum:]] ------ Alfabéticos e númericos [a-z A-Z 0-9]
 		[[:alpha:]] ------ Alfabéticos [a-z A-Z]
-		[[:blank:]] ------ Caractere em branco, espaço ou tab [ \t]
+		[[:blank:]] ------ Caractere em branco, espaço ou tab [\t]
 		[[:cntrl:]] ------ Caracteres de controle [\x00-\x1F\x7F]
 		[[:digit:]] ------ Números [0-9]
 		[[:graph:]] ------ Qualquer caractere visível(ou seja, exceto em branco) [\x20-\x7E]
@@ -140,7 +151,7 @@ print_unix_classes() {
 		[[:upper:]] ------ Letras maiúsculas [A-Z]
 		[[:print:]] ------ Caracteres visíveis (ou seja, exceto os de controle) [\x20-\x7E]
 		[[:punct:]] ------ Pontuação [-!"#$%&'()*+,./:;?@[\\\]_{|}~].
-		[[:space:]] ------ Espaço em branco [ \t\r\n\v\f]
+		[[:space:]] ------ Espaço em branco [\t\r\n\v\f]
 		[[:xdigit:]] ----- Número hexadecimais [0-9 a-f A-F]
 		------------------------------------------------------------------------------------
 		Abreviações
@@ -152,23 +163,23 @@ print_unix_classes() {
 }
 
 print_array_expasion() {
-	cat <<- EOF
+	cat <<- \EOF
 		----------------------------------------------------------------------------------
-		\${var[@]} ----------- Imprime todos os elementos do array em strings protegidas.
-		\${var[*]} ----------- Imprime todos os elementos do array em uma única expressão.
-		\${var[P]} ----------- Imprime o elemento na posição ‘P’.
-		\${#var[@]} ---------- Imprime o total de elementos do array.
-		\${!var[@]} ---------- Imprime os índices do array.
-		\${var[@]:N} --------- Imprime todos os elementos a partir da posição ‘N’.
-		\${var[@]:N:M} ------- Imprime ‘M’ elementos a partir da posição ‘N’.
-		\${var[@]: -N} ------- Imprime os últimos ‘N’ elementos.
-		\${var[@]: -N:M} ----- Imprime ‘M’ elementos a partir da última ‘N’ posição.
+		${var[@]} ----------- Imprime todos os elementos do array em strings protegidas.
+		${var[*]} ----------- Imprime todos os elementos do array em uma única expressão.
+		${var[P]} ----------- Imprime o elemento na posição ‘P’.
+		${#var[@]} ---------- Imprime o total de elementos do array.
+		${!var[@]} ---------- Imprime os índices do array.
+		${var[@]:N} --------- Imprime todos os elementos a partir da posição ‘N’.
+		${var[@]:N:M} ------- Imprime ‘M’ elementos a partir da posição ‘N’.
+		${var[@]: -N} ------- Imprime os últimos ‘N’ elementos.
+		${var[@]: -N:M} ----- Imprime ‘M’ elementos a partir da última ‘N’ posição.
 		----------------------------------------------------------------------------------
 	EOF
 }
 
 print_extglob_bash() {
-	cat <<- EOF
+	cat <<- \EOF
 		-----------------------------------------------------------------------
 		?(padrão) .....: Corresponde a uma ocorrência do padrão
 		*(padrão) .....: Corresponde a qualquer número de ocorrências do padrão
@@ -180,7 +191,7 @@ print_extglob_bash() {
 }
 
 print_extglob_zsh() {
-	cat <<- EOF
+	cat <<- \EOF
 		-------------------------------------------------
 		^foobar ........: Nega o padrão
 		^(foo|bar) .....: Nega os padrões
@@ -191,5 +202,38 @@ print_extglob_zsh() {
 	EOF
 }
 
+print_unix_signals() {
+	cat <<- \EOF
+		-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+		POSIX signals
+		1- SIGHUP .....: terminal do processo foi desconectado ou o processo encerrado (alguns deamons usam esse sinal para recarregar as configurações do processo).
+		2- SIGINT .....: interrompe o processo e aguarda o próximo comando do usuário,lançado no ctrl+c.
+		3- SIGQUIT ....: força o core dumped do processo e o termina, lançado no ctrl+\.
+		5- SIGTRAP ....: enviado esse sinal para o processo quando ocorre uma exceção ou quando cai numa trap.
+		9- SIGKILL ....: quando enviado ao processo causa seu encerramente imediato, diferentemente do SIGTERM e SIGINT esse sinal não pode ser capturado ou ignorado.
+		15- SIGTERM ...: quando enviado ao processo causa seu encerramento, porém, pode ser capturado ou ignorado pelo processo.
+		18- SIGCONT ...: enviado esse sinal para que o processo "reinicie", volte ao estado de running depois de SIGSTOP ou SIGTSTP.
+		19- SIGSTOP ...: quando enviado, o processo é pausado pelo sistema para ser resumido futuramente e pode apenas receber os sinais SIGKILL e SIGCONT.
+		20- SIGTSTP ...: sua diferença para o SIGSTOP é que quando pausado o processo ainda pode manipulado, lançado no ctrl+z.
+		-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+		Processes States
+		'D' (UNINTERRUPTABLE_SLEEP) ...: processo dorme e aguarda alguma entrada, nesse estado se interrompido pode causar problemas.
+		'R' (RUNNING & RUNNABLE) ......: processo está compra para ser executado ou já está em execução.
+		'S' (INTERRRUPTABLE_SLEEP) ....: processo dorme e aguarda alguma entrada, nesse estado "pode ser" interrompido com segurança.
+		'T' (STOPPED) .................: processo está pausado porém ainda pode ser manipulado ou resumido (ctrl+z » SIGTSTP).
+		'Z' (ZOMBIE) ..................: processo que foi encerrado porém ainda está na tabela de processos, significa que ainda pode estar finalizando alguma atividade.
+		-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+	EOF
+}
+
 # =============================================================================================
 
+# ToDo List (SlackJeff)
+
+TODO="${home}/Documents/anotacoes/.todo_list.txt"
+
+rand() { RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done; }
+tla() { rand; [ ${#} -eq 0 ] && cat "${TODO}" || echo "($(hostname)) ${RAND} » ${*}" >> ${TODO}; }
+tlr() { sed -i "/^($(hostname)) ${1}/d" ${TODO}; clear; tla; }
+
+# =============================================================================================
