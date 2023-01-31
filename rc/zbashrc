@@ -206,15 +206,15 @@ print_unix_signals() {
 	cat <<- \EOF
 		-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 		POSIX signals
-		1- SIGHUP .....: terminal do processo foi desconectado ou o processo encerrado (alguns deamons usam esse sinal para recarregar as configurações do processo).
-		2- SIGINT .....: interrompe o processo e aguarda o próximo comando do usuário,lançado no ctrl+c.
-		3- SIGQUIT ....: força o core dumped do processo e o termina, lançado no ctrl+\.
-		5- SIGTRAP ....: enviado esse sinal para o processo quando ocorre uma exceção ou quando cai numa trap.
-		9- SIGKILL ....: quando enviado ao processo causa seu encerramente imediato, diferentemente do SIGTERM e SIGINT esse sinal não pode ser capturado ou ignorado.
-		15- SIGTERM ...: quando enviado ao processo causa seu encerramento, porém, pode ser capturado ou ignorado pelo processo.
-		18- SIGCONT ...: enviado esse sinal para que o processo "reinicie", volte ao estado de running depois de SIGSTOP ou SIGTSTP.
-		19- SIGSTOP ...: quando enviado, o processo é pausado pelo sistema para ser resumido futuramente e pode apenas receber os sinais SIGKILL e SIGCONT.
-		20- SIGTSTP ...: sua diferença para o SIGSTOP é que quando pausado o processo ainda pode manipulado, lançado no ctrl+z.
+		'01' (SIGHUP) ....: terminal do processo foi desconectado ou o processo encerrado (alguns deamons usam esse sinal para recarregar as configurações do processo).
+		'02' (SIGINT) ....: interrompe o processo e aguarda o próximo comando do usuário,lançado no ctrl+c.
+		'03' (SIGQUIT) ...: força o core dumped do processo e o termina, lançado no ctrl+\.
+		'05' (SIGTRAP) ...: enviado esse sinal para o processo quando ocorre uma exceção ou quando cai numa trap.
+		'09' (SIGKILL) ...: quando enviado ao processo causa seu encerramente imediato, diferentemente do SIGTERM e SIGINT esse sinal não pode ser capturado ou ignorado.
+		'15' (SIGTERM) ...: quando enviado ao processo causa seu encerramento, porém, pode ser capturado ou ignorado pelo processo.
+		'18' (SIGCONT) ...: enviado esse sinal para que o processo "reinicie", volte ao estado de running depois de SIGSTOP ou SIGTSTP.
+		'19' (SIGSTOP) ...: quando enviado, o processo é pausado pelo sistema para ser resumido futuramente e pode apenas receber os sinais SIGKILL e SIGCONT.
+		'20' (SIGTSTP) ...: sua diferença para o SIGSTOP é que quando pausado o processo ainda pode manipulado, lançado no ctrl+z.
 		-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 		Processes States
 		'D' (UNINTERRUPTABLE_SLEEP) ...: processo dorme e aguarda alguma entrada, nesse estado se interrompido pode causar problemas.
