@@ -57,10 +57,11 @@ alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target 
 
 alias sudo='sudo -k'
 
+alias mkdir='mkdir -pv'
 alias chmod='chmod -v'
 alias less='less -R'
 alias jq='js -C'
-alias mkdir='mkdir -pv'
+alias grep='grep --color=always'
 
 # =============================================================================================
 
