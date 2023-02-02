@@ -60,7 +60,7 @@ alias sudo='sudo -k'
 alias mkdir='mkdir -pv'
 alias chmod='chmod -v'
 alias less='less -R'
-alias jq='js -C'
+alias jq='jq -C'
 alias grep='grep --color=always'
 
 # =============================================================================================
