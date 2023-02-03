@@ -70,7 +70,7 @@ alias grep='grep --color=always'
 rlbc() { file="${1}"; [ -z $file ] && echo 'needs a file to execute!' || sed -Ei 's/[[:blank:]]+$//g' "${file}"; }
 diffstr() { if diff <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
-ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
+#ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
 #readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
 ytsbr() { trans -b pt-br:en "$(rtstr ${1})"; }
 yts() { trans -b en:pt-br "$(rtstr ${1})"; }
