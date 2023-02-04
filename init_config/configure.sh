@@ -80,7 +80,7 @@ git_path="${home}/Documents/git"
 
 # Variáveis de nomes:
 cfg_repo='cfg-bkp'
-comandos_repo='comandos-linux'
+comandos_repo='linux'
 
 # Arrays
 denied_list=(\
@@ -275,7 +275,7 @@ set_configurations() {
 	${git_path}/${cfg_repo}/rofi/symlink-create.sh
 	${git_path}/${cfg_repo}/polybar/symlink-create.sh
 	${git_path}/${cfg_repo}/setload/configure.sh
-	${git_path}/${comandos_repo}/standard_scripts/move2symlink.sh
+	${git_path}/${comandos_repo}/scripts/move2symlink.sh
 }
 
 # Instala os programas pré compilados.
@@ -363,7 +363,7 @@ pos_install() {
 	default_action
 	PATH=$(sed -nE 's/PATH="(.*)"/\1/p' /etc/environment)
 	echo -e $'\nsource ${PK_LOAD_CFGBKP}/rc/zbashrc' >> "${bash_file}"
-	sudo cp -v ${git_path}/${comandos_repo}/standard_scripts/.pessoal/setload.sh ${local_bin}/setload
+	sudo cp -v ${git_path}/${comandos_repo}/scripts/.private/setload.sh ${local_bin}/setload
 	sudo apt purge kdeconnect imagemagick* -y
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 	pleno
