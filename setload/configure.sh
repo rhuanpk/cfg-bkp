@@ -6,10 +6,10 @@
 # 2. rodar este *script*.
 # 3. definir as variáveis em `/etc/environment`.
 # 	- `export PK_LOAD_CFGBKP=null`.
-#	- `export PK_LOAD_LINUXCOMMANDS=null`.
+#	- `export PK_LOAD_LINUX=null`.
 # 	- `export PK_LOAD_PKUTILS=null`.
 # 4. definir o `source` nos `*rc`'s.
-# 	- `source $PK_LOAD_LINUXCOMMANDS`.
+# 	- `source $PK_LOAD_LINUX`.
 
 script=${0}
 
