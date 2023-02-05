@@ -57,6 +57,7 @@ alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target 
 
 alias sudo='sudo -k'
 
+alias ls='ls --color=always -lhF'
 alias grep='grep --color=always'
 alias mkdir='mkdir -pv'
 alias chmod='chmod -v'
