@@ -72,7 +72,7 @@ alias llt='ls --color=always -lhtcF'
 rlbc() { file="${1}"; [ -z $file ] && echo 'needs a file to execute!' || sed -Ei 's/[[:blank:]]+$//g' "${file}"; }
 diffstr() { if diff <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
-utilitarios() { cd /tmp/; hlcat ${PK_LOAD_LINUX}/annotations.md | less -R; }
+utilitarios() { cd /tmp/; hlcat ${PK_LOAD_LINUX}/notes.md | less -R; }
 #ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
 #readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
 ytsbr() { trans -b pt-br:en "$(rtstr ${1})"; }
