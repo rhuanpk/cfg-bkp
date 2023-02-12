@@ -51,7 +51,7 @@ alias vimz='vim ~/.zshrc'
 alias catz='cat ~/.zshrc'
 alias insp='viewvar ${1}'
 alias intrr='echo "${?}"'
-alias TOKEN="toplip -d ${home}/Documents/git/cfg-bkp/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
+alias TOKEN="toplip -d ${PK_LOAD_CFGBKP}/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
 
 alias lsblkd='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
 alias lsblkf='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
