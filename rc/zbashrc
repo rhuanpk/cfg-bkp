@@ -21,6 +21,7 @@ alias cb="tr -d '\n' | xclip -selection clipboard"
 alias ggb='cat <(git branch --color=always --list)'
 alias ggr='git restore ./; git clean -f ./'
 alias ggl='git log --all --oneline --patch'
+alias ggg='git log --all --oneline --graph'
 alias ggd='cat <(git diff --color)'
 alias ggs='git status'
 alias ggp='git pull origin $(git branch --show-current); git fetch --tags'
