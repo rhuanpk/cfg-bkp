@@ -54,8 +54,8 @@ alias insp='viewvar ${1}'
 alias intrr='echo "${?}"'
 alias TOKEN="toplip -d ${PK_LOAD_CFGBKP}/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
 
-alias lsblkd='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
-alias lsblkf='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
+alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
+alias lsblkd='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
 alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target -h'
 
 alias sudo='sudo -k'
