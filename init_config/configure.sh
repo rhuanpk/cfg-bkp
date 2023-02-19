@@ -274,6 +274,7 @@ set_configurations() {
 	${git_path}/${cfg_repo}/i3/symlink-create.sh
 	${git_path}/${cfg_repo}/rofi/symlink-create.sh
 	${git_path}/${cfg_repo}/polybar/symlink-create.sh
+	${git_path}/${cfg_repo}/swappiness/configure.sh
 	${git_path}/${cfg_repo}/setload/configure.sh
 	${git_path}/${comandos_repo}/scripts/move2symlink.sh
 }
