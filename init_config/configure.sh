@@ -36,6 +36,8 @@
 # - source ${PK_LOAD_CFGBKP}/rc/shellrc; # pk_load
 # - feh --bg-scale ~/Pictures/wallpaper/wallpaper.png; # wallpaper
 #
+# >>>>>>>>>>>>><<<<<<<<<<<<<
+#
 # ---------------------------------------------------------------
 #
 # >>> sudoers
