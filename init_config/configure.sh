@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-##################################################################################################################
+##################################################################################################################################
 #
 # *** pos installations ***
 #
@@ -24,36 +24,25 @@
 #
 # -------------------------------------------------------------------------------------------
 #
-# >>> noti-notify
+# >>> shell rc
 #
-# export NOTI_DEFAULT="banner telegram slack"
+# >>> My default configs <<<
 #
-# -------------------------------------------
+# - export NOTI_DEFAULT="banner telegram slack"; # noti-notify
+# - cat ~/.cache/current-palette 2>&-; # color pallet
+# - bash: shopt -s extglob; # extended glob
+# - zsh: setopt extendedglob; # extended glob
+# - unalias -a; # unalias all
+# - source ${PK_LOAD_CFGBKP}/rc/shellrc; # pk_load
+# - feh --bg-scale ~/Pictures/wallpaper/wallpaper.png; # wallpaper
 #
-# >>> extendeds globs
-#
-# - bash: shopt -s extglob
-# - zsh: setopt extendedglob
-#
-# --------------------------
-#
-# >>> Wallpaper
-#
-# feh --bg-scale ~/Pictures/wallpaper/wallpaper.png
-#
-# -------------------------------------------------
-#
-# >>> Color Pallet
-#
-# cat ~/.cache/current-palette
-#
-# ----------------------------
+# ---------------------------------------------------------------
 #
 # >>> sudoers
 #
-# user ALL=NOPASSWD:/usr/bin/systemctl suspend,/usr/bin/mkdir,/usr/bin/rmdir,/usr/bin/mount,/usr/bin/umount,/usr/bin/brightnessctl
+# user ALL=NOPASSWD:/usr/bin/mkdir,/usr/bin/rmdir,/usr/bin/brightnessctl,/usr/bin/mount,/usr/bin/umount,/usr/bin/systemctl suspend
 #
-##################################################################################################################
+##################################################################################################################################
 
 # ********** Declaração de Variáveis **********
 
@@ -364,7 +353,7 @@ disable_services() {
 pos_install() {
 	default_action
 	PATH=$(sed -nE 's/PATH="(.*)"/\1/p' /etc/environment)
-	echo -e $'\nsource ${PK_LOAD_CFGBKP}/rc/zbashrc' >> "${bash_file}"
+	echo -e $'\nsource ${PK_LOAD_CFGBKP}/rc/shellrc' >> "${bash_file}"
 	sudo cp -v ${git_path}/${comandos_repo}/scripts/.private/setload.sh ${local_bin}/setload
 	sudo apt purge kdeconnect imagemagick* -y
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections

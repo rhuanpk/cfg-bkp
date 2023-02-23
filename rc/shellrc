@@ -13,6 +13,13 @@ home=${HOME:-"/home/${USER:-$(whoami)}"}
 
 # =============================================================================================
 
+# >>> Import user shellrc <<<
+
+user_shell_rc=${home}/.config/shellrc
+[ -f $user_shell_rc ] && . $user_shell_rc
+
+# =============================================================================================
+
 # >>> Standard aliases <<<
 
 alias cbfull='xclip -selection clipboard'
