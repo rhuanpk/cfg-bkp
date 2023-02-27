@@ -73,6 +73,7 @@ alias mkdir='mkdir -pv'
 alias chmod='chmod -v'
 alias less='less -R'
 alias jq='jq -C'
+alias ln='ln -v'
 alias rm='rm -i'
 alias llt='ls --color=always -lhtcF'
 
