@@ -191,8 +191,8 @@ pre_install() {
 # Clona os repositórios padrões e os coloca no diretório padrão.
 clone_repos() {
 	default_action
-	action_repeater git clone "https://github.com/rhuan-pk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
-	action_repeater git clone "https://github.com/rhuan-pk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
+	action_repeater git clone "https://github.com/rhuanpk/${comandos_repo}.git" "${git_path}/${comandos_repo}"
+	action_repeater git clone "https://github.com/rhuanpk/${cfg_repo}.git" "${git_path}/${cfg_repo}"
 }
 
 # Seta o arquivo de configura de rede.
