@@ -242,6 +242,7 @@ client.focused_inactive #111111 #111111 #00ff84 #000000   #111111
 client.unfocused        #111111 #111111 #14754C #000000   #111111
 
 # set my bindings
+bindsym --release $mod_alt+y exec --no-startup-id killwindow
 bindsym --release $mod_alt+k exec --no-startup-id sc2cb
 bindsym --release $mod_alt+s exec --no-startup-id pwc
 bindsym --release $mod_alt+Control+s exec --no-startup-id pwc -s
