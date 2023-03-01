@@ -41,6 +41,7 @@ alias ggra='push_script "git restore ./"; push_script "git clean -f ./"'
 alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp/tmp'
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
+alias killwindow='xdotool windowkill `xdotool selectwindow`'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias opened_doors='sudo lsof -nPi | grep -F LISTEN'
 alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
