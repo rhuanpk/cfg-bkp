@@ -28,6 +28,8 @@
 #
 # >>> My default configs <<<
 #
+# - bash: PS1='\[\033[31m\]\$ \[\033[00m\]' # custom PS1
+#
 # - export NOTI_DEFAULT="banner telegram slack"; # noti-notify
 # - cat ~/.cache/current-palette 2>&-; # color pallet
 # - bash: shopt -s extglob; # extended glob
@@ -35,6 +37,11 @@
 # - unalias -a; # unalias all
 # - source ${PK_LOAD_CFGBKP}/rc/shellrc; # pk_load
 # - feh --bg-scale ~/Pictures/wallpaper/wallpaper.png; # wallpaper
+#
+# - export HISTCONTROL=ignoreboth # history set up
+# - export HISTSIZE=7220 # history set up
+# - export HISTFILESIZE=${HISTSIZE} # history set up
+# - export PROMPT_COMMAND=prompt_command # prompt_command set up
 #
 # >>>>>>>>>>>>><<<<<<<<<<<<<
 #
