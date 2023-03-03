@@ -2,11 +2,11 @@
 
 home=${HOME:-"/home/${USER:-$(whoami)}"}
 i3_local_path=${home}/.config/i3
-git_url='https://raw.githubusercontent.com/rhuanpk/linux/master/scripts/.private/setload.sh'
+git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
 final_path=${PK_LOAD_CFGBKP:-$(wget -qO - $git_url | bash - 2>&- | grep -F cfg-bkp)}/i3/config
 
 symlink_create() {
-	ln -svf $final_path $i3_local_path
+	ln -sfv $final_path $i3_local_path
 }
 
 [ ! -d $i3_local_path ] && {
