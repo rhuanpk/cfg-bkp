@@ -1,40 +1,39 @@
 # =============================================================================================
 
-# standard set's
+# standard set's.
 
-# disable history expansion e.g.: !722.
 set +o histexpand
 
 # =============================================================================================
 
-# the ultimate home
+# the perfect home.
 
 home=${HOME:-"/home/${USER:-$(whoami)}"}
 
 # =============================================================================================
 
-# import user shellrc
+# import user shellrc.
 
 user_shell_rc=${home}/.config/shellrc
 [ -f $user_shell_rc ] && . $user_shell_rc
 
 # =============================================================================================
 
-# standard aliases
+# standard aliases.
 
 alias sudo='sudo -k'
 
 alias cbfull='xclip -selection clipboard'
 alias cb="tr -d '\n' | xclip -selection clipboard"
 
-alias ggb='cat <(git branch --color=auto --list)'
+alias ggb='cat <(git branch --color=always --list)'
 alias ggr='git restore ./; git clean -f ./'
 alias ggl='git log --all --oneline --patch'
 alias ggg='git log --all --oneline --graph'
-alias ggd='cat <(git diff --color=auto)'
+alias ggd='cat <(git diff --color=always)'
 alias ggs='git status'
 alias ggp='git pull origin $(git branch --show-current); git fetch --tags'
-alias ggba='cat <(git branch --color=auto --all)'
+alias ggba='cat <(git branch --color=always --all)'
 alias ggsa='push_script "git status"'
 alias ggls='git log --all --oneline'
 alias ggpa='push_script -g'
@@ -68,21 +67,21 @@ alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
 alias lsblkd='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
 alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target -h'
 
-alias lls='ls --color=auto -lhF'
-alias grep='grep --color=auto'
+alias lls='ls --color=always -lhF'
+alias grep='grep --color=always'
 alias mkdir='mkdir -pv'
 alias chmod='chmod -v'
 alias less='less -R'
 alias jq='jq -C'
 alias ln='ln -v'
 alias rm='rm -i'
-alias llt='ls --color=auto -lhtcF'
+alias llt='ls --color=always -lhtcF'
 
 # =============================================================================================
 
-# standard Short Functions
+# standard short functions.
 
-diffstr() { if diff --color=auto <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
+diffstr() { if diff --color=always <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 rlbc() { file="${1}"; [ -z $file ] && echo 'needs a file to execute!' || sed -Ei 's/[[:blank:]]+$//g' "${file}"; }
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
 #ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
@@ -91,12 +90,12 @@ utilitarios() { cd /tmp/; hlcat ${PK_LOAD_LINUX}/notes.md | less -R; }
 ytsbr() { trans -b pt-br:en "$(rtstr ${1})"; }
 yts() { trans -b en:pt-br "$(rtstr ${1})"; }
 viewvar() { eval echo "\${${1}}"; }
-psgrep(){ pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep -iF --color=auto "${pattern}" | head -n -1; }
+psgrep(){ pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep --color=always -iF "${pattern}" | head -n -1; }
 
-ll() { route=$([ $# -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color=auto ${route}; echo "count $(ls -1 ${route} | wc -l)"; }
-lla() { route=$([ $# -eq 0 ] && pwd || echo ${1}); ls -lhAF --time-style=+%% --color=auto ${route}; echo "count $(ls -A1 ${route} | wc -l)"; }
+ll() { route=$([ $# -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color=always ${route}; echo "count $(ls -1 ${route} | wc -l)"; }
+lla() { route=$([ $# -eq 0 ] && pwd || echo ${1}); ls -lhAF --time-style=+%% --color=always ${route}; echo "count $(ls -A1 ${route} | wc -l)"; }
 
-# standard Long Functions
+# standard long functions.
 
 outfind() {
 	tmp_find_path=/tmp/output_find.tmp
@@ -148,7 +147,7 @@ mychecking() {
 	find ~/ -iname '*confli*' | sed -E '/(\.icons|\.themes|\.private|pCloudDrive|Code\/CachedData|share\/Trash|\.go\/pkg)/d'
 }
 
-# printer long functions
+# printer long functions.
 
 print_unix_classes() {
 	cat <<- \EOF
@@ -241,15 +240,17 @@ print_unix_signals() {
 
 # =============================================================================================
 
-# prompt_command set up
+# prompt_command set up.
 
 prompt_function() {
 
 	# >>> git set up !
+
 	# seta a branch do repositório local.
 	GIT_CURRENT_BRANCH=`git branch --show-current 2>&-`
 
 	# >>> history set up !
+
 	# coloca o último comando executado na sessão no $HISTFILE.
 	builtin history -a
 
@@ -266,9 +267,26 @@ prompt_function() {
 
 }
 
+PROMPT_COMMAND=prompt_function
+
 # =============================================================================================
 
-# ToDo List (SlackJeff)
+# history controls.
+
+HISTCONTROL=ignoreboth
+HISTSIZE=7220
+HISTFILESIZE=${HISTSIZE}
+
+# =============================================================================================
+
+# >>> misc variables !
+
+# noti channels.
+NOTI_DEFAULT='banner slack telegram'
+
+# =============================================================================================
+
+# ToDo List (SlackJeff).
 
 TODO=${home}/Documents/anotacoes/.todo_list.txt
 

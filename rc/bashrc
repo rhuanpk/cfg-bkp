@@ -1,0 +1,43 @@
+# if not running interactively, don't do anything.
+case $- in
+	*i*) ;;
+	*) return;;
+esac
+
+# make less more friendly for non-text input files, see lesspipe(1).
+[ -x /usr/bin/lesspipe ] && eval "`SHELL=/bin/sh lesspipe`"
+
+# set variable identifying the chroot you work in (used in the prompt below).
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+	debian_chroot=`cat /etc/debian_chroot`
+fi
+
+# enable color support of ls.
+if [ -x /usr/bin/dircolors ]; then
+	test -r ~/.dircolors && eval "`dircolors -b ~/.dircolors`" || eval "`dircolors -b`"
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
+fi
+
+# >>> My default configs <<<
+
+shopt -s histappend extglob checkwinsize
+
+PS1='\[\033[31m\]\$ \[\033[00m\]'
+
+unalias -a
+. ${PK_LOAD_CFGBKP}/rc/shellrc
+
+cat ~/.cache/current-palette 2>&-
+feh --bg-scale ~/Pictures/wallpaper/wallpaper.png 2>&-
+
+# >>>>>>>>>>>>><<<<<<<<<<<<<
