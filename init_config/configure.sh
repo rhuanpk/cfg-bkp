@@ -316,7 +316,7 @@ install_programs() {
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
 	sudo apt update; sudo apt install apt-transport-https code -y
 	sudo apt install -fy
-	
+
 }
 
 # Compila os programas que são disponibilizados apenas nesse formato.

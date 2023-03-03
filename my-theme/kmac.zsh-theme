@@ -1,5 +1,5 @@
 # Copied and modified from the oh-my-zsh theme from geoffgarside, jispwoso,
-# daveverwer 
+# daveverwer
 # yellow username/server name, magenta cwd, blue git status
 
 PROMPT='%{$fg[yellow]%}%n%{$reset_color%}@%{$fg[yellow]%}%m%{$reset_color%}:%{$fg[magenta]%}%~%{$reset_color%}$(git_prompt_info) %(!.#.$) '
