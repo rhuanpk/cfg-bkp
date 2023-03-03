@@ -266,25 +266,26 @@ set_swapfile() {
 
 # Seta os symlinks necessários.
 set_configurations() {
-	${git_path}/${cfg_repo}/i3/symlink-create.sh
-	${git_path}/${cfg_repo}/rofi/symlink-create.sh
 	${git_path}/${cfg_repo}/polybar/symlink-create.sh
 	${git_path}/${cfg_repo}/swappiness/configure.sh
+	${git_path}/${cfg_repo}/rofi/symlink-create.sh
 	${git_path}/${cfg_repo}/setload/configure.sh
+	${git_path}/${cfg_repo}/i3/symlink-create.sh
+	${git_path}/${cfg_repo}/rc/symlink-create.sh
 	${git_path}/${comandos_repo}/scripts/move2symlink.sh
 }
 
 # Instala os programas pré compilados.
 install_portables() {
-	# toplip
-	default_action
-	{ action_repeater sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip'; } \
-	&& sudo chmod +x ${local_bin}/toplip
 	# speedtest
 	default_action
 	{ action_repeater wget -O ./speedtest.tgz 'https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-x86_64.tgz'; } \
 	&& tar -zxvf ./speedtest.tgz \
 	&& sudo mv ./speedtest ${local_bin}/
+	# toplip
+	default_action
+	{ action_repeater sudo curl -fsSLo ${local_bin}/toplip 'https://2ton.com.au/standalone_binaries/toplip'; } \
+	&& sudo chmod +x ${local_bin}/toplip
 	# mdr
 	default_action
 	{ action_repeater sudo curl -fsSLo ${local_bin}/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64'; } \
@@ -293,6 +294,12 @@ install_portables() {
 
 # Instala os programas `.deb`.
 install_programs() {
+	# sublime
+	default_action
+	action_repeater wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
+	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+	sudo apt update; sudo apt install sublime-text -y
+	sudo apt install -fy
 	# chrome
 	default_action
 	action_repeater wget -O ./google-chrome_tmp.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -309,18 +316,23 @@ install_programs() {
 	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
 	sudo apt update; sudo apt install apt-transport-https code -y
 	sudo apt install -fy
-	# sublime
-	default_action
-	action_repeater wget -O - https://download.sublimetext.com/sublimehq-pub.gpg | sudo tee /etc/apt/keyrings/sublimehq-pub.asc >/dev/null
-	echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/sublimehq-pub.asc] https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-	sudo apt update; sudo apt install sublime-text -y
-	sudo apt install -fy
+	
 }
 
 # Compila os programas que são disponibilizados apenas nesse formato.
 compile_programs() {
 	# variables
 	grive=grive
+	# grive
+	default_action
+	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
+	mkdir ./${grive}/ && cd ./${grive}/
+	action_repeater git clone https://github.com/vitalif/grive2 $grive
+	cd ./${grive}/
+	sudo dpkg-buildpackage -j$(processors2use) --no-sign
+	cd ../
+	sudo dpkg --install ./*.deb
+	cd ../
 	# colorpicker
 	default_action
 	sudo apt install libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev -y
@@ -336,16 +348,6 @@ compile_programs() {
 	cd ./i3lock-color
 	./install-i3lock-color.sh
 	cd ../
-	# grive
-	default_action
-	sudo apt install git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config -y
-	mkdir ./${grive}/ && cd ./${grive}/
-	action_repeater git clone https://github.com/vitalif/grive2 $grive
-	cd ./${grive}/
-	sudo dpkg-buildpackage -j$(processors2use) --no-sign
-	cd ../
-	sudo dpkg --install ./*.deb
-	cd ../
 }
 
 # Desabilita os serviços desnecessários.
@@ -358,7 +360,6 @@ disable_services() {
 pos_install() {
 	default_action
 	PATH=$(sed -nE 's/PATH="(.*)"/\1/p' /etc/environment)
-	echo -e $'\nsource ${PK_LOAD_CFGBKP}/rc/shellrc' >> "${bash_file}"
 	sudo cp -v ${git_path}/${comandos_repo}/scripts/.private/setload.sh ${local_bin}/setload
 	sudo apt purge kdeconnect imagemagick* -y
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
