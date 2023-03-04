@@ -39,7 +39,6 @@ alias ggls='git log --all --oneline'
 alias ggpa='push_script -g'
 alias ggra='push_script "git restore ./"; push_script "git clean -f ./"'
 
-alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp/tmp'
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
@@ -61,7 +60,7 @@ alias vimz='vim ~/.zshrc'
 alias insp='viewvar ${1}'
 alias intrr='echo "${?}"'
 alias hs='history -r'
-alias TOKEN="toplip -d ${PK_LOAD_CFGBKP}/enkrypted/nekot.txt | tr -d '\n' | xclip -selection clipboard"
+alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp/tmp'
 
 alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
 alias lsblkd='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
@@ -103,6 +102,11 @@ outfind() {
 	find / \( -path /proc -prune -o -path /sys -prune \) -o -iname "*${1}*" >${tmp_find_path} 2>&- &
 	while (ps ${!} >/dev/null); do sleep 1; echo -ne "\rtime: ${f_time}s"; let ++f_time; done; echo
 	less ${tmp_find_path}
+}
+
+TOKEN() {
+	from=${1:?need to inform the abbreviation where!}
+	toplip -d ${PK_LOAD_CFGBKP}/enkrypted/.nekot_${from}.encrypted | xclip -sel clip -rmlastnl
 }
 
 set_polybar_all() {
