@@ -38,6 +38,6 @@ unalias -a
 . ${PK_LOAD_CFGBKP}/rc/shellrc
 
 cat ~/.cache/current-palette 2>&-
-feh --bg-scale ~/Pictures/wallpaper/wallpaper.png 2>&-
+feh --bg-center ~/Pictures/wallpapers/wallpaper.png 2>&-
 
 # >>>>>>>>>>>>><<<<<<<<<<<<<
