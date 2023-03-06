@@ -8,7 +8,7 @@ set +o histexpand
 
 # the perfect home.
 
-home=${HOME:-"/home/${USER:-$(whoami)}"}
+home=${HOME:-"/home/${USER:-`whoami`}"}
 
 # =============================================================================================
 
@@ -32,7 +32,8 @@ alias ggl='git log --all --oneline --patch'
 alias ggg='git log --all --oneline --graph'
 alias ggd='cat <(git diff --color=always)'
 alias ggs='git status'
-alias ggp='git pull origin $(git branch --show-current); git fetch --tags'
+alias ggp='git pull origin `git branch --show-current`; git fetch --tags'
+alias ggbf='cat <(git branch --color=always --all -vv)'
 alias ggba='cat <(git branch --color=always --all)'
 alias ggsa='push_script "git status"'
 alias ggls='git log --all --oneline'
@@ -42,7 +43,7 @@ alias ggra='push_script "git restore ./"; push_script "git clean -f ./"'
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 alias catb='cd /tmp/; highlight -O ansi --syntax bash ~/.bashrc; cd -'
 alias catz='cd /tmp/; highlight -O ansi --syntax bash ~/.zshrc; cd -'
-alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
+alias default_montage='sudo mount -o rw,uid=`id -u`,gid=`id -g`'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias opened_doors='sudo lsof -nPi | grep -F LISTEN'
 alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
@@ -85,8 +86,8 @@ pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
 utilitarios() { cd /tmp/; hlcat ${PK_LOAD_LINUX}/notes.md | less -R; cd -; }
 #ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
 #readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
-ytsbr() { trans -b pt-br:en "$(rtstr ${1})"; }
-yts() { trans -b en:pt-br "$(rtstr ${1})"; }
+ytsbr() { trans -b pt-br:en "`rtstr ${1}`"; }
+yts() { trans -b en:pt-br "`rtstr ${1}`"; }
 viewvar() { eval echo "\${${1}}"; }
 psgp(){ pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep --color=always -iF "${pattern}" | head -n -1; }
 
@@ -125,7 +126,7 @@ set_polybar_all() {
 
 difftext() {
 	local phrase
-	if phrase=$(wdiff <(rtstr "${1}") <(rtstr "${2}")); then
+	if phrase=`wdiff <(rtstr "${1}") <(rtstr "${2}")`; then
 		echo -e "\e[1;32;40mNo differences ✔\e[m"
 	else
 		colordiff <<< $phrase | sed -E 's/\[-|-\]|\{\+|\+\}//g'
@@ -136,7 +137,7 @@ twch() {
 	mode=${1:?need a mode to set!}
 	file=${2:?need a file to create!}
 	[ -e "${file}" ] && {
-		echo "$(basename ${0}): file already exists!"
+		echo "`basename "${0}"`: file already exists!"
 		return 1
 	} || {
 		touch "${file}" && chmod -v "${mode}" "${file}"
@@ -294,7 +295,7 @@ NOTI_DEFAULT='banner slack telegram'
 TODO=${home}/Documents/anotacoes/.todo_list.txt
 
 rand() { RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done; }
-tlr() { sed -i "/^($(hostname)) ${1}/d" ${TODO}; clear; tla; }
-tla() { rand; [ ${#} -eq 0 ] && cat "${TODO}" || echo "($(hostname)) ${RAND} » ${*}" >> ${TODO}; }
+tlr() { sed -i "/${1:?need an id to remove!}/d" ${TODO}; clear; tla; }
+tla() { rand; [ $# -eq 0 ] && cat "${TODO}" || echo "(`hostname`) $RAND » ${*}" >> ${TODO}; }
 
 # =============================================================================================
