@@ -40,6 +40,8 @@ alias ggpa='push_script -g'
 alias ggra='push_script "git restore ./"; push_script "git clean -f ./"'
 
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
+alias catb='cd /tmp/; highlight -O ansi --syntax bash ~/.bashrc; cd -'
+alias catz='cd /tmp/; highlight -O ansi --syntax bash ~/.zshrc; cd -'
 alias default_montage='sudo mount -o rw,uid=$(id -u),gid=$(id -g)'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias opened_doors='sudo lsof -nPi | grep -F LISTEN'
@@ -47,8 +49,6 @@ alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
 alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
 alias mktf='mktemp /tmp/XXXXXXXXXXXXXX.tmp'
 alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
-alias catb='hlcat --syntax bash ~/.bashrc'
-alias catz='hlcat --syntax bash ~/.zshrc'
 alias hlcat='highlight -O ansi'
 alias hsgp='history | grep -iF'
 alias ips='ip -br -c address'
@@ -83,8 +83,8 @@ alias llt='ls --color=always -lhtcF'
 diffstr() { if diff --color=always <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 rlbc() { file="${1}"; [ -z $file ] && echo 'needs a file to execute!' || sed -Ei 's/[[:blank:]]+$//g' "${file}"; }
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
+utilitarios() { cd /tmp/; hlcat ${PK_LOAD_LINUX}/notes.md | less -R; cd -; }
 #ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
-utilitarios() { cd /tmp/; hlcat ${PK_LOAD_LINUX}/notes.md | less -R; }
 #readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
 ytsbr() { trans -b pt-br:en "$(rtstr ${1})"; }
 yts() { trans -b en:pt-br "$(rtstr ${1})"; }
