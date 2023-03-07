@@ -1,31 +1,29 @@
 # =============================================================================================
 
-# standard set's.
+# >>> my default ~/.*rc file !
 
+# standard set's.
 set +o histexpand
 
-# =============================================================================================
-
 # the perfect home.
-
 home=${HOME:-"/home/${USER:-`whoami`}"}
 
-# =============================================================================================
-
 # import user shellrc.
-
 user_shell_rc=${home}/.config/shellrc
 [ -f $user_shell_rc ] && . $user_shell_rc
 
 # =============================================================================================
 
-# standard aliases.
+# >>> standard aliases !
 
+# security.
 alias sudo='sudo -k'
 
+# first.
 alias cbfull='xclip -selection clipboard'
 alias cb="tr -d '\n' | xclip -selection clipboard"
 
+# git.
 alias ggb='cat <(git branch --color=always --list)'
 alias ggr='git restore ./; git clean -f ./'
 alias ggl='git log --all --oneline --patch'
@@ -40,28 +38,31 @@ alias ggls='git log --all --oneline'
 alias ggpa='push_script -g'
 alias ggra='push_script "git restore ./"; push_script "git clean -f ./"'
 
+# generals.
 alias external_ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 alias catb='cd /tmp/; highlight -O ansi --syntax bash ~/.bashrc; cd -'
 alias default_montage='sudo mount -o rw,uid=`id -u`,gid=`id -g`'
 alias rmallb='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias opened_doors='sudo lsof -nPi | grep -F LISTEN'
-alias mkfile='touch file-{1..4}.{txt,md,new,tmp}'
+alias mkfiled='mkdir -p ./dir_{1..2}/{a..c}/'
+alias mkfile='touch ./file-{1..4}.{new,tmp}'
 alias mktf='mktemp /tmp/XXXXXXXXXXXXXX.tmp'
-alias mkfiled='mkdir -p dir_{1..2}/{a..c}'
-alias hlcat='highlight -O ansi'
 alias hsgp='history | grep -iF'
+alias hlct='highlight -O ansi'
 alias ips='ip -br -c address'
 alias sb='source ~/.bashrc'
+alias insp='viewvar "${1}"'
 alias vimb='vim ~/.bashrc'
-alias insp='viewvar ${1}'
-alias intrr='echo "${?}"'
+alias intrr='echo $?'
 alias hs='history -r'
-alias tmp='[ ! -d /tmp/tmp ] && { mkdir -v /tmp/tmp && cd /tmp/tmp ;} || cd /tmp/tmp'
+alias tmp='[ ! -d /tmp/tmp/ ] && { mkdir -pv /tmp/tmp/ && cd /tmp/tmp/ ;} || cd /tmp/tmp/'
 
+# cli's.
 alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
 alias lsblkd='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
 alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target -h'
 
+# standards.
 alias lls='ls --color=always -lhF'
 alias grep='grep --color=always'
 alias mkdir='mkdir -pv'
@@ -82,9 +83,11 @@ alias llt='ls --color=always -lhtcF'
 
 # =============================================================================================
 
-# standard short functions.
+# >>> functions !
 
+# short.
 diffstr() { if diff --color=always <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
+mkcd() { pathway="${1:?need a pathway to make and change to the directory!}"; mkdir -pv $pathway && cd ${pathway}; pwd; }
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
 utilitarios() { cd /tmp/; hlcat ${PK_LOAD_LINUX}/notes.md | less -R; cd -; }
 ytsbr() { trans -b pt-br:en "`rtstr ${1}`"; }
@@ -95,13 +98,12 @@ psgp(){ pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep -
 ll() { route=$([ $# -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color=always ${route}; echo "count $(ls -1 ${route} | wc -l)"; }
 lla() { route=$([ $# -eq 0 ] && pwd || echo ${1}); ls -lhAF --time-style=+%% --color=always ${route}; echo "count $(ls -A1 ${route} | wc -l)"; }
 
-# depreceated.
+# depreceated (short).
 
 #readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
 #ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
 
-# standard long functions.
-
+# long.
 outfind() {
 	tmp_find_path=/tmp/output_find.tmp
 	f_time=1
@@ -157,8 +159,7 @@ mychecking() {
 	find ~/ -iname '*confli*' | sed -E '/(\.icons|\.themes|\.private|pCloudDrive|Code\/CachedData|share\/Trash|\.go\/pkg)/d'
 }
 
-# printer long functions.
-
+# long (for print).
 print_unix_classes() {
 	cat <<- \EOF
 		--------------------------------------------------------------------------------------
@@ -250,16 +251,17 @@ print_unix_signals() {
 
 # =============================================================================================
 
-# prompt_command set up.
+# >>> prompt_command set up !
 
+# function.
 prompt_function() {
 
-	# >>> git set up !
+	# > git set up <
 
 	# seta a branch do repositório local.
 	GCB=`git branch --show-current 2>&-`
 
-	# >>> history set up !
+	# > history set up <
 
 	# coloca o último comando executado na sessão no $HISTFILE.
 	builtin history -a
@@ -277,12 +279,14 @@ prompt_function() {
 
 }
 
+# set up.
 PROMPT_COMMAND=prompt_function
 
 # =============================================================================================
 
-# history controls.
+# >>> history !
 
+# control variables.
 HISTCONTROL=ignoreboth
 HISTSIZE=7220
 HISTFILESIZE=${HISTSIZE}
@@ -296,7 +300,7 @@ NOTI_DEFAULT='banner slack telegram'
 
 # =============================================================================================
 
-# ToDo List (SlackJeff).
+# >>> ToDo List (SlackJeff) !
 
 TODO=${home}/Documents/anotacoes/.todo_list.txt
 
