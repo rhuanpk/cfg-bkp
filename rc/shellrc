@@ -153,6 +153,12 @@ twch() {
 	}
 }
 
+erease_history() {
+	if erased_history=`awk '!x[$0]++' $HISTFILE 2>&-`; then
+		echo "${erased_history}" > $HISTFILE
+	fi
+}
+
 mychecking() {
 	clear
 	ggsa
