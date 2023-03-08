@@ -261,17 +261,17 @@ print_unix_signals() {
 # >>> prompt_command set up !
 
 # function.
-prompt_function() {
+#prompt_function() {
 
 	# > git set up <
 
 	# seta a branch do repositório local.
-	GCB=`git branch --show-current 2>&-`
+	#ggcb
 
 	# > history set up <
 
 	# coloca o último comando executado na sessão no $HISTFILE.
-	builtin history -a
+	#builtin history -a
 
 	# lima o historico da sessão atual.
 	#builtin history -c
@@ -280,14 +280,12 @@ prompt_function() {
 	#builtin history -r
 
 	# remove linhas duplicadas do $HISTFILE.
-	if erased_history=`awk '!x[$0]++' $HISTFILE 2>&-`; then
-		echo "${erased_history}" > $HISTFILE
-	fi
+	#erease_history
 
-}
+#}
 
 # set up.
-PROMPT_COMMAND=prompt_function
+#PROMPT_COMMAND=prompt_function
 
 # =============================================================================================
 
