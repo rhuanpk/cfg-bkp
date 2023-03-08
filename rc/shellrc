@@ -51,10 +51,10 @@ alias hsgp='history | grep -iF'
 alias hlct='highlight -O ansi'
 alias ips='ip -br -c address'
 alias sb='source ~/.bashrc'
-alias insp='viewvar "${1}"'
 alias vimb='vim ~/.bashrc'
 alias intrr='echo $?'
 alias hs='history -r'
+alias ha='history -a'
 alias tmp='[ ! -d /tmp/tmp/ ] && { mkdir -pv /tmp/tmp/ && cd /tmp/tmp/ ;} || cd /tmp/tmp/'
 
 # cli's.
