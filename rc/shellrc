@@ -92,7 +92,8 @@ pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
 utilitarios() { cd /tmp/; hlct ${PK_LOAD_LINUX}/notes.md | less -R; cd -; }
 ytsbr() { trans -b pt-br:en "`rtstr ${1}`"; }
 yts() { trans -b en:pt-br "`rtstr ${1}`"; }
-viewvar() { eval echo "\${${1}}"; }
+ggcb() { git branch --show-current 2>&-; }
+insp() { eval "echo \${${1}}"; }
 psgp(){ pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep --color=always -iF "${pattern}" | head -n -1; }
 
 ll() { route=$([ $# -eq 0 ] && pwd || echo ${1}); ls -lhF --time-style=+%% --color=always ${route}; echo "count $(ls -1 ${route} | wc -l)"; }
