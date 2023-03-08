@@ -87,7 +87,7 @@ alias llt='ls --color=always -lhtcF'
 
 # short.
 diffstr() { if diff --color=always <(rtstr "${1}") <(rtstr "${2}"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
-mkcd() { pathway="${1:?need a pathway to make and change to the directory!}"; mkdir -pv $pathway && cd ${pathway}; pwd; }
+mkcd() { pathway="${1:?need a pathway to make and change to the directory!}"; mkdir -p $pathway && cd ${pathway}; pwd; }
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
 utilitarios() { cd /tmp/; hlct ${PK_LOAD_LINUX}/notes.md | less -R; cd -; }
 ytsbr() { trans -b pt-br:en "`rtstr ${1}`"; }
