@@ -39,6 +39,8 @@
 # - cat ~/.cache/current-palette 2>&-
 # - feh --bg-scale ~/Pictures/wallpaper/wallpaper.png 2>&-
 #
+# - trap erease_history EXIT
+#
 # >>>>>>>>>>>>><<<<<<<<<<<<<
 #
 # ---------------------------------------------------------------

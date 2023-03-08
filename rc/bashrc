@@ -40,4 +40,6 @@ unalias -a
 cat ~/.cache/current-palette 2>&-
 feh --bg-center ~/Pictures/wallpapers/wallpaper.png 2>&-
 
+trap erease_history EXIT
+
 # >>>>>>>>>>>>><<<<<<<<<<<<<
