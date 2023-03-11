@@ -32,7 +32,7 @@ fi
 
 shopt -s histappend extglob checkwinsize
 
-PS1='\[\033[31m\]rhpk 炎 \[\033[00m\]'
+PS1='\[\033[00;31m\]rhpk 炎 \[\033[00m\]'
 
 unalias -a
 . ${PK_LOAD_CFGBKP}/rc/shellrc
