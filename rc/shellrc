@@ -160,11 +160,16 @@ erease_history() {
 }
 
 mychecking() {
-	regex_pattern='(\.icons|\.themes|pCloudDrive|Code\/CachedData|share\/Trash|\.go\/pkg|programming\/ides)'
 	clear
 	ggsa
 	tree -FL 2 ~
-	find ~/ -iname '*confli*' | sed -E "/${regex_pattern}/d"
+	find ~/ -not \( \
+		-path '*/.icons' -prune -o \
+		-path '*/.go/pkg/mod' -prune -o \
+		-path '*/others/programming/ides' -prune -o \
+		-path '*/.config/Code/CachedData' -prune -o \
+		-path '*/.local/share/Trash/files' -prune \
+	\) -iname '*confli*'
 }
 
 # long (for print).
