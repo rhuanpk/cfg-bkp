@@ -164,6 +164,7 @@ mychecking() {
 	ggsa
 	tree -FL 2 ~
 	find ~/ -not \( \
+		-path '*/pCloudDrive' -prune -o \
 		-path '*/.icons' -prune -o \
 		-path '*/.go/pkg/mod' -prune -o \
 		-path '*/others/programming/ides' -prune -o \
