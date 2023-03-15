@@ -165,11 +165,12 @@ mychecking() {
 	tree -FL 2 ~
 	find ~/ -not \( \
 		-path '*/pCloudDrive' -prune -o \
-		-path '*/.icons' -prune -o \
-		-path '*/.go/pkg/mod' -prune -o \
-		-path '*/others/programming/ides' -prune -o \
 		-path '*/.config/Code/CachedData' -prune -o \
-		-path '*/.local/share/Trash/files' -prune \
+		-path '*/.gradle/caches' -prune -o \
+		-path '*/.go/pkg/mod' -prune -o \
+		-path '*/.icons' -prune -o \
+		-path '*/.local/share/Trash/files' -prune -o \
+		-path '*/others/programming/ides' -prune \
 	\) -iname '*confli*'
 }
 
