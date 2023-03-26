@@ -23,6 +23,12 @@ docker_remove_dangling_images() {
 	)
 }
 
+docker_remove_all_containers() {
+	for container in `docker ps -a --format '{{.Names}}'`; do
+		docker rm -f "${container}"
+	done
+}
+
 go_package_start() {
 	pathway=/tmp/tmp/golang
 	[ -d $pathway ] && rm -rfv ${pathway:?pathway no set!}/ && {
