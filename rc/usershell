@@ -8,6 +8,13 @@ git_submodule_recreate() {
 	git submodule update --remote
 }
 
+git_submodule_setbranch() {
+	branch="${1:-main}"
+	for submodule in `sed -nE 's/\[submodule "(.*)"\]/\1/p' ./.gitmodules`; do
+		git submodule set-branch --branch $branch "${submodule}"
+	done
+}
+
 docker_remove_dangling_images() {
 	docker image rm -f $(
 		docker images -af 'dangling=true' | \
