@@ -83,6 +83,7 @@ diffstr() { if diff --color=always <(rtstr "${1}") <(rtstr "${2}"); then echo -e
 mkcd() { pathway="${1:?need a pathway to make and change to the directory!}"; mkdir -p $pathway && cd ${pathway}; pwd; }
 pick_alias() { alias "${1}" | cut -d '=' -f 2- | sed -E 's/^.{1}|.{1}$//g'; }
 utilitarios() { cd /tmp/; hlct ${PK_LOAD_LINUX}/notes.md | less -R; cd -; }
+repeater() { for _ in `seq ${1}`; do eval "${@:2}"; done; }
 ytsbr() { trans -b pt-br:en "`eval 'rtstr "${*}"'`"; }
 yts() { trans -b en:pt-br "`eval 'rtstr "${*}"'`"; }
 ggcb() { git branch --show-current 2>&-; }
