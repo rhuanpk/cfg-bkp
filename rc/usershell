@@ -29,6 +29,12 @@ docker_remove_all_containers() {
 	done
 }
 
+docker_remove_all_volumes() {
+	for volume in `docker volume ls | tail -n +2 | sed -nE 's/^local[[:blank:]]+([[:alnum:]]+)/\1/p'`; do
+		docker volume rm "${volume}"
+	done
+}
+
 go_package_start() {
 	pathway=/tmp/tmp/golang
 	[ -d $pathway ] && rm -rfv ${pathway:?pathway no set!}/ && {
