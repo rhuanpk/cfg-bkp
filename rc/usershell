@@ -1,6 +1,7 @@
 alias cdlx='cd $PK_LOAD_LINUX'
 alias cdbk='cd $PK_LOAD_CFGBKP'
 
+alias docker_ps="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}'"
 alias docker_remove_all_containers='docker rm -f `docker container ls -aq`'
 alias docker_remove_all_volumes='docker volume rm `docker volume ls -q`'
 
