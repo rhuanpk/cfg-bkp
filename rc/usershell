@@ -28,6 +28,12 @@ docker_remove_dangling_images() {
 	)
 }
 
+docker_remove_dangling_volumes() {
+	for volume in `docker volume ls -qf dangling=true`; do
+		rm -rf /var/lib/docker/volumes/"$volume"
+	done
+}
+
 go_package_start() {
 	pathway=/tmp/tmp/golang
 	[ -d $pathway ] && rm -rfv ${pathway:?pathway no set!}/ && {
