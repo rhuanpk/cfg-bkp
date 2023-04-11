@@ -20,6 +20,12 @@ git_submodule_setbranch() {
 	done
 }
 
+docker_remove_dangling_volumes() {
+	for volume in `docker volume ls -qf dangling=true`; do
+		rm -rf /var/lib/docker/volumes/"$volume"
+	done
+}
+
 docker_remove_dangling_images() {
 	docker image rm -f $(
 		docker images -af 'dangling=true' | \
@@ -28,9 +34,10 @@ docker_remove_dangling_images() {
 	)
 }
 
-docker_remove_dangling_volumes() {
-	for volume in `docker volume ls -qf dangling=true`; do
-		rm -rf /var/lib/docker/volumes/"$volume"
+docker_list_all() {
+	commands='image container volume network service'
+	for command in $commands; do
+		echo -e "\n » $command «\n"; docker $command ls;
 	done
 }
 
