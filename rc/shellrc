@@ -58,7 +58,7 @@ alias tmp='[ ! -d /tmp/tmp/ ] && { mkdir -pv /tmp/tmp/ && cd /tmp/tmp/ ;} || cd 
 # cli's.
 alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
 alias lsblkd='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
-alias dff='df --exclude-type=tmpfs --output=source,size,used,pcent,avail,target -h'
+alias dff='df --exclude-type=tmpfs --output=source,size,used,avail,pcent,target -h'
 
 # standards.
 alias lls='ls --color=always -lhF'
