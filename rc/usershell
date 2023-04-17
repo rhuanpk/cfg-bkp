@@ -43,7 +43,7 @@ docker_list_all() {
 
 go_package_start() {
 	pathway=/tmp/tmp/golang
-	[ -d $pathway ] && rm -rfv ${pathway:?pathway no set!}/ && {
+	setup() {
 		mkdir -pv $pathway
 		cd $pathway
 		touch ./main.go
@@ -51,4 +51,8 @@ go_package_start() {
 		go mod tidy
 		echo "pwd: `pwd`"
 	}
+	[ -d $pathway ] && {
+		rm -rfv ${pathway:?pathway no set!}/ \
+			&& setup
+	} || setup
 }
