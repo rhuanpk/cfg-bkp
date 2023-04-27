@@ -262,8 +262,8 @@ print_unix_signals() {
 
 # control variables.
 HISTCONTROL=ignoreboth
-HISTSIZE=7220
-HISTFILESIZE=${HISTSIZE}
+HISTSIZE=7229
+HISTFILESIZE=$HISTSIZE
 
 # =============================================================================================
 
