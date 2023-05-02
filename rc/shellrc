@@ -154,7 +154,7 @@ mychecking() {
 		-path '*/.go/pkg/mod' -prune -o \
 		-path '*/.icons' -prune -o \
 		-path '*/.local/share/Trash/files' -prune -o \
-		-path '*/others/programming/ides' -prune \
+		-path '*/others/programming' -prune \
 	\) -iname '*confli*'
 }
 
