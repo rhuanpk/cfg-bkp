@@ -155,6 +155,7 @@ mychecking() {
 		-path '*/.go/pkg/mod' -prune -o \
 		-path '*/.icons' -prune -o \
 		-path '*/.local/share/Trash/files' -prune -o \
+		-path '*/.steam/debian-installation' -prune -o \
 		-path '*/others/programming' -prune \
 	\) -iname '*confli*'
 }
