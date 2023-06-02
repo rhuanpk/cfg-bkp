@@ -1,32 +1,32 @@
 alias cdlx='cd $PK_LOAD_LINUX'
 alias cdbk='cd $PK_LOAD_CFGBKP'
 
-alias docker_ps="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}'"
-alias docker_remove_all_containers='docker rm -f `docker container ls -aq`'
-alias docker_remove_all_volumes='docker volume rm `docker volume ls -q`'
-alias docker_service="docker service ls --format 'table {{.ID}}\t{{.Name}}\t{{.Mode}}\t{{.Replicas}}\t{{.Ports}}'"
+alias docker-ps="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}'"
+alias docker-remove-all-containers='docker rm -f `docker container ls -aq`'
+alias docker-remove-all-volumes='docker volume rm `docker volume ls -q`'
+alias docker-service="docker service ls --format 'table {{.ID}}\t{{.Name}}\t{{.Mode}}\t{{.Replicas}}\t{{.Ports}}'"
 
-git_submodule_recreate() {
+git-submodule-recreate() {
 	sed -nE 's/^[[:blank:]]+path = (.*)/\1/p' ./.gitmodules | \
 		xargs rm -rf && \
 	git submodule init && \
 	git submodule update --remote
 }
 
-git_submodule_setbranch() {
+git-submodule-setbranch() {
 	branch="${1:-main}"
 	for submodule in `sed -nE 's/\[submodule "(.*)"\]/\1/p' ./.gitmodules`; do
 		git submodule set-branch --branch $branch "${submodule}"
 	done
 }
 
-docker_remove_dangling_volumes() {
+docker-remove-dangling-volumes() {
 	for volume in `docker volume ls -qf dangling=true`; do
 		rm -rf /var/lib/docker/volumes/"$volume"
 	done
 }
 
-docker_remove_dangling_images() {
+docker-remove-dangling-images() {
 	docker image rm -f $(
 		docker images -af 'dangling=true' | \
 			grep -F '<none>' | \
@@ -34,14 +34,14 @@ docker_remove_dangling_images() {
 	)
 }
 
-docker_list_all() {
+docker-list-all() {
 	commands='image container volume network service'
 	for command in $commands; do
 		echo -e "\n » $command «\n"; docker $command ls;
 	done
 }
 
-go_package_start() {
+go-package-start() {
 	pathway=/tmp/tmp/golang
 	setup() {
 		mkdir -pv $pathway
