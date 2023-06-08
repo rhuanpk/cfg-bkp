@@ -30,7 +30,7 @@ fi
 
 # >>> My default configs <<<
 
-shopt -s histappend extglob checkwinsize
+shopt -s extglob
 
 PS1='\[\033[00;31m\]rhuanpk 炎 \[\033[00m\]'
 
@@ -40,6 +40,6 @@ unalias -a
 #cat ~/.cache/current-palette 2>&-
 #feh --bg-center ~/Pictures/wallpapers/wallpaper.png 2>&-
 
-trap erease_history SIGINT SIGQUIT SIGTERM SIGKILL EXIT
+trap erase-history SIGQUIT SIGTERM SIGKILL EXIT
 
 # >>>>>>>>>>>>><<<<<<<<<<<<<

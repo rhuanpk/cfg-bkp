@@ -101,7 +101,7 @@ TOKEN() {
 	toplip -d "$PK_LOAD_CFGBKP/enkrypted/.nekot_${from}.encrypted" | xclip -sel clip -rmlastnl
 }
 
-set_polybar_all() {
+set-polybar-all() {
 	{
 		echo -e $'#!/bin/bash\nMONITOR=MERGE-1 polybar my-bar' | \
 		tee /tmp/polybar.sh
@@ -135,8 +135,8 @@ twch() {
 	}
 }
 
-erease_history() {
-	if erased_history=`awk '!x[$0]++' "$HISTFILE" 2>&-`; then
+erase-history() {
+	if erased_history=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
 		echo "$erased_history" > "$HISTFILE"
 	fi
 }
@@ -166,7 +166,7 @@ outfind() {
 }
 
 # long (to print).
-print_unix_classes() {
+print-unix-classes() {
 	cat <<- \EOF
 		--------------------------------------------------------------------------------------
 		Classes
@@ -191,7 +191,7 @@ print_unix_classes() {
 	EOF
 }
 
-print_array_expasion() {
+print-array-expasion() {
 	cat <<- \EOF
 		---------------------------------------------------------------------------------
 		${var[@]} ----------- Imprime todos os elementos do array em strings protegidas.
@@ -207,7 +207,7 @@ print_array_expasion() {
 	EOF
 }
 
-print_extglob_bash() {
+print-extglob-bash() {
 	cat <<- \EOF
 		------------------------------------------------------------------------
 		?(padrão) .....: Corresponde a uma ocorrência do padrão.
@@ -219,7 +219,7 @@ print_extglob_bash() {
 	EOF
 }
 
-print_extglob_zsh() {
+print-extglob-zsh() {
 	cat <<- \EOF
 		--------------------------------------------------
 		^foobar ........: Nega o padrão.
@@ -231,7 +231,7 @@ print_extglob_zsh() {
 	EOF
 }
 
-print_unix_signals() {
+print-unix-signals() {
 	cat <<- \EOF
 		-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 		POSIX signals
@@ -254,15 +254,22 @@ print_unix_signals() {
 		-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	EOF
 }
-#
+
 # =============================================================================================
 
 # >>> history !
 
 # control variables.
-HISTCONTROL=ignoreboth
-HISTSIZE=7229
-HISTFILESIZE="$HISTSIZE"
+HISTCONTROL=ignoreboth:erasedups
+HISTSIZE=-1
+HISTFILESIZE=10000
+
+# =============================================================================================
+
+# >>> prompt !
+
+# after command.
+PROMPT_COMMAND='history -a'
 
 # =============================================================================================
 
