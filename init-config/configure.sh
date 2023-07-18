@@ -17,10 +17,10 @@
 #
 # >>> crontab
 #
-# - 0 * * * * export DISPLAY=:0; /usr/local/bin/pk/todo_notify 2>/tmp/cron_error.log
+# - 0 * * * * export DISPLAY=:0; /usr/local/bin/pk/tn 2>/tmp/cron_error.log
 # - */5 * * * * /usr/local/bin/duck >/tmp/duck.log 2>/tmp/cron_error.log
-# - */30 * * * * /usr/local/bin/pk/pick_bkp_file 2>/tmp/cron_error.log
-# - */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend_for_safety 2>/tmp/cron_error.log
+# - */30 * * * * /usr/local/bin/pk/gbf 2>/tmp/cron_error.log
+# - */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
 #
 # -------------------------------------------------------------------------------------------
 #
