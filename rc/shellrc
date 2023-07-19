@@ -194,7 +194,7 @@ NOTI_DEFAULT='banner slack telegram'
 
 # >>> ToDo List (SlackJeff) <<<
 
-TODO=$HOME/Documents/anotacoes/.todo_list.txt
+TODO=$HOME/Documents/annotations/.todo-list.txt
 
 rand() { RAND=0; while [ "${#RAND}" -lt 4 ]; do RAND=$(("$RANDOM"%10000)); done; }
 tlr() { sed -i "/${1:?need an id to remove!}/d" "$TODO"; clear; tla; }
