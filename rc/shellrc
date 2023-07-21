@@ -79,7 +79,6 @@ alias llt='ls --color=always -lhtcF'
 # Short.
 mkcd() { pathway="${1:?need a pathway to make and change to the directory!}"; mkdir -p "$pathway" && cd "$pathway"; pwd; }
 ts() { [ "-b" != "$1" ] && lang=en:pt-br || { lang=pt-br:en; shift 1; }; trans -b "$lang" "`eval 'rs "$*"'`"; }
-hlct() { cd /tmp/; highlight -O ansi --syntax $@; cd - >/dev/null; }
 ggcb() { git branch --show-current 2>&-; }
 insp() { eval "echo \${${1}}"; }
 psgp() { pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep --color=always -iE "$pattern" | head -n -1; }
@@ -100,6 +99,12 @@ lla() { route=$([ $# -eq 0 ] && pwd || echo "$1"); ls -lhAF --time-style=+%% --c
 TOKEN() {
 	from=${1:?need to inform the abbreviation where!}
 	toplip -d "$PK_LOAD_CFGBKP/enkrypted/.nekot_${from}.encrypted" | xclip -sel clip -rmlastnl
+}
+
+erase-history() {
+	if erased_history=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
+		echo "$erased_history" > "$HISTFILE"
+	fi
 }
 
 set-polybar-all() {
@@ -125,23 +130,6 @@ difftext() {
 	fi
 }
 
-twcm() {
-	mode=${1:?need a mode to set!}
-	file=${2:?need a file to create!}
-	[ -e "$file" ] && {
-		echo "`basename "$0"`: file already exists!"
-		return 1
-	} || {
-		touch "$file" && chmod -v "$mode" "$file"
-	}
-}
-
-erase-history() {
-	if erased_history=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
-		echo "$erased_history" > "$HISTFILE"
-	fi
-}
-
 mychecking() {
 	clear
 	ga "git status"
@@ -157,6 +145,30 @@ mychecking() {
 		-path '*/.vscode/extensions' -prune -o \
 		-path '*/others/programming' -prune \
 	\) -iname '*confli*'
+}
+
+twcm() {
+	mode=${1:?need a mode to set!}
+	file=${2:?need a file to create!}
+	[ -e "$file" ] && {
+		echo "`basename "$0"`: file already exists!"
+		return 1
+	} || {
+		touch "$file" && chmod -v "$mode" "$file"
+	}
+}
+
+hlct() {
+	cd /tmp/
+	if [ $# -eq 1 ]; then
+		highlight -O ansi "$1"
+	elif [ $# -eq 2 ]; then
+		highlight -O ansi --syntax $1 "$2"
+	else
+		echo 'hlct: error: need one or two args!'
+		exit 1
+	fi
+	cd - >/dev/null
 }
 
 outfind() {
