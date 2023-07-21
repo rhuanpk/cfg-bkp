@@ -143,7 +143,7 @@ mychecking() {
 		-path '*/.local/share/Trash' -prune -o \
 		-path '*/.steam/debian-installation' -prune -o \
 		-path '*/.vscode/extensions' -prune -o \
-		-path '*/others/programming' -prune \
+		-path '*/misc/programming' -prune \
 	\) -iname '*confli*'
 }
 
