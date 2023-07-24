@@ -162,9 +162,9 @@ twcm() {
 hlct() {
 	cd /tmp/
 	if [ $# -eq 1 ]; then
-		highlight -O ansi "$1"
+		highlight -O ansi "$OLDPWD/$1"
 	elif [ $# -eq 2 ]; then
-		highlight -O ansi --syntax $1 "$2"
+		highlight -O ansi --syntax $1 "$OLDPWD/$2"
 	else
 		echo 'hlct: error: need one or two args!'
 		exit 1
