@@ -161,7 +161,7 @@ twcm() {
 
 hlct() {
 	if [ $# -eq 1 ]; then
-		stmt=`realpath "$1"`
+		stmt="'`realpath "$1"`'"
 	elif [ $# -eq 2 ]; then
 		stmt="--syntax $1 '`realpath "$2"`'"
 	else
