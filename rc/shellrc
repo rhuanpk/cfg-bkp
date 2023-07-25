@@ -160,15 +160,16 @@ twcm() {
 }
 
 hlct() {
-	cd /tmp/
 	if [ $# -eq 1 ]; then
-		highlight -O ansi "$OLDPWD/$1"
+		stmt=`realpath "$1"`
 	elif [ $# -eq 2 ]; then
-		highlight -O ansi --syntax $1 "$OLDPWD/$2"
+		stmt="--syntax $1 '`realpath "$2"`'"
 	else
-		echo 'hlct: error: need one or two args!'
+		echo "$0: error: need one or two args!"
 		exit 1
 	fi
+	cd /tmp/
+	eval highlight -O ansi $stmt
 	cd - >/dev/null
 }
 
