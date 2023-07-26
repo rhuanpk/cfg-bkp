@@ -394,6 +394,11 @@ end-message() {
 }
 
 # ********** Início do Programa **********
+[ "${UID:-`id -u`}" -ne 0 ] && {
+	echo "\n\n${COLOR_RED}Execute o programa estando logado como root!$FORMAT_RESET"
+	exit 1
+}
+
 for folder in "${LIST_FOLDERS2CREATE[@]}"; do
 	[ ! -d "$folder" ] && mkdir -pv "$folder"
 done
