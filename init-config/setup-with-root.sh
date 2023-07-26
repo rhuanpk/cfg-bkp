@@ -63,7 +63,7 @@ LOG_ERROR="`mktemp /tmp/init_config_error_XXXXXXX.log`"
 # Variáveis de caminhos.
 PATH_LOCALBIN='/usr/local/bin'
 PATH_AUTOSTART="$home/.config/autostart"
-PATH_GIT="$home/Documents/me/git"
+PATH_GIT="$home/Documents/git/me"
 
 # Variáveis de nomes.
 NAME_CFGBKP='cfg-bkp'
