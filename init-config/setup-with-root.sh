@@ -53,7 +53,8 @@
 
 # ********** Declaração de Variáveis **********
 # Variáveis principais.
-home="/home/`id -un 1000`"
+user=`id -un 1000`
+home="/home/$user"
 
 # Variáveis de logs.
 LOG_HIT="`mktemp /tmp/init_config_hit_XXXXXXX.log`"
@@ -118,9 +119,9 @@ MESSAGE_BANNER='
 # Processo de pré instalação: atualização do sistema e instalação dos pacotes via `apt`.
 pre-install() {
 	default-action
-	sudo mkdir -v '/usr/local/bin/pk/'
-	sudo apt update
-	sudo apt install \
+	mkdir -v '/usr/local/bin/pk/'
+	apt update
+	apt install \
 		                           \
 		polybar                    \
 		xorg                       \
@@ -180,14 +181,14 @@ pre-install() {
 # Clona os repositórios padrões e coloca-os no diretório padrão.
 git-clone-repos() {
 	default-action
-	action-repeater git clone "https://github.com/rhuanpk/$NAME_LINUX.git" "$PATH_GIT/$NAME_LINUX"
-	action-repeater git clone "https://github.com/rhuanpk/$NAME_CFGBKP.git" "$PATH_GIT/$NAME_CFGBKP"
+	action-repeater su "$user" -c \"git clone \'https://github.com/rhuanpk/$NAME_LINUX.git\' \'$PATH_GIT/$NAME_LINUX\'\"
+	action-repeater su "$user" -c \"git clone \'https://github.com/rhuanpk/$NAME_CFGBKP.git\' \'$PATH_GIT/$NAME_CFGBKP\'\"
 }
 
 # _Seta_ o arquivo de configuração de rede.
 set-network-file() {
 	default-action
-	sudo tee /etc/netplan/01-netcfg.yaml <<- EOF
+	tee /etc/netplan/01-netcfg.yaml <<- EOF
 		# Made by "init-config" script.
 		network:
 		  version: 2
@@ -198,13 +199,13 @@ set-network-file() {
 # _Seta_ o _path_ para o _scripts_ pessoais.
 set-personal-path() {
 	default-action
-	sudo sed -i 's~/usr/local/bin:~&/usr/local/bin/pk:~' /etc/environment
+	sed -i 's~/usr/local/bin:~&/usr/local/bin/pk:~' /etc/environment
 }
 
 # _Seta_ as variáveis de ambiente _Qt_ e _PK\_LOAD_.
 set-environment-variables() {
 	default-action
-	sudo tee -a /etc/environment <<- EOF
+	tee -a /etc/environment <<- EOF
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
 		export PK_LOAD_CFGBKP=null
@@ -216,56 +217,58 @@ set-environment-variables() {
 # _Seta_ o arquivo de **autostart** e o _script_ dos programas dele.
 set-autostart-programs() {
 	default-action
-	sudo tee "$PATH_LOCALBIN/autostart-programs" <<- \EOF
+	tee "$PATH_LOCALBIN/autostart-programs" <<- \EOF
 		#!/usr/bin/env bash
 
 		sleep 5; `which copyq` &
 		sleep 5; `which pcloud` &
 		sleep 5; noti-notify --start
 	EOF
-	sudo chmod +x "$PATH_LOCALBIN/autostart-programs"
-	cat <<- EOF > "$PATH_AUTOSTART/autostart-programs.desktop"
-		[Desktop Entry]
-		Type=Application
-		Name=AutoStart Programs
-		Exec=/usr/local/bin/autostart-programs
-		StartupNotify=false
-		Terminal=false
+	chmod +x "$PATH_LOCALBIN/autostart-programs"
+	su "$user" <<- EOF
+		cat <<- eof > "$PATH_AUTOSTART/autostart-programs.desktop"
+			[Desktop Entry]
+			Type=Application
+			Name=AutoStart Programs
+			Exec=/usr/local/bin/autostart-programs
+			StartupNotify=false
+			Terminal=false
+		eof
 	EOF
 }
 
 # _Seta_ o novo **swapfile**.
 set-swapfile() {
 	default-action
-	sudo swapoff '/swapfile'
-	sudo rm '/swapfile'
-	sudo fallocate -l 4G '/swapfile'
-	sudo chmod 600 '/swapfile'
-	sudo mkswap '/swapfile'
-	sudo swapon '/swapfile'
+	swapoff '/swapfile'
+	rm '/swapfile'
+	fallocate -l 4G '/swapfile'
+	chmod 600 '/swapfile'
+	mkswap '/swapfile'
+	swapon '/swapfile'
 }
 
 # _Seta_ os _symlinks_ necessários.
 set-configurations() {
-	"$PATH_GIT/$NAME_CFGBKP/polybar/symlink-create.sh"
-	"$PATH_GIT/$NAME_CFGBKP/swappiness/configure.sh"
-	"$PATH_GIT/$NAME_CFGBKP/rofi/symlink-create.sh"
-	"$PATH_GIT/$NAME_CFGBKP/setload/configure.sh"
-	"$PATH_GIT/$NAME_CFGBKP/i3/symlink-create.sh"
-	"$PATH_GIT/$NAME_CFGBKP/rc/symlink-create.sh"
-	"$PATH_GIT/$NAME_LINUX/scripts/move2symlink.sh"
+	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/polybar/symlink-create.sh'"
+	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/swappiness/configure.sh'"
+	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/rofi/symlink-create.sh'"
+	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/setload/configure.sh'"
+	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/i3/symlink-create.sh'"
+	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/rc/symlink-create.sh'"
+	su "$user" -c "'$PATH_GIT/$NAME_LINUX/scripts/move2symlink.sh'"
 }
 
 # Instala os programas pré compilados.
 install-portables() {
 	# toplip
 	default-action
-	{ action-repeater sudo curl -fsSLo $PATH_LOCALBIN/toplip 'https://2ton.com.au/standalone_binaries/toplip'; } \
-	&& sudo chmod +x $PATH_LOCALBIN/toplip
+	{ action-repeater curl -fsSLo $PATH_LOCALBIN/toplip 'https://2ton.com.au/standalone_binaries/toplip'; } \
+	&& chmod +x $PATH_LOCALBIN/toplip
 	# mdr
 	default-action
-	{ action-repeater sudo curl -fsSLo $PATH_LOCALBIN/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64'; } \
-	&& sudo chmod +x $PATH_LOCALBIN/mdr
+	{ action-repeater curl -fsSLo $PATH_LOCALBIN/mdr 'https://github.com/MichaelMure/mdr/releases/latest/download/mdr_linux_amd64'; } \
+	&& chmod +x $PATH_LOCALBIN/mdr
 }
 
 # Instala os programas _.deb_.
@@ -273,14 +276,14 @@ install-programs() {
 	# goole-chrome
 	default-action
 	action-repeater wget -O './google-chrome_tmp.deb' 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb'
-	sudo dpkg -i './google-chrome_tmp.deb'
-	sudo apt install -fy
+	dpkg -i './google-chrome_tmp.deb'
+	apt install -fy
 	# vscode
 	default-action
-	action-repeater wget -O - 'https://packages.microsoft.com/keys/microsoft.asc' | sudo gpg --dearmor -o '/etc/apt/trusted.gpg.d/vscode.gpg'
-	echo "deb [arch=`dpkg --print-architecture`] https://packages.microsoft.com/repos/code stable main" | sudo tee '/etc/apt/sources.list.d/vscode.list' >/dev/null
-	sudo apt update; sudo apt install -y apt-transport-https code
-	sudo apt install -fy
+	action-repeater wget -O - 'https://packages.microsoft.com/keys/microsoft.asc' | gpg --dearmor -o '/etc/apt/trusted.gpg.d/vscode.gpg'
+	echo "deb [arch=`dpkg --print-architecture`] https://packages.microsoft.com/repos/code stable main" | tee '/etc/apt/sources.list.d/vscode.list' >/dev/null
+	apt update; apt install -y apt-transport-https code
+	apt install -fy
 
 }
 
@@ -289,25 +292,25 @@ compile-programs() {
 	# grive
 	grive=grive
 	default-action
-	sudo apt install -y git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config
+	apt install -y git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config
 	mkdir "./$grive/" && cd "./$grive/"
 	action-repeater git clone 'https://github.com/vitalif/grive2' "$grive"
 	cd "./$grive/"
-	sudo dpkg-buildpackage -j`processors2use` --no-sign
+	dpkg-buildpackage -j`processors2use` --no-sign
 	cd ../
-	sudo dpkg --install ./*.deb
+	dpkg --install ./*.deb
 	cd ../
 	# colorpicker
 	default-action
-	sudo apt install -y libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev
+	apt install -y libgtk2.0-dev libgdk3.0-cil-dev libx11-dev libxcomposite-dev libxfixes-dev
 	action-repeater git clone 'https://github.com/Jack12816/colorpicker.git'
 	cd './colorpicker/'
-	sudo make -j`processors2use`
-	sudo mv './colorpicker' "$PATH_LOCALBIN/"
+	make -j`processors2use`
+	mv './colorpicker' "$PATH_LOCALBIN/"
 	cd ../
 	# i3lock-color
 	default-action
-	sudo apt install -y autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
+	apt install -y autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
 	action-repeater git clone 'https://github.com/Raymo111/i3lock-color.git'
 	cd './i3lock-color/'
 	./install-i3lock-color.sh
@@ -317,21 +320,21 @@ compile-programs() {
 # Desabilita os serviços desnecessários.
 disable-services() {
 	default-action
-	sudo systemctl disable NetworkManager-wait-online.service
+	systemctl disable NetworkManager-wait-online.service
 }
 
 # Processo pós instalação: faz a atualização completa do sistema.
 post-install() {
 	default-action
 	PATH=`sed -nE 's/PATH="(.*)"/\1/p' /etc/environment`
-	sudo cp -v "$PATH_GIT/$NAME_LINUX/scripts/.private/setload.sh" "$PATH_LOCALBIN/setload"
-	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
-	pleno
-	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
+	cp -v "$PATH_GIT/$NAME_LINUX/scripts/.private/setload.sh" "$PATH_LOCALBIN/setload"
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | debconf-set-selections
+	full
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | debconf-set-selections
 }
 
 # Executa ações padrões antes de executar cada ação.
-default-action() { cd '/tmp/'; sudo -v; }
+default-action() { cd '/tmp/'; }
 
 # Executa a ação passada por uma quantidade de vezes pré definida por questões de conexão (timeout?).
 action-repeater() {
@@ -346,15 +349,6 @@ action-repeater() {
 processors2use() {
 	processors=`nproc`
 	[ "$processors" -le 1 ] && echo 1 || echo $(("$processors"-1))
-}
-
-# Primeira parte do programa para validar a senha do usuário.
-sudo-validate() {
-	read -rsp 'Entre com a senha do usuário [sudo]: ' password
-	if ! echo "$password" | sudo -Sv &>/dev/null; then
-		echo -e "\n\n${COLOR_RED}Error: senha do usuário [sudo] incorreta!$FORMAT_RESET\n"
-		exit 1
-	fi
 }
 
 # _Printa_ o _banner_ do _script_.
@@ -400,8 +394,6 @@ end-message() {
 }
 
 # ********** Início do Programa **********
-clear; print-banner; sudo-validate
-
 for folder in "${LIST_FOLDERS2CREATE[@]}"; do
 	[ ! -d "$folder" ] && mkdir -pv "$folder"
 done
