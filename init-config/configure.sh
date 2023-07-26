@@ -171,7 +171,8 @@ pre-install() {
 		qt5-style-plugins          \
 		                           \
 		lsb-release                \
-		software-properties-common \
+		man                        \
+		bash-completion            \
 		                           \
 	-y
 }
