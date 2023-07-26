@@ -395,7 +395,7 @@ end-message() {
 
 # ********** Início do Programa **********
 [ "${UID:-`id -u`}" -ne 0 ] && {
-	echo -e "\n\n${COLOR_RED}Execute o programa estando logado como root!$FORMAT_RESET"
+	echo -e "\n${COLOR_RED}Execute o programa estando logado como root!$FORMAT_RESET\n"
 	exit 1
 }
 
