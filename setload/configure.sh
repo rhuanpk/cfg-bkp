@@ -11,9 +11,16 @@
 # 4. definir o `source` nos `*rc`'s.
 # 	- `source $PK_LOAD_LINUX`.
 
-script=${0}
+script=`basename "$0"`
+prefix='sudo'
 
-sudo tee /etc/systemd/system/setload.service <<- eof
+while getopts 'w' option; do
+        [ "$option" = 'w' ] && unset prefix
+done
+
+shift $(($OPTIND-1))
+
+$prefix tee /etc/systemd/system/setload.service <<- eof
 	[Unit]
 	Description=Load standard environment variables!
 
@@ -30,7 +37,7 @@ eof
 } || {
 	echo "${script}: Success on create systemd unit file!"
 }
-if ! sudo systemctl enable setload.service; then
+if ! $prefix systemctl enable setload.service; then
 	echo "${script}: Error on enabling service!"
 	exit 1
 else

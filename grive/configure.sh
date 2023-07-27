@@ -3,6 +3,13 @@
 script=${0}
 home=${HOME:-"/home/${USER:-$(whoami)}"}
 folder=${home}/googleDrive
+prefix='sudo'
+
+while getopts 'w' option; do
+	[ "$option" = 'w' ] && unset prefix
+done
+
+shift $(($OPTIND-1))
 
 [ ! -d $folder ] && { mkdir -pv $folder; cd $folder; } || { echo 'Folder already exists?? :/'; exit 1; }
 if ! grive -a; then
@@ -12,7 +19,7 @@ if ! grive -a; then
 else
 	echo "${script}: Success in grive configuration!"
 fi
-sudo tee /etc/systemd/system/grive.service <<- eof
+$prefix tee /etc/systemd/system/grive.service <<- eof
 	[Unit]
 	Description=CLI synchronizer service for GoogleDrive!
 
@@ -26,7 +33,7 @@ sudo tee /etc/systemd/system/grive.service <<- eof
 	[Install]
 	WantedBy=multi-user.target
 eof
-if ! sudo systemctl enable grive.service; then
+if ! $prefix systemctl enable grive.service; then
 	echo "${script}: Error on enabling service!"
 	rm -rfv $folder
 	exit 1
