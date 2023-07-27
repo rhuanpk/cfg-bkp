@@ -7,6 +7,7 @@
 # >>> Configuração manual !
 #
 # - pcloud;
+# - grive2;
 # - oh-my-zsh;
 # - gtk;
 # - qt5ct;
@@ -21,27 +22,6 @@
 # - */5 * * * * /usr/local/bin/duck >/tmp/duck.log 2>/tmp/cron_error.log
 # - */30 * * * * /usr/local/bin/pk/gbf 2>/tmp/cron_error.log
 # - */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
-#
-# -------------------------------------------------------------------------------------------
-#
-# >>> Shell rc's !
-#
-# >>> My default configs <<<
-#
-# - bash: shopt -s histappend extglob checkwinsize
-# - zsh: setopt extendedglob; # extended glob
-#
-# - bash: PS1='\[\033[31m\]\$ \[\033[00m\]'
-#
-# - unalias -a
-# - . $PK_LOAD_CFGBKP/rc/shellrc
-#
-# - cat ~/.cache/current-palette 2>&-
-# - feh --bg-scale ~/Pictures/wallpaper/wallpaper.png 2>&-
-#
-# - trap erease_history EXIT
-#
-# >>>>>>>>>>>>><<<<<<<<<<<<<
 #
 # ---------------------------------------------------------------
 #
