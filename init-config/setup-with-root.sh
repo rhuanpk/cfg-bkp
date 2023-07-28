@@ -68,12 +68,10 @@ LIST_FOLDERS2CREATE=( \
 LIST_COMMANDS=(
 	'autostart-programs' \
 	'toplip' \
-	'yt-dlp' \
 	'mdr' \
 	'google-chrome' \
 	'code' \
 	'colorpicker' \
-	'wdiff' \
 	'grive' \
 	'setload'\
 )
@@ -268,7 +266,7 @@ install-programs() {
 
 # Compila os programas que são disponibilizados apenas nesse formato.
 compile-programs() {
-	# grive
+	# grive2
 	grive=grive
 	default-action
 	apt install -y git cmake build-essential libgcrypt20-dev libyajl-dev libboost-all-dev libcurl4-openssl-dev libexpat1-dev libcppunit-dev binutils-dev debhelper zlib1g-dev dpkg-dev pkg-config
