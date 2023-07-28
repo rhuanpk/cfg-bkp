@@ -371,8 +371,7 @@ end-message() {
 		echo 'Processos que falharam:'
 		for index in `seq 0 $(($COUNT_ERRORS-1))`; do
 			echo -e "\t- ${FAILED_PROCESSES[$index]}"
-		done
-		echo
+		done; echo
 	}
 }
 
