@@ -1,28 +1,29 @@
 #!/usr/bin/env bash
 
-home=${HOME:-"/home/${USER:-$(whoami)}"}
-git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
-final_path=${PK_LOAD_CFGBKP:-$(wget -qO - $git_url | bash - 2>&- | grep -F cfg-bkp)}/rofi
-prefix='sudo'
+user="`id -un 1000`"
+home="/home/$user"
+URL_SETLOAD='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
+PATH_FINAL=${PK_LOAD_CFGBKP:-`wget -qO - "$URL_SETLOAD" | bash - 2>&- | grep 'cfg-bkp'`}/rofi
+SUDO='sudo'
 
-while getopts 'w' option; do
-        [ "$option" = 'w' ] && unset prefix
-done
+ROFI_CONFIG_PATH="$home/.config/rofi"
+ROFI_CONFIG_FILE="$PATH_FINAL/config.rasi"
+ROFI_CONFIG_FILE_OLD="$ROFI_CONFIG_PATH/config.rasi"
+ROFI_THEME_PATH='/usr/share/rofi/themes'
 
-shift $(($OPTIND-1))
-
-rofi_config_path="${home}/.config/rofi"
-rofi_config_file="${final_path}/config.rasi"
-rofi_config_file_old="${rofi_config_path}/config.rasi"
-rofi_theme_path=/usr/share/rofi/themes/
-
-symlink_create() {
-	[ -e ${rofi_config_file_old} ] && rm -fv ${rofi_config_file_old}
-	ln -sfv ${rofi_config_file} ${rofi_config_path}
-	$prefix ln -sfv ${final_path}/my-dmenu.rasi ${rofi_theme_path}
+symlink-create() {
+	[ -e "$ROFI_CONFIG_FILE_OLD" ] && rm -fv "$ROFI_CONFIG_FILE_OLD"
+	eval "${PREFIX:+$PREFIX "'"} ln -sfv '$ROFI_CONFIG_FILE' '$ROFI_CONFIG_PATH/' ${PREFIX:+"'"}"
+	$SUDO ln -sfv "$PATH_FINAL/my-dmenu.rasi" "$ROFI_THEME_PATH/"
 }
 
-[ ! -d ${rofi_config_path} ] && {
-	mkdir -pv ${rofi_config_path}
-	symlink_create
-} || symlink_create
+[ '-w' = "$1" ] && {
+	PREFIX="su $user -c --"
+	unset SUDO
+	shift
+}
+
+[ ! -d "$ROFI_CONFIG_PATH/" ] && {
+	eval "${PREFIX:+$PREFIX "'"} mkdir -pv '$ROFI_CONFIG_PATH/' ${PREFIX:+"'"}"
+	symlink-create
+} || symlink-create

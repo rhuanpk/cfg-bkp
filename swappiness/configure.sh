@@ -2,15 +2,15 @@
 #!/usr/bin/env bash
 
 script=$(basename "${0}")
-prefix='sudo'
+sudo='sudo'
 
 while getopts 'w' option; do
-        [ "$option" = 'w' ] && unset prefix
+        [ "$option" = 'w' ] && unset sudo
 done
 
 shift $(($OPTIND-1))
 
-$prefix tee /etc/systemd/system/swappiness.service <<- eof
+$sudo tee /etc/systemd/system/swappiness.service <<- eof
 	[Unit]
 	Description=Set vm.swappiness to 10!
 
@@ -22,7 +22,7 @@ $prefix tee /etc/systemd/system/swappiness.service <<- eof
 	[Install]
 	WantedBy=multi-user.target
 eof
-if ! $prefix systemctl enable swappiness.service; then
+if ! $sudo systemctl enable swappiness.service; then
 	echo "${script}: Error on enabling service!"
 	exit 1
 else

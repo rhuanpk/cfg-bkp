@@ -12,15 +12,15 @@
 # 	- `source $PK_LOAD_LINUX`.
 
 script=`basename "$0"`
-prefix='sudo'
+sudo='sudo'
 
 while getopts 'w' option; do
-        [ "$option" = 'w' ] && unset prefix
+        [ "$option" = 'w' ] && unset sudo
 done
 
 shift $(($OPTIND-1))
 
-$prefix tee /etc/systemd/system/setload.service <<- eof
+$sudo tee /etc/systemd/system/setload.service <<- eof
 	[Unit]
 	Description=Load standard environment variables!
 
@@ -37,7 +37,7 @@ eof
 } || {
 	echo "${script}: Success on create systemd unit file!"
 }
-if ! $prefix systemctl enable setload.service; then
+if ! $sudo systemctl enable setload.service; then
 	echo "${script}: Error on enabling service!"
 	exit 1
 else
