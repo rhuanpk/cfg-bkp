@@ -346,7 +346,7 @@ loading-message() {
 
 # _Printa_ a mensagem em branco para limpar a linha corrente.
 print-blank() {
-	local blank
+	unset blank
 	for _ in $(seq 1 `tput cols`); do
 		blank+=' '
 	done
