@@ -380,7 +380,7 @@ end-message() {
 }
 
 for folder in "${LIST_FOLDERS2CREATE[@]}"; do
-	[ ! -d "$folder" ] && mkdir -pv "$folder"
+	[ ! -d "$folder" ] && su "$user" -c "mkdir -pv '$folder'"
 done
 
 clear; print-banner
