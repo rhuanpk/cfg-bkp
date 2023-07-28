@@ -33,7 +33,7 @@
 
 # ********** Declaração de Variáveis **********
 # Variáveis principais.
-user=`id -un 1000`
+user="`id -un 1000`"
 home="/home/$user"
 
 # Variáveis de logs.
