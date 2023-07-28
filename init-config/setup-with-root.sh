@@ -59,6 +59,7 @@ LIST_DENIEDS=( \
 	'default-action' \
 	'action-repeater' \
 	'set-swapfile' \
+	'set-network-file' \
 )
 LIST_FOLDERS2CREATE=( \
 	"$PATH_GIT" \
@@ -228,13 +229,13 @@ set-swapfile() {
 
 # _Seta_ os _symlinks_ necessários.
 set-configurations() {
-	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/polybar/symlink-create.sh'"
-	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/swappiness/configure.sh' -w"
-	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/rofi/symlink-create.sh' -w"
-	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/setload/configure.sh' -w"
-	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/i3/symlink-create.sh'"
 	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/rc/symlink-create.sh'"
-	su "$user" -c "'$PATH_GIT/$NAME_LINUX/scripts/move2symlink.sh'"
+	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/i3/symlink-create.sh'"
+	su "$user" -c "'$PATH_GIT/$NAME_CFGBKP/polybar/symlink-create.sh'"
+	"$PATH_GIT/$NAME_CFGBKP/rofi/symlink-create.sh" -w
+	"$PATH_GIT/$NAME_CFGBKP/setload/configure.sh" -w
+	"$PATH_GIT/$NAME_CFGBKP/swappiness/configure.sh" -w
+	"$PATH_GIT/$NAME_LINUX/scripts/move2symlink.sh" -w
 }
 
 # Instala os programas pré compilados.

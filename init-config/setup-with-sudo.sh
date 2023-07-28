@@ -58,6 +58,7 @@ LIST_DENIEDS=( \
 	'default-action' \
 	'action-repeater' \
 	'set-swapfile' \
+	'set-network-file' \
 )
 LIST_FOLDERS2CREATE=( \
 	"$PATH_GIT" \
