@@ -175,7 +175,11 @@ set-network-file() {
 # _Seta_ o _path_ para o _scripts_ pessoais.
 set-personal-path() {
 	default-action
-	sudo sed -i 's~/usr/local/bin:~&/usr/local/bin/pk:~' /etc/environment
+	[ ! -s '/etc/environment' ] && {
+		sudo tee '/etc/environment' <<- EOF
+			PATH="/usr/bin:/usr/local/bin:/usr/local/bin/pk"
+		EOF
+	} || sudo sed -i 's~/usr/local/bin:~&/usr/local/bin/pk:~' /etc/environment
 }
 
 # _Seta_ as variáveis de ambiente _Qt_ e _PK\_LOAD_.
