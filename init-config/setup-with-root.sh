@@ -310,7 +310,7 @@ post-install() {
 	PATH=`sed -nE 's/PATH="(.*)"/\1/p' /etc/environment`
 	cp -v "$PATH_GIT/$NAME_LINUX/scripts/.private/setload.sh" "$PATH_LOCALBIN/setload"
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | debconf-set-selections
-	full
+	full -w
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | debconf-set-selections
 }
 
