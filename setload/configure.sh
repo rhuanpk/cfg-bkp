@@ -26,7 +26,7 @@ $sudo tee /etc/systemd/system/setload.service <<- eof
 
 	[Service]
 	WorkingDirectory=/tmp
-	ExecStart=setload
+	ExecStart=setload ${sudo:--w}
 
 	[Install]
 	WantedBy=multi-user.target
