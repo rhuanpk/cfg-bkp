@@ -61,8 +61,10 @@ LIST_DENIEDS=( \
 	'set-swapfile' \
 	'set-network-file' \
 )
-LIST_FOLDERS2CREATE=( \
+LIST_FOLDERS2CREATE_ROOT=( \
 	"$PATH_LOCALBIN/pk" \
+)
+LIST_FOLDERS2CREATE_USER=( \
 	"$PATH_AUTOSTART" \
 	"$PATH_GIT" \
 )
@@ -383,6 +385,9 @@ end-message() {
 # ********** Início do Programa **********
 clear; print-banner; sudo-validate
 
+for folder in "${LIST_FOLDERS2CREATE_ROOT[@]}"; do
+	[ ! -d "$folder" ] && sudo mkdir -pv "$folder/"
+done
 for folder in "${LIST_FOLDERS2CREATE[@]}"; do
 	[ ! -d "$folder" ] && mkdir -pv "$folder/"
 done
