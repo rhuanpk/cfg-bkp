@@ -190,9 +190,9 @@ set-environment-variables() {
 	tee -a /etc/environment <<- EOF
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
-		export PK_LOAD_CFGBKP=null
-		export PK_LOAD_LINUX=null
-		export PK_LOAD_PKUTILS=null
+		export PK_LOAD_CFGBKP=
+		export PK_LOAD_LINUX=
+		export PK_LOAD_PKUTILS=
 	EOF
 }
 
