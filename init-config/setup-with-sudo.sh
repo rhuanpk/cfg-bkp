@@ -57,6 +57,7 @@ LIST_DENIEDS=( \
 	'end-message' \
 	'default-action' \
 	'action-repeater' \
+	'processors2use' \
 	'set-swapfile' \
 	'set-network-file' \
 )
