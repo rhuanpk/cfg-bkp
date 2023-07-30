@@ -61,8 +61,9 @@ LIST_DENIEDS=( \
 	'set-network-file' \
 )
 LIST_FOLDERS2CREATE=( \
-	"$PATH_GIT" \
+	"$PATH_LOCALBIN" \
 	"$PATH_AUTOSTART" \
+	"$PATH_GIT" \
 )
 LIST_COMMANDS=(
 	'autostart-programs' \
@@ -97,7 +98,6 @@ MESSAGE_BANNER='
 # Processo de pré instalação: atualização do sistema e instalação dos pacotes via `apt`.
 pre-install() {
 	default-action
-	sudo mkdir -v '/usr/local/bin/pk/'
 	sudo apt update
 	sudo apt install \
 		                           \
