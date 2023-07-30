@@ -63,7 +63,7 @@ LIST_DENIEDS=( \
 	'set-network-file' \
 )
 LIST_FOLDERS2CREATE=( \
-	"$PATH_LOCALBIN" \
+	"$PATH_LOCALBIN/pk" \
 	"$PATH_AUTOSTART" \
 	"$PATH_GIT" \
 )
@@ -381,7 +381,7 @@ end-message() {
 }
 
 for folder in "${LIST_FOLDERS2CREATE[@]}"; do
-	[ ! -d "$folder" ] && su "$user" -c "mkdir -pv '$folder'"
+	[ ! -d "$folder" ] && su "$user" -c "mkdir -pv '$folder/'"
 done
 
 clear; print-banner

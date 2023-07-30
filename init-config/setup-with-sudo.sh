@@ -62,7 +62,7 @@ LIST_DENIEDS=( \
 	'set-network-file' \
 )
 LIST_FOLDERS2CREATE=( \
-	"$PATH_LOCALBIN" \
+	"$PATH_LOCALBIN/pk" \
 	"$PATH_AUTOSTART" \
 	"$PATH_GIT" \
 )
@@ -384,7 +384,7 @@ end-message() {
 clear; print-banner; sudo-validate
 
 for folder in "${LIST_FOLDERS2CREATE[@]}"; do
-	[ ! -d "$folder" ] && mkdir -pv "$folder"
+	[ ! -d "$folder" ] && mkdir -pv "$folder/"
 done
 
 clear; print-banner
