@@ -385,7 +385,7 @@ for folder in "${LIST_FOLDERS2CREATE[@]}"; do
 done
 
 clear; print-banner
-for pfunction in pre-install $(echo `declare -F | awk '{print $3}' | sed -E '/(pre|post)-install/d'`) post-install; do
+for pfunction in pre-install set-personal-path $(echo `declare -F | awk '{print $3}' | sed -E '/((pre|post)-install)|set-personal-path/d'`) post-install; do
 	default-action
 	[[ ! "${LIST_DENIEDS[*]}" =~ "$pfunction" ]] && {
 		tee -a "$LOG_HIT" >>"$LOG_ERROR" <<- EOF
