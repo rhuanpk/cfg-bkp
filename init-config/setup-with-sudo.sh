@@ -387,7 +387,7 @@ clear; print-banner; sudo-validate
 for folder in "${LIST_FOLDERS2CREATE_ROOT[@]}"; do
 	[ ! -d "$folder" ] && sudo mkdir -pv "$folder/"
 done
-for folder in "${LIST_FOLDERS2CREATE[@]}"; do
+for folder in "${LIST_FOLDERS2CREATE_USER[@]}"; do
 	[ ! -d "$folder" ] && mkdir -pv "$folder/"
 done
 
