@@ -179,11 +179,7 @@ set-network-file() {
 # _Seta_ o _path_ para o _scripts_ pessoais.
 set-personal-path() {
 	default-action
-	[ ! -s '/etc/environment' ] && {
-		tee '/etc/environment' <<- EOF
-			PATH="/usr/bin:/usr/local/bin:/usr/local/bin/pk"
-		EOF
-	} || sed -i 's~/usr/local/bin:~&/usr/local/bin/pk:~' /etc/environment
+	echo -e "\nPATH+=':/usr/local/bin/pk'" >>"$home/.profile"
 }
 
 # _Seta_ as variáveis de ambiente _Qt_ e _PK\_LOAD_.
@@ -210,7 +206,7 @@ set-autostart-programs() {
 	EOF
 	chmod +x "$PATH_LOCALBIN/autostart-programs"
 	su "$user" <<- EOF
-		cat <<- eof > "$PATH_AUTOSTART/autostart-programs.desktop"
+		cat <<- eof >"$PATH_AUTOSTART/autostart-programs.desktop"
 			[Desktop Entry]
 			Type=Application
 			Name=AutoStart Programs

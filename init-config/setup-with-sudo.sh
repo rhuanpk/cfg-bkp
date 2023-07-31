@@ -178,11 +178,7 @@ set-network-file() {
 # _Seta_ o _path_ para o _scripts_ pessoais.
 set-personal-path() {
 	default-action
-	[ ! -s '/etc/environment' ] && {
-		sudo tee '/etc/environment' <<- EOF
-			PATH="/usr/bin:/usr/local/bin:/usr/local/bin/pk"
-		EOF
-	} || sudo sed -i 's~/usr/local/bin:~&/usr/local/bin/pk:~' /etc/environment
+	echo -e "\nPATH+=':/usr/local/bin/pk'" >> "$home/.profile"
 }
 
 # _Seta_ as variáveis de ambiente _Qt_ e _PK\_LOAD_.
@@ -208,7 +204,7 @@ set-autostart-programs() {
 		sleep 5; noti-notify --start
 	EOF
 	sudo chmod +x "$PATH_LOCALBIN/autostart-programs"
-	cat <<- EOF > "$PATH_AUTOSTART/autostart-programs.desktop"
+	cat <<- EOF >"$PATH_AUTOSTART/autostart-programs.desktop"
 		[Desktop Entry]
 		Type=Application
 		Name=AutoStart Programs
