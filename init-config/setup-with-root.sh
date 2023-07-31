@@ -309,7 +309,7 @@ disable-services() {
 # Processo pós instalação: faz a atualização completa do sistema.
 post-install() {
 	default-action
-	PATH=`sed -nE 's/PATH="(.*)"/\1/p' /etc/environment`
+	[ -r /etc/profile ] && . /etc/profile
 	cp -v "$PATH_GIT/$NAME_LINUX/scripts/.private/setload.sh" "$PATH_LOCALBIN/setload"
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | debconf-set-selections
 	full -w
