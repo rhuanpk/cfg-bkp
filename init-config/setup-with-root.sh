@@ -168,7 +168,7 @@ git-clone-repos() {
 # _Seta_ o arquivo de configuração de rede.
 set-network-file() {
 	default-action
-	tee /etc/netplan/01-netcfg.yaml <<- EOF
+	tee /etc/netplan/01-netcfg.yaml <<- \EOF
 		# Made by "init-config" script.
 		network:
 		  version: 2
@@ -179,13 +179,16 @@ set-network-file() {
 # _Seta_ o _path_ para o _scripts_ pessoais.
 set-personal-path() {
 	default-action
-	echo -e "\nPATH+=':/usr/local/bin/pk'" >>"$home/.profile"
+	tee '/etc/profile.d/init-config.sh' <<- \EOF
+		PATH+=":/usr/local/bin/pk"
+	EOF
+	#tee -a '/root/.profile' >>"$home/.profile" <<< $'\nPATH+=":/usr/local/bin/pk"'
 }
 
 # _Seta_ as variáveis de ambiente _Qt_ e _PK\_LOAD_.
 set-environment-variables() {
 	default-action
-	tee -a /etc/environment <<- EOF
+	tee -a /etc/environment <<- \EOF
 		export QT_QPA_PLATFORMTHEME=qt5ct
 		export QT_AUTO_SCREEN_SCALE_FACTOR=0
 		export PK_LOAD_CFGBKP=
