@@ -178,10 +178,10 @@ set-network-file() {
 # _Seta_ o _path_ para o _scripts_ pessoais.
 set-personal-path() {
 	default-action
-	tee '/etc/profile.d/init-config.sh' <<- \EOF
+	sudo tee '/etc/profile.d/init-config.sh' <<- \EOF
 		PATH+=":/usr/local/bin/pk"
 	EOF
-	#tee -a '/root/.profile' >>"$home/.profile" <<< $'\nPATH+=":/usr/local/bin/pk"'
+	#sudo tee -a '/root/.profile' >>"$home/.profile" <<< $'\nPATH+=":/usr/local/bin/pk"'
 }
 
 # _Seta_ as variáveis de ambiente _Qt_ e _PK\_LOAD_.
