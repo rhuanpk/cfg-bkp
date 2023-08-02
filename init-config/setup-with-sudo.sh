@@ -152,6 +152,7 @@ pre-install() {
 		vim-gtk3                   \
 		qt5-style-plugins          \
 		                           \
+		parallel                   \
 		lsb-release                \
 		                           \
 	-y
