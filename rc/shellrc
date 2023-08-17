@@ -86,7 +86,7 @@ psgp() { pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep 
 utilities() { cd /tmp/; highlight -O ansi "$PK_LOAD_LINUX/notes.md" | less -R; cd -; }
 calc() { /usr/bin/bc <<< "scale=${2:-2}; ${1:?nedd a expression to calculate!}"; }
 repeater() { for _ in `seq "$1"`; do eval "${@:2}"; done; }
-pick-alias() { alias "$1" | sed -nE "s/^.*'(.*)'$/\1/p"; }
+get-alias() { alias "$1" | sed -nE "s/^.*'(.*)'$/\1/p"; }
 diffstr() { if diff --color=always <(rs "$1") <(rs "$2"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 
 ll() { route=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhF --time-style=+%% --color=always "$route"; echo "count `ls -1 "$route" | wc -l`"; }
