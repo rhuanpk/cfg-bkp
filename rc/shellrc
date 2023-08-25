@@ -43,6 +43,7 @@ alias mkfld='mkdir -p ./dir_{1..2}/{a..c}/'
 alias mkfl='touch ./file-{1..4}.{new,tmp}'
 alias ips='ip -br -c address'
 alias sb='source ~/.bashrc'
+alias rms='shred -zuvn 10'
 alias intrr='echo "$?"'
 alias tmp='[ ! -d /tmp/tmp/ ] && { mkdir -pv /tmp/tmp/ && cd /tmp/tmp/; } || cd /tmp/tmp/'
 
