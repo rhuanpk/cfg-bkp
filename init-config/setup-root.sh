@@ -202,10 +202,12 @@ set-environment-variables() {
 set-autostart-programs() {
 	default-action
 	tee "$PATH_LOCALBIN/autostart-programs" <<- \EOF
-		#!/usr/bin/env bash
+		#!/usr/bin/env sh
 
+		sleep 5; `which flameshot` &
 		sleep 5; `which copyq` &
 		sleep 5; `which pcloud` &
+		#sleep 5; `which discord` &
 		sleep 5; noti-notify --start
 	EOF
 	chmod +x "$PATH_LOCALBIN/autostart-programs"
