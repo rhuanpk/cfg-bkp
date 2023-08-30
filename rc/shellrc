@@ -135,8 +135,15 @@ difftext() {
 
 mychecking() {
 	clear
-	ga "git status"
+	echo -e ">>> VERIFY FOR ROOT FILES!\n"
+	find ~/ -user '0'
+	echo -e "\n>>> VERIFY FOR .GIT FOLDERS!\n"
+	find ~/ -type d -name '.git'
+	echo -e "\n>>> GIT STATUS ALL!"
+	ga 'git status'
+	echo -e ">>> TREE IN HOME!\n"
 	tree -FL 2 ~
+	echo -e "\n>>> VERIFY FOR CONFLICT FILES!\n"
 	find ~/ -not \( \
 		-path '*/pCloudDrive' -prune -o \
 		-path '*/.config/Code/CachedData' -prune -o \
