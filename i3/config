@@ -242,12 +242,13 @@ client.focused_inactive #111111 #111111 #00ff84 #000000   #111111
 client.unfocused        #111111 #111111 #14754C #000000   #111111
 
 # set my bindings
-bindsym --release $mod_alt+y exec --no-startup-id kw
+bindsym --release $mod+Shift+b exec --no-startup-id plock
+bindsym --release $mod+Shift+s exec --no-startup-id suspend
+bindsym --release $mod_alt+Control+s exec --no-startup-id pws -s
+bindsym --release $mod_alt+Control+p exec --no-startup-id ph
 bindsym --release $mod_alt+k exec --no-startup-id sc2cb
 bindsym --release $mod_alt+s exec --no-startup-id pws
-bindsym --release $mod_alt+Control+s exec --no-startup-id pws -s
+bindsym --release $mod_alt+y exec --no-startup-id kw
 bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=250x30 --command=vc
 bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=250x30 --command=bc
 bindsym --release $mod_alt+p exec --no-startup-id terminator --borderless --geometry=250x30 --command=pc
-bindsym --release $mod+Shift+b exec --no-startup-id plock
-bindsym --release $mod+Shift+s exec --no-startup-id suspend
