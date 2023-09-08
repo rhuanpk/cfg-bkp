@@ -244,8 +244,9 @@ client.unfocused        #111111 #111111 #14754C #000000   #111111
 # set my bindings
 bindsym --release $mod+Shift+b exec --no-startup-id plock
 bindsym --release $mod+Shift+s exec --no-startup-id suspend
-bindsym --release $mod_alt+Control+s exec --no-startup-id pws -s
 bindsym --release $mod_alt+Control+p exec --no-startup-id ph
+bindsym --release $mod_alt+Control+s exec --no-startup-id pws -s
+bindsym --release $mod_alt+m exec --no-startup-id wpctl set-mute '@DEFAULT_AUDIO_SINK@' toggle
 bindsym --release $mod_alt+k exec --no-startup-id sc2cb
 bindsym --release $mod_alt+s exec --no-startup-id pws
 bindsym --release $mod_alt+y exec --no-startup-id kw
