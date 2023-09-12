@@ -22,19 +22,15 @@ alias cb="xclip -sel clip -rmlastnl"
 # Git.
 alias ggb='cat <(git branch --color=always --list)'
 alias ggr='git restore ./; git clean -f ./'
-alias ggl='git log --all --oneline --patch'
-alias ggg='git log --all --oneline --graph'
 alias ggd='cat <(git diff --color=always)'
 alias ggs='git status'
 alias ggp='git pull origin `git branch --show-current`; git fetch --tags'
 
-alias ggbf='cat <(git branch --color=always --all -vv)'
 alias ggra='ga "git restore ./"; ga "git clean -f ./"'
 alias ggba='cat <(git branch --color=always --all)'
 alias ggsa='ga "git status"'
-alias ggls='git log --all --oneline'
 alias ggpa='ga -g'
-alias gglt='git log --oneline origin/HEAD..`git branch --show-current`'
+alias ggbf='cat <(git branch --color=always --all -vv)'
 
 # Generals.
 alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
@@ -194,6 +190,31 @@ outfind() {
 	find / \( -path /proc -prune -o -path /sys -prune \) -o -iname "*${1}*" >"$tmp_find_path" 2>&- &
 	while (ps "$!" >/dev/null); do sleep 1; echo -ne "\rtime: ${f_time}s"; let ++f_time; done; echo ""
 	less "$tmp_find_path"
+}
+
+# =============================================================================================
+
+# >>> Advanced Git SetUp <<<
+
+alias ggg="git-pretty 'git log --all --graph' $1"
+alias ggl="git-pretty 'git log --all --patch' $1"
+alias ggls="git-pretty 'git log --all' $1"
+alias gglt="git-pretty 'git log origin/HEAD..`git branch --show-current`' $1"
+
+git-pretty() {
+	unset COMMAND FLAG ARG
+	COMMAND=${1:?need a command to execute}
+	FLAG=$2
+	LAST=${@: -1:1}
+	if [ "$FLAG" = '-fq' ]; then
+		ARG="--pretty=format:'%C(auto)%h%d %C(bold)%C(blue)\"%C(reset)%s%C(bold)%C(blue)\"%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'"
+	elif [ "$FLAG" = '-fh' ];then
+		ARG="--pretty=format:'%C(auto)%h%d %s %C(blue)-%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'"
+	else
+		ARG='--oneline'
+	fi
+	[[ "$LAST" =~ ^-[[:digit:]]+$ ]] && ARG+=" $LAST"
+	eval "$COMMAND $ARG"
 }
 
 # =============================================================================================
