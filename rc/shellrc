@@ -235,13 +235,6 @@ PROMPT_COMMAND='history -a'
 
 # =============================================================================================
 
-# >>> Misc Variables <<<
-
-# Noti channels.
-NOTI_DEFAULT='banner slack telegram'
-
-# =============================================================================================
-
 # >>> ToDo List (SlackJeff) <<<
 
 TODO=$HOME/Documents/annotations/.todo-list.txt
