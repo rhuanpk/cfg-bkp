@@ -199,7 +199,7 @@ outfind() {
 alias ggg="git-pretty 'git log --all --graph' $1"
 alias ggl="git-pretty 'git log --all --patch' $1"
 alias ggls="git-pretty 'git log --all' $1"
-alias gglt="git-pretty 'git log origin/HEAD..\`git branch --show-current\`' $1"
+alias gglt="git-pretty 'git log origin/HEAD^..\`git branch --show-current\`' $1"
 
 git-pretty() {
 	unset COMMAND FLAG ARG
