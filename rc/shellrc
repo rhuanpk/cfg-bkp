@@ -196,25 +196,21 @@ outfind() {
 
 # >>> Advanced Git SetUp <<<
 
-alias ggg="git-pretty 'git log --all --graph' $1"
-alias ggl="git-pretty 'git log --all --patch' $1"
-alias ggls="git-pretty 'git log --all' $1"
-alias gglt="git-pretty 'git log origin/HEAD..\`git branch --show-current\`' $1"
+alias ggg="git-pretty 'git log --all --oneline --graph' $@"
+alias ggl="git-pretty 'git log --all --oneline --patch' $@"
+alias ggls="git-pretty 'git log --all --oneline' $@"
+alias gglt="git-pretty 'git log --oneline origin/HEAD..\`git branch --show-current\`' $@"
 
 git-pretty() {
-	unset COMMAND FLAG ARG
 	COMMAND=${1:?need a command to execute}
-	FLAG=$2
-	LAST=${@: -1:1}
-	if [ "$FLAG" = '-fq' ]; then
-		ARG="--pretty=format:'%C(auto)%h%d %C(bold)%C(blue)\"%C(reset)%s%C(bold)%C(blue)\"%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'"
-	elif [ "$FLAG" = '-fh' ];then
-		ARG="--pretty=format:'%C(auto)%h%d %s %C(blue)-%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'"
-	else
-		ARG='--oneline'
+	ARGS=${@:2}
+	if [[ "$ARGS" =~ (-fq) ]]; then
+		ARGS=`sed "s/-fq/--pretty=format:'%C(auto)%h%d %C(bold)%C(blue)\"%C(reset)%s%C(bold)%C(blue)\"%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'/" <<< "$ARGS"`
+	elif [[ "$ARGS" =~ (-fh) ]];then
+		ARGS=`sed "s/-fh/--pretty=format:'%C(auto)%h%d %s %C(blue)-%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'/" <<< "$ARGS"`
 	fi
-	[[ "$LAST" =~ ^-[[:digit:]]+$ ]] && ARG+=" $LAST"
-	eval "$COMMAND $ARG"
+	eval "$COMMAND $ARGS"
+	unset COMMAND ARGS
 }
 
 # =============================================================================================
