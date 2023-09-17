@@ -52,16 +52,16 @@ docker-list-all() {
 # Golang.
 go-package-start() {
 	pathway=/tmp/tmp/golang
-	setup() {
-		mkdir -pv $pathway
-		cd $pathway
-		touch ./main.go
-		go mod init golang
-		go mod tidy
-		echo "pwd: `pwd`"
-	}
-	[ -d $pathway ] && {
-		rm -rfv ${pathway:?pathway no set!}/ \
-			&& setup
-	} || setup
+	[ -d $pathway ] && rm -rfv ${pathway:?pathway no set!}/
+	mkdir -pv $pathway
+	cd $pathway
+	cat <<- eof > ./main.go
+		package main
+
+		func main() {
+
+		}
+	eof
+	go mod init golang
+	echo "pwd: `pwd`"
 }
