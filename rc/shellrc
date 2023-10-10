@@ -24,13 +24,14 @@ alias ggb='cat <(git branch --color=always --list)'
 alias ggr='git restore ./; git clean -f ./'
 alias ggd='cat <(git diff --color=always)'
 alias ggs='git status'
-alias ggp='git pull origin `git branch --show-current`; git fetch --tags'
+alias ggp='git pull origin HEAD; git fetch --tags origin'
 
 alias ggra='ga "git restore ./"; ga "git clean -f ./"'
 alias ggba='cat <(git branch --color=always --all)'
 alias ggsa='ga "git status"'
 alias ggpa='ga -g'
 alias ggbf='cat <(git branch --color=always --all -vv)'
+alias ggrf='git restore --staged ./; git restore ./; git clean -f ./'
 
 # Generals.
 alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
@@ -76,7 +77,6 @@ alias llt='ls --color=always -lhtcF'
 # Short.
 mkcd() { pathway="${1:?need a pathway to make and change to the directory!}"; mkdir -p "$pathway" && cd "$pathway"; pwd; }
 ts() { [ "-b" != "$1" ] && lang=en:pt-br || { lang=pt-br:en; shift 1; }; trans -b "$lang" "`eval 'rs "$*"'`"; }
-ggcb() { git branch --show-current 2>&-; }
 insp() { eval "echo \${${1}}"; }
 psgp() { pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep --color=always -iE "$pattern" | head -n -1; }
 
@@ -199,7 +199,7 @@ outfind() {
 alias ggg="git-pretty 'git log --all --oneline --graph' $@"
 alias ggl="git-pretty 'git log --all --oneline --patch' $@"
 alias ggls="git-pretty 'git log --all --oneline' $@"
-alias gglt="git-pretty 'git log --oneline origin/HEAD..\`git branch --show-current\`' $@"
+alias gglt="git-pretty 'git log --oneline origin/HEAD..HEAD' $@"
 
 git-pretty() {
 	COMMAND=${1:?need a command to execute}
