@@ -13,7 +13,7 @@ set +o histexpand
 # >>> Standard Aliases <<<
 
 # Security.
-alias sudo='sudo -k'
+alias sudo='sudo -k '
 
 # First's.
 alias cbfull='xclip -sel clip'
