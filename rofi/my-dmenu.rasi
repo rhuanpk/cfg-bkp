@@ -34,7 +34,7 @@ element {
     padding: 0px 2px;
 }
 element selected {
-    background-color: #14754C;
+    background-color: #14636a;
 }
 
 element-text, element-icon {

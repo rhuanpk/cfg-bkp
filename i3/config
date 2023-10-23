@@ -237,9 +237,9 @@ bindsym $mod+Control+l resize shrink height 10 px or 10 ppt
 bindsym $mod+Control+ccedilla resize grow width 10 px or 10 ppt
 
 # alter colors of clients
-client.focused          #111111 #111111 #00ff84 #000000   #14754C
-client.focused_inactive #111111 #111111 #00ff84 #000000   #111111
-client.unfocused        #111111 #111111 #14754C #000000   #111111
+client.focused          #111111 #111111 #4eb3bd #000000 #0a3033
+client.focused_inactive #111111 #111111 #4eb3bd #000000 #111111
+client.unfocused        #111111 #111111 #336a6f #000000 #111111
 
 # set my bindings
 bindsym --release $mod+Shift+b exec --no-startup-id plock
