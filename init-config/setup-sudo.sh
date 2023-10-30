@@ -152,8 +152,9 @@ pre-install() {
 		vim-gtk3                   \
 		qt5-style-plugins          \
 		                           \
-		parallel                   \
 		lsb-release                \
+		parallel                   \
+		brightnessctl              \
 		                           \
 	-y
 }
@@ -314,6 +315,7 @@ post-install() {
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 	full
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
+	apt purge -y vim-tiny*
 }
 
 # Executa ações padrões antes de executar cada ação.
