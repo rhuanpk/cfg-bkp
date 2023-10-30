@@ -1,30 +1,14 @@
-
 #!/usr/bin/env bash
 
-script=$(basename "${0}")
+script=$(basename `readlink -f "$0"`)
 sudo='sudo'
 
 while getopts 'w' option; do
         [ "$option" = 'w' ] && unset sudo
 done
-
 shift $(($OPTIND-1))
 
-$sudo tee /etc/systemd/system/swappiness.service <<- eof
-	[Unit]
-	Description=Set vm.swappiness to 10!
-
-	[Service]
-	ExecStart=sysctl vm.swappiness=10
-	Restart=on-failure
-	RestartSec=30
-
-	[Install]
-	WantedBy=multi-user.target
+$sudo tee -a /etc/sysctl.d/99-sysctl.conf <<- \eof
+	vm.swappiness=1
+	vm.vfs_cache_pressure=50
 eof
-if ! $sudo systemctl enable swappiness.service; then
-	echo "${script}: Error on enabling service!"
-	exit 1
-else
-	echo "${script}: Success on enabling service!"
-fi
