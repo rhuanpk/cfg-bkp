@@ -315,7 +315,8 @@ post-install() {
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 	full
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
-	apt purge -y vim-tiny*
+	sudo apt purge -y vim-tiny*
+	sudo systemctl disable bluetooth
 }
 
 # Executa ações padrões antes de executar cada ação.
