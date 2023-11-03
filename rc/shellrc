@@ -51,7 +51,7 @@ alias external-ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 # Cli's.
 alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
 alias lsblkd='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
-alias dff='df --exclude-type=tmpfs --output=source,size,used,avail,pcent,target -h'
+alias dff='df -h --output=source,size,used,avail,pcent,target --exclude-type={tmpfs,efivarfs,devtmpfs}'
 
 # Standards.
 alias lls='ls --color=always -lhF'
