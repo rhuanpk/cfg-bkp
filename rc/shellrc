@@ -170,6 +170,13 @@ twcm() {
 	}
 }
 
+string-reverse() {
+	MESSAGE="${1?need a string to reverse}"
+	for index in `seq $(("${#MESSAGE}"-1)) -1 0`; do
+		echo -n "${MESSAGE:$index:1}"
+	done
+}
+
 hlct() {
 	if [ $# -eq 1 ]; then
 		stmt="'`realpath "$1"`'"
