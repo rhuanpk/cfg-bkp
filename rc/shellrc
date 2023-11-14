@@ -34,7 +34,7 @@ alias ggbf='cat <(git branch --color=always --all -vv)'
 alias ggrf='git restore --staged ./; git restore ./; git clean -f ./'
 
 # Generals.
-alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
+alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
 alias rmll='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias mkfld='mkdir -p ./dir_{1..2}/{a..c}/'
 alias mkfl='touch ./file-{1..4}.{new,tmp}'
@@ -42,7 +42,7 @@ alias ips='ip -br -c address'
 alias sb='source ~/.bashrc'
 alias rms='shred -zuvn 10'
 alias intrr='echo "$?"'
-alias tmp='[ ! -d /tmp/tmp/ ] && { mkdir -pv /tmp/tmp/ && cd /tmp/tmp/; } || cd /tmp/tmp/'
+alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
 
 alias default-montage='sudo mount -o rw,uid=`id -u`,gid=`id -g`'
 alias opened-doors='sudo lsof -nPi | grep -F LISTEN'
