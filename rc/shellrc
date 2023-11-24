@@ -24,7 +24,7 @@ alias ggb='cat <(git branch --color=always --list)'
 alias ggr='git restore ./; git clean -f ./'
 alias ggd='cat <(git diff --color=always)'
 alias ggs='git status'
-alias ggp='git pull origin HEAD; git fetch --tags origin'
+alias ggp='git pull origin `git branch --show-current`; git fetch --tags origin'
 
 alias ggra='ga "git restore ./"; ga "git clean -f ./"'
 alias ggba='cat <(git branch --color=always --all)'
