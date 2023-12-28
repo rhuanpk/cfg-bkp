@@ -214,7 +214,7 @@ default_border pixel
 for_window [all] floating enable
 
 # set polybar as default bar
-exec_always --no-startup-id polybar "my-bar"
+exec_always --no-startup-id polybar
 
 # set rofi as dmenu (program launcher)
 bindsym $mod+d exec --no-startup-id profi
