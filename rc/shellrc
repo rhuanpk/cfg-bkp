@@ -109,7 +109,7 @@ erase-history() {
 get-bindings() {
 	echo '>>> i3 bindings!'
 	sed -n '/my bindings/,$p' ~/.config/i3/config \
-	| sed -nE 's/^.*(\$mod[^[:blank:]]+).*--no-startup-id (.*)$/\1 » \2/p'
+	| sed -nE 's/^.*(\$mod[^[:blank:]]+).+\$bind_suffix (.*)$/\1 » \2/p'
 }
 
 set-polybar-all() {

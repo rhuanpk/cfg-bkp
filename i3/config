@@ -242,14 +242,21 @@ client.focused_inactive #111111 #111111 #4eb3bd #000000 #111111
 client.unfocused        #111111 #111111 #336a6f #000000 #111111
 
 # set my bindings
-bindsym --release $mod+Shift+b exec --no-startup-id plock
-bindsym --release $mod+Shift+s exec --no-startup-id suspend
-bindsym --release $mod_alt+Control+p exec --no-startup-id ph
-bindsym --release $mod_alt+Control+s exec --no-startup-id pws -s
-bindsym --release $mod_alt+m exec --no-startup-id wpctl set-mute '@DEFAULT_AUDIO_SINK@' toggle
-bindsym --release $mod_alt+k exec --no-startup-id sc2cb
-bindsym --release $mod_alt+s exec --no-startup-id pws
-bindsym --release $mod_alt+y exec --no-startup-id kw
-bindsym --release $mod_alt+v exec --no-startup-id terminator --borderless --geometry=250x30 --command=vc
-bindsym --release $mod_alt+b exec --no-startup-id terminator --borderless --geometry=250x30 --command=bc
-bindsym --release $mod_alt+p exec --no-startup-id terminator --borderless --geometry=250x30 --command=pc
+set $bind_suffix exec --no-startup-id
+set $volume      wpctl set-volume '@DEFAULT_AUDIO_SINK@'
+set $backlight   brightnessctl --quiet -d `brightnessctl -l | sed -nE "s/^Device '(.*)' .*backlight.*$/\1/p"` set
+
+bindsym --release $mod+Shift+b $bind_suffix plock
+bindsym --release $mod+Shift+s $bind_suffix suspend
+
+bindsym --release $mod_alt+k         $bind_suffix sc2cb
+bindsym --release $mod_alt+y         $bind_suffix kw
+bindsym --release $mod_alt+s         $bind_suffix pws
+bindsym --release $mod_alt+Control+s $bind_suffix pws -s
+bindsym --release $mod_alt+Control+p $bind_suffix ph
+
+bindsym $mod_alt+Control+Up    $bind_suffix $volume '.05+'
+bindsym $mod_alt+Control+Down  $bind_suffix $volume '.05-'
+bindsym $mod_alt+Control+Right $bind_suffix $backlight '+5%'
+bindsym $mod_alt+Control+Left  $bind_suffix $backlight '5%-'
+bindsym --release $mod_alt+m   $bind_suffix wpctl set-mute '@DEFAULT_AUDIO_SINK@' toggle
