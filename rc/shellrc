@@ -1,6 +1,6 @@
 # =============================================================================================
 
-# >>> My Default ~/.*rc Files <<<
+# >>> My Default Config For ~/.*rc Files <<<
 
 # Standard set's.
 set +o histexpand
@@ -13,7 +13,7 @@ set +o histexpand
 # >>> Standard Aliases <<<
 
 # Security.
-alias sudo='sudo -k '
+#alias sudo='sudo -k '
 
 # First's.
 alias cbfull='xclip -sel clip'
@@ -26,16 +26,15 @@ alias ggd='cat <(git diff --color=always)'
 alias ggs='git status'
 alias ggp='git pull origin `git branch --show-current`; git fetch --tags origin'
 
-alias ggra='ga "git restore ./"; ga "git clean -f ./"'
+alias ggbf='cat <(git branch --color=always --all -vv)'
 alias ggba='cat <(git branch --color=always --all)'
 alias ggsa='ga "git status"'
-alias ggpa='ga -g'
-alias ggbf='cat <(git branch --color=always --all -vv)'
 alias ggrf='git restore --staged ./; git restore ./; git clean -f ./'
 
 # Generals.
 alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
 alias rmll='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
+alias mktp='mktemp /tmp/XXXXXXXXXXXXXX.txt'
 alias mkfld='mkdir -p ./dir_{1..2}/{a..c}/'
 alias mkfl='touch ./file-{1..4}.{txt,tmp}'
 alias ips='ip -br -c address'
@@ -68,23 +67,22 @@ alias llt='ls --color=always -lhtcF'
 #alias ctzh='hlct bash ~/.zshrc'
 #alias vmbs='vim ~/.bashrc'
 #alias ctbs='hlct bash ~/.bashrc'
-#alias mktp='mktemp /tmp/XXXXXXXXXXXXXX.tmp'
+#alias ggra='ga "git restore ./"; ga "git clean -f ./"'
+#alias ggpa='ga -g'
 
 # =============================================================================================
 
 # >>> Functions <<<
 
 # Short.
-mkcd() { pathway="${1:?need a pathway to make and change to the directory!}"; mkdir -p "$pathway" && cd "$pathway"; pwd; }
 ts() { [ "-b" != "$1" ] && lang=en:pt-br || { lang=pt-br:en; shift 1; }; trans -b "$lang" "`eval 'rs "$*"'`"; }
-insp() { eval "echo \${${1}}"; }
+mkcd() { pathway="${1:?need a pathway to make and go}"; mkdir -pv "$pathway" && cd "$pathway"; pwd; }
 psgp() { pattern=${1:-need pattern to search!}; ps -xo pid,state,command | grep --color=always -iE "$pattern" | head -n -1; }
 
 diffstr() { if diff --color=always <(rs "$1") <(rs "$2"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 utilities() { cd /tmp/; highlight -O ansi "$PK_LOAD_LINUX/notes.md" | less -R; cd -; }
 calc() { /usr/bin/bc <<< "scale=${2:-2}; ${1:?nedd a expression to calculate!}"; }
 repeater() { for _ in `seq "$1"`; do eval "${@:2}"; done; }
-get-alias() { alias "$1" | sed -nE "s/^.*'(.*)'$/\1/p"; }
 calcr() { /usr/bin/bc <<< "scale=1; x=${1:?nedd a expression to calculate!}; if (x < 0) x-=.5 else x+=.5; scale=0; x/1"; }
 
 ll() { route=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhF --time-style=+%% --color=always "$route"; echo "count `ls -1 "$route" | wc -l`"; }
@@ -93,13 +91,10 @@ lla() { route=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhAF --time-style=+%% -
 # >>> Depreceated!
 #readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
 #ae() { [ -f "${1}" ] && echo 'file exists!' || echo 'file not exists!'; }
+#insp() { eval "echo \${${1}}"; }
+#get-alias() { alias "$1" | sed -nE "s/^.*'(.*)'$/\1/p"; }
 
 # Long.
-TOKEN() {
-	from=${1:?need to inform the abbreviation where!}
-	toplip -d "$PK_LOAD_CFGBKP/enkrypted/.nekot_${from}.encrypted" | xclip -sel clip -rmlastnl
-}
-
 erase-history() {
 	if erased_history=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
 		echo "$erased_history" > "$HISTFILE"
@@ -112,27 +107,17 @@ get-bindings() {
 	| sed -nE 's/^.*(\$mod[^[:blank:]]+).+\$bind_suffix (.*)$/\1 » \2/p'
 }
 
-set-polybar-all() {
-	{
-		echo -e $'#!/bin/bash\nMONITOR=MERGE-1 polybar my-bar' | \
-		tee /tmp/polybar.sh
-	} && \
-	chmod -v +x /tmp/polybar.sh && \
-	killall polybar && \
-	{
-		echo 'success on killall!'
-		sleep 3
-		nohup /tmp/polybar.sh &
-	} || \
-	echo 'failed on killall!'
-}
-
-difftext() {
-	if phrase=`wdiff <(rs "$1") <(rs "$2")`; then
-		echo -e "\e[1;32;40mNo differences ✔\e[m"
-	else
-		colordiff <<< "$phrase" | sed -E 's/\[-|-\]|\{\+|\+\}//g'
-	fi
+TOKEN() {
+	FROM="${1:?need to inform the abbreviation where!}"
+	read -sp 'Password: '
+	gpg \
+		--decrypt \
+		--quiet \
+		--batch \
+		--passphrase "$REPLY" \
+		"$PK_LOAD_CFGBKP/enkrypted/.nekot_$FROM.gpg" \
+	| xclip -selection clipboard -rmlastnl
+	unset REPLY; echo
 }
 
 mychecking() {
@@ -240,10 +225,10 @@ PROMPT_COMMAND='history -a'
 
 # >>> ToDo List (SlackJeff) <<<
 
-TODO=$HOME/Documents/annotations/.todo-list.txt
+TODO="$HOME/Documents/annotations/.todo-list.txt"
 
-rand() { RAND=0; while [ "${#RAND}" -lt 4 ]; do RAND=$(("$RANDOM"%10000)); done; }
+rand() { RAND='0'; while [ "${#RAND}" -lt '4' ]; do RAND="$(("$RANDOM"%10000))"; done; }
 tlr() { sed -i "/${1:?need an id to remove!}/d" "$TODO"; clear; tla; }
-tla() { rand; [ "$#" -eq 0 ] && cat "$TODO" || echo "(`hostname`) $RAND » $*" >> "$TODO"; }
+tla() { rand; [ "$#" -eq '0' ] && cat "$TODO" || echo "(`hostname`) $RAND » $*" >> "$TODO"; }
 
 # =============================================================================================
