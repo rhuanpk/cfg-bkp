@@ -122,15 +122,15 @@ TOKEN() {
 
 mychecking() {
 	clear
-	echo -e ">>> VERIFY FOR ROOT FILES!\n"
+	echo -e ">>> VERIFY FOR ROOT FILES!"
 	find ~/ -user '0'
-	echo -e "\n>>> VERIFY FOR .GIT FOLDERS!\n"
+	echo -e "\n>>> VERIFY FOR .GIT FOLDERS!"
 	find ~/ -type d -name '.git'
-	echo -e "\n>>> GIT STATUS ALL!"
+	echo -ne "\n>>> GIT STATUS ALL!"
 	ga 'git status'
-	echo -e ">>> TREE IN HOME!\n"
+	echo -e ">>> TREE IN HOME!"
 	tree -FL 2 ~
-	echo -e "\n>>> VERIFY FOR CONFLICT FILES!\n"
+	echo -e "\n>>> VERIFY FOR CONFLICT AND SWP FILES!"
 	find ~/ -not \( \
 		-path '*/pCloudDrive' -prune -o \
 		-path '*/.config/Code/CachedData' -prune -o \
@@ -141,7 +141,7 @@ mychecking() {
 		-path '*/.steam/debian-installation' -prune -o \
 		-path '*/.vscode/extensions' -prune -o \
 		-path '*/misc/programming' -prune \
-	\) -iname '*confli*'
+	\) \( -iname '*confli*' -o -name '*.swp' \)
 }
 
 twcm() {
