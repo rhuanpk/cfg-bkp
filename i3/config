@@ -255,8 +255,8 @@ bindsym --release $mod_alt+s         $bind_suffix pws
 bindsym --release $mod_alt+Control+s $bind_suffix pws -s
 bindsym --release $mod_alt+Control+p $bind_suffix ph
 
-bindsym $mod_alt+Control+Up    $bind_suffix $volume '.05+'
-bindsym $mod_alt+Control+Down  $bind_suffix $volume '.05-'
+bindsym $mod_alt+F1            $bind_suffix $volume '.05+'
+bindsym $mod_alt+F2            $bind_suffix $volume '.05-'
 bindsym $mod_alt+Control+Right $bind_suffix $backlight '+5%'
 bindsym $mod_alt+Control+Left  $bind_suffix $backlight '5%-'
 bindsym --release $mod_alt+m   $bind_suffix wpctl set-mute '@DEFAULT_AUDIO_SINK@' toggle
