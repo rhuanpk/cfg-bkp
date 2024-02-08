@@ -14,7 +14,7 @@ ROFI_THEME_PATH='/usr/share/rofi/themes'
 symlink-create() {
 	[ -e "$ROFI_CONFIG_FILE_OLD" ] && rm -fv "$ROFI_CONFIG_FILE_OLD"
 	eval "${PREFIX:+$PREFIX "'"} ln -sfv '$ROFI_CONFIG_FILE' '$ROFI_CONFIG_PATH/' ${PREFIX:+"'"}"
-	$SUDO ln -sfv "$PATH_FINAL/my-dmenu.rasi" "$ROFI_THEME_PATH/"
+	$SUDO ln -sfv "$PATH_FINAL/theme.rasi" "$ROFI_THEME_PATH/"
 }
 
 [ '-w' = "$1" ] && {
