@@ -127,6 +127,10 @@ mychecking() {
 		-path '*/.local/share/Trash' -prune -o \
 		-path '*/.steam/debian-installation' -prune -o \
 		-path '*/.vscode/extensions' -prune -o \
+		-path '*/8' -prune -o \
+		-path '*/16' -prune -o \
+		-path '*/22' -prune -o \
+		-path '*/24' -prune -o \
 		-path '*/misc/programming' -prune \
 	\) \( -iname '*confli*' -o -name '*.swp' \)
 }
