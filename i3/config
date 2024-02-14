@@ -249,7 +249,7 @@ set $backlight   brightnessctl --quiet -d `brightnessctl -l | sed -nE "s/^Device
 bindsym --release $mod+Shift+b $bind_suffix plock
 bindsym --release $mod+Shift+s $bind_suffix suspend
 
-bindsym --release $mod+Shift+p $bind_suffix killall polybar && polybar || polybar
+bindsym --release $mod+Shift+p $bind_suffix polybar-msg cmd restart
 
 bindsym --release $mod_alt+k         $bind_suffix sc2cb
 bindsym --release $mod_alt+y         $bind_suffix kw
