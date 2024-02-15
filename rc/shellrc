@@ -2,24 +2,24 @@
 
 # >>> My Default Config For ~/.*rc Files <<<
 
-# Standard set's.
+# Standard set's:
 set +o histexpand
 
-# Import user shellrc.
+# Import user shellrc:
 [ -f "$HOME/.config/shellrc" ] && . "$HOME/.config/shellrc"
 
 # =============================================================================================
 
 # >>> Standard Aliases <<<
 
-# Security.
+# Security:
 #alias sudo='sudo -k '
 
-# First's.
+# First's:
 alias cbfull='xclip -sel clip'
 alias cb="xclip -sel clip -rmlastnl"
 
-# Git.
+# Git:
 alias ggb='cat <(git branch --color=always --list)'
 alias ggr='git restore ./; git clean -f ./'
 alias ggd='cat <(git diff --color=always)'
@@ -31,12 +31,13 @@ alias ggba='cat <(git branch --color=always --all)'
 alias ggsa='ga "git status"'
 alias ggrf='git restore --staged ./; git restore ./; git clean -f ./'
 
-# Generals.
+# Generals:
 alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
 alias rmll='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias mktp='mktemp /tmp/XXXXXXXXXXXXXX.txt'
 alias mkfld='mkdir -p ./dir_{1..2}/{a..c}/'
 alias mkfl='touch ./file-{1..4}.{txt,tmp}'
+alias gpgp='gpg --pinentry-mode loopback'
 alias ips='ip -br -c address'
 alias sb='source ~/.bashrc'
 alias rms='shred -zuvn 10'
@@ -47,12 +48,12 @@ alias default-montage='sudo mount -o rw,uid=`id -u`,gid=`id -g`'
 alias opened-doors='sudo lsof -nPi | grep -F LISTEN'
 alias external-ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 
-# Cli's.
+# CLI's:
 alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
 alias lsblkd='lsblk --output=NAME,RO,RM,SIZE,MOUNTPOINTS'
 alias dff='df -h --output=source,size,used,avail,pcent,target --exclude-type={tmpfs,efivarfs,devtmpfs}'
 
-# Standards.
+# Standards:
 alias lls='ls --color=always -lhF'
 alias grep='grep --color=always'
 alias jq='jq -C'
@@ -74,7 +75,7 @@ alias llt='ls --color=always -lhtcF'
 
 # >>> Functions <<<
 
-# Short.
+# Short's:
 ts() { [ "-b" != "$1" ] && LANG=en:pt-br || { LANG=pt-br:en; shift 1; }; trans -b "$LANG" "`eval 'rs "$*"'`"; }
 mkcd() { PATHWAY="${1:?need a pathway to make and go}"; mkdir -pv "$PATHWAY" && cd "$PATHWAY"; pwd; }
 insp() { eval "echo \${${1}}"; }
@@ -94,7 +95,7 @@ lla() { ROUTE=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhAF --time-style=+%% -
 #ae() { [ -f "${1}" ] && echo 'file exists' || echo 'file not exists'; }
 #get-alias() { alias "$1" | sed -nE "s/^.*'(.*)'$/\1/p"; }
 
-# Long.
+# Long's:
 erase-history() {
 	if ERASED_HISTORY=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
 		echo "$ERASED_HISTORY" > "$HISTFILE"
@@ -220,7 +221,7 @@ git-pretty() {
 
 # >>> History <<<
 
-# Control variables.
+# Control variables:
 HISTCONTROL=ignoreboth:erasedups
 HISTSIZE=-1
 HISTFILESIZE=10000
@@ -229,12 +230,12 @@ HISTFILESIZE=10000
 
 # >>> Prompt <<<
 
-# After command.
+# After command:
 PROMPT_COMMAND='history -a'
 
 # =============================================================================================
 
-# >>> ToDo List (SlackJeff) <<<
+# >>> ToDo List (slackjeff) <<<
 
 TODO="$HOME/Documents/annotations/.todo-list.txt"
 
