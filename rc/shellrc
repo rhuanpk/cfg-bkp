@@ -188,6 +188,16 @@ hlct() {
 	cd - >/dev/null
 }
 
+reverse-string() {
+	STRING="${1:?needs a string to reverse}"
+	unset REVERSED
+	for index in `seq 1 "${#STRING}"`; do
+		REVERSED+="${STRING: -$index:1}"
+	done
+	tee '/dev/fd/2' <<< "$REVERSED" \
+	| xclip -sel 'clip' -rmlastnl
+}
+
 outfind() {
 	LOG_FILE='/tmp/outfind.log'
 	COUNT_TIME='1'
