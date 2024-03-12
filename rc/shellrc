@@ -36,8 +36,6 @@ alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
 alias gpgp='gpg --no-symkey-cache --pinentry-mode loopback'
 alias rmll='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias mktp='mktemp /tmp/XXXXXXXXXXXXXX.txt'
-alias mkfld='mkdir -p ./dir_{1..2}/{a..c}/'
-alias mkfl='touch ./file-{1..4}.{txt,tmp}'
 alias ips='ip -br -c address'
 alias sb='source ~/.bashrc'
 alias rms='shred -zuvn 10'
@@ -186,6 +184,14 @@ hlct() {
 	cd /tmp/
 	eval highlight -O ansi $STMT
 	cd - >/dev/null
+}
+
+mkfl() {
+	touch ./file-{1..4}.{txt,tmp}
+	for folder in ./dir-{1..2}/sub-{a..c}/; do
+		mkdir -p "$folder"
+		touch "$folder"/file-{1..2}.off
+	done
 }
 
 reverse-string() {
