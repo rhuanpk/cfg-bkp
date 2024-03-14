@@ -79,11 +79,12 @@ mkcd() { PATHWAY="${1:?need a pathway to make and go}"; mkdir -pv "$PATHWAY" && 
 insp() { eval "echo \${${1}}"; }
 psgp() { PATTERN=${1:-need pattern to search}; ps -xo pid,state,command | grep --color=always -iE "$PATTERN" | head -n -1; }
 
+calcr() { /usr/bin/bc <<< "scale=1; x=${1:?nedd a expression to calculate}; if (x < 0) x-=.5 else x+=.5; scale=0; x/1"; }
 diffstr() { if diff --color=always <(rs "$1") <(rs "$2"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 utilities() { cd /tmp/; highlight -O ansi "$PK_LOAD_LINUX/notes.md" | less -R; cd -; }
 calc() { /usr/bin/bc <<< "scale=${2:-2}; ${1:?nedd a expression to calculate}"; }
 repeater() { for _ in `seq "$1"`; do eval "${@:2}"; done; }
-calcr() { /usr/bin/bc <<< "scale=1; x=${1:?nedd a expression to calculate}; if (x < 0) x-=.5 else x+=.5; scale=0; x/1"; }
+calendar() { while IFS= read; do output="$(printf '%*s%s' "$(((`tput cols`-64)/2))" '' "$REPLY")"; echo "$output"; done <<< "`ncal -by`"; }
 
 ll() { ROUTE=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhF --time-style=+%% --color=always "$ROUTE"; echo "count `ls -1 "$ROUTE" | wc -l`"; }
 lla() { ROUTE=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhAF --time-style=+%% --color=always "$ROUTE"; echo "count `ls -A1 "$ROUTE" | wc -l`"; }
