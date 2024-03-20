@@ -5,6 +5,9 @@
 # Standard set's:
 set +o histexpand
 
+# Standard shopt's:
+shopt -s globstar
+
 # Import user shellrc:
 [ -f "$HOME/.config/shellrc" ] && . "$HOME/.config/shellrc"
 
