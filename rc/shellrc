@@ -34,8 +34,8 @@ alias ggba='cat <(git branch --color=always --all)'
 alias ggsa='ga "git status"'
 alias ggrf='git restore --staged ./; git restore ./; git clean -f ./'
 
-alias ggam='git add ./ && git commit --amend --no-edit && git push -f'
-alias ggna='git add ./ && git commit --amend && git push -f'
+alias ggan='git add ./ && git commit --amend --no-edit && git push -f'
+alias ggam='git add ./ && git commit --amend && git push -f'
 alias ggsy='git switch main && git fetch upstream HEAD && git merge FETCH_HEAD && git push'
 
 # Generals:
