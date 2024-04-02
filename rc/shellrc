@@ -81,20 +81,21 @@ alias llt='ls --color=always -lhtcF'
 # >>> Functions <<<
 
 # Short's:
-ts() { [ "-b" != "$1" ] && LANG=en:pt-br || { LANG=pt-br:en; shift 1; }; trans -b "$LANG" "`eval 'rs "$*"'`"; }
-mkcd() { PATHWAY="${1:?need a pathway to make and go}"; mkdir -pv "$PATHWAY" && cd "$PATHWAY"; pwd; }
+ts() { [ "-b" != "$1" ] && local LANG=en:pt-br || { local LANG=pt-br:en; shift 1; }; trans -b "$LANG" "`eval 'rs "$*"'`"; }
+mkcd() { local PATHWAY="${1:?need a pathway to make and go}"; mkdir -pv "$PATHWAY" && cd "$PATHWAY"; pwd; }
 insp() { eval "echo \${${1}}"; }
-psgp() { PATTERN=${1:-need pattern to search}; ps -xo pid,state,command | grep --color=always -iE "$PATTERN" | head -n -1; }
+psgp() { local PATTERN=${1:-need pattern to search}; ps -xo pid,state,command | grep --color=always -iE "$PATTERN" | head -n -1; }
 
 calcr() { /usr/bin/bc <<< "scale=1; x=${1:?nedd a expression to calculate}; if (x < 0) x-=.5 else x+=.5; scale=0; x/1"; }
 diffstr() { if diff --color=always <(rs "$1") <(rs "$2"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 utilities() { cd /tmp/; highlight -O ansi "$PK_LOAD_LINUX/notes.md" | less -R; cd -; }
 calc() { /usr/bin/bc <<< "scale=${2:-2}; ${1:?nedd a expression to calculate}"; }
 repeater() { for _ in `seq "$1"`; do eval "${@:2}"; done; }
-calendar() { while IFS= read; do output="$(printf '%*s%s' "$(((`tput cols`-64)/2))" '' "$REPLY")"; echo "$output"; done <<< "`ncal -by`"; }
+percent-decode() { local IFS='+'; echo -e ${1//%/\\x}; }
+calendar() { while IFS= read; do local output="$(printf '%*s%s' "$(((`tput cols`-64)/2))" '' "$REPLY")"; echo "$output"; done <<< "`ncal -by`"; }
 
-ll() { ROUTE=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhF --time-style=+%% --color=always "$ROUTE"; echo "count `ls -1 "$ROUTE" | wc -l`"; }
-lla() { ROUTE=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhAF --time-style=+%% --color=always "$ROUTE"; echo "count `ls -A1 "$ROUTE" | wc -l`"; }
+ll() { local ROUTE=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhF --time-style=+%% --color=always "$ROUTE"; echo "count `ls -1 "$ROUTE" | wc -l`"; }
+lla() { local ROUTE=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhAF --time-style=+%% --color=always "$ROUTE"; echo "count `ls -A1 "$ROUTE" | wc -l`"; }
 
 # >>> Depreceated!
 #readmd() { pandoc -f markdown "${1}" | lynx -stdin; }
@@ -143,7 +144,7 @@ mychecking() {
 }
 
 TOKEN() {
-	FROM="${1:?need to inform the abbreviation where}"
+	local FROM="${1:?need to inform the abbreviation where}"
 	read -sp 'Password: '
 	gpg \
 		--decrypt \
@@ -163,8 +164,8 @@ TOKEN() {
 }
 
 twcm() {
-	MODE=${1:?need a mode to set}
-	FILE=${2:?need a file to create}
+	local MODE=${1:?need a mode to set}
+	local FILE=${2:?need a file to create}
 	[ -e "$FILE" ] && {
 		echo "`basename "$0"`: file already exists"
 		return 1
@@ -173,8 +174,19 @@ twcm() {
 	}
 }
 
+percent-encode() {
+	local LENGTH="${#1}"
+	for ((INDEX=0; INDEX<LENGTH; INDEX++)); do
+		local CHAR="${1:INDEX:1}"
+		case "$CHAR" in
+			[a-zA-Z0-9.~_-]) echo -n "$CHAR";;
+			*) printf '%%%02X' "'$CHAR";;
+		esac
+	done
+}
+
 string-reverse() {
-	MESSAGE="${1?need a string to reverse}"
+	local MESSAGE="${1?need a string to reverse}"
 	for index in `seq $(("${#MESSAGE}"-1)) -1 0`; do
 		echo -n "${MESSAGE:$index:1}"
 	done
@@ -182,9 +194,9 @@ string-reverse() {
 
 hlct() {
 	if [ $# -eq 1 ]; then
-		STMT="'`realpath "$1"`'"
+		local STMT="'`realpath "$1"`'"
 	elif [ $# -eq 2 ]; then
-		STMT="--syntax $1 '`realpath "$2"`'"
+		local STMT="--syntax $1 '`realpath "$2"`'"
 	else
 		echo "$0: error: need one or two args"
 		exit 1
@@ -203,7 +215,7 @@ mkfl() {
 }
 
 reverse-string() {
-	STRING="${1:?needs a string to reverse}"
+	local STRING="${1:?needs a string to reverse}"
 	unset REVERSED
 	for index in `seq 1 "${#STRING}"`; do
 		REVERSED+="${STRING: -$index:1}"
@@ -213,8 +225,8 @@ reverse-string() {
 }
 
 outfind() {
-	LOG_FILE='/tmp/outfind.log'
-	COUNT_TIME='1'
+	local LOG_FILE='/tmp/outfind.log'
+	local COUNT_TIME='1'
 	find / \( -path /proc -prune -o -path /sys -prune \) -o -iname "*$1*" >"$LOG_FILE" 2>&- &
 	while (ps "$!" >/dev/null); do echo -ne "\rtime: ${COUNT_TIME}s"; let ++COUNT_TIME; sleep 1; done; echo ""
 	less "$LOG_FILE"
@@ -230,12 +242,12 @@ alias ggls="git-pretty 'git log --all --oneline' $@"
 alias gglt="git-pretty 'git log --oneline origin/HEAD..HEAD' $@"
 
 git-pretty() {
-	COMMAND=${1:?need a command to execute}
-	ARGS=${@:2}
+	local COMMAND=${1:?need a command to execute}
+	local ARGS=${@:2}
 	if [[ "$ARGS" =~ (-fq) ]]; then
-		ARGS=`sed "s/-fq/--pretty=format:'%C(auto)%h%d %C(bold)%C(blue)\"%C(reset)%s%C(bold)%C(blue)\"%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'/" <<< "$ARGS"`
+		local ARGS=`sed "s/-fq/--pretty=format:'%C(auto)%h%d %C(bold)%C(blue)\"%C(reset)%s%C(bold)%C(blue)\"%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'/" <<< "$ARGS"`
 	elif [[ "$ARGS" =~ (-fh) ]];then
-		ARGS=`sed "s/-fh/--pretty=format:'%C(auto)%h%d %s %C(blue)-%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'/" <<< "$ARGS"`
+		local ARGS=`sed "s/-fh/--pretty=format:'%C(auto)%h%d %s %C(blue)-%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'/" <<< "$ARGS"`
 	fi
 	eval "$COMMAND $ARGS"
 	unset COMMAND ARGS
@@ -263,7 +275,7 @@ PROMPT_COMMAND='history -a'
 
 TODO="$HOME/Documents/annotations/.todo-list.txt"
 
-rand() { RAND='0'; while [ "${#RAND}" -lt '4' ]; do RAND="$(("$RANDOM"%10000))"; done; }
+rand() { unset RAND; while [ "${#RAND}" -lt '4' ]; do RAND="$(("$RANDOM"%10000))"; done; }
 tlr() { sed -i "/${1:?need an id to remove}/d" "$TODO"; clear; tla; }
 tla() { rand; [ "$#" -eq '0' ] && cat "$TODO" || echo "(`hostname`) $RAND » $*" >> "$TODO"; }
 
