@@ -43,6 +43,21 @@ docker-remove-dangling-images() {
 	)
 }
 
+docker-mysql-adminer() {
+	docker run -d \
+		--rm \
+		--name adminer \
+		--link mysql:db \
+		-p 80:8080 \
+		adminer:latest
+	docker run -d \
+		--rm \
+		--name mysql \
+		-e 'MYSQL_ROOT_PASSWORD=root' \
+		-e 'MYSQL_DATABASE=db' \
+		mysql:latest
+}
+
 docker-list-all() {
 	commands='image container volume network service'
 	for command in $commands; do
