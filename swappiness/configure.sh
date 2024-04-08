@@ -3,8 +3,8 @@
 script=$(basename `readlink -f "$0"`)
 sudo='sudo'
 
-while getopts 'w' option; do
-        [ "$option" = 'w' ] && unset sudo
+while getopts 'r' option; do
+        [ "$option" = 'r' ] && unset sudo
 done
 shift $(($OPTIND-1))
 

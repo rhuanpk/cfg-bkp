@@ -1,0 +1,16 @@
+[global]
+padding = 10
+background = "#001A1A"
+foreground = "#E6ECFF"
+frame_color = "#10E3E3"
+frame_width = 2
+corner_radius = 1
+width = "(300, 500)"
+max_icon_size = 0
+icon_path = "/usr/share/icons/gnome/32x32/status"
+#gaps = true
+#gap_size = 3
+
+[urgency_critical]
+background = "#1A0000"
+frame_color = "#BB1133"

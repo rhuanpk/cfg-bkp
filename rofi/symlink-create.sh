@@ -17,7 +17,7 @@ symlink-create() {
 	$SUDO ln -sfv "$PATH_FINAL/theme.rasi" "$ROFI_THEME_PATH/"
 }
 
-[ '-w' = "$1" ] && {
+[ '-r' = "$1" ] && {
 	PREFIX="su $user -c --"
 	unset SUDO
 	shift

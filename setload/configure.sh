@@ -14,8 +14,8 @@
 script=`basename "$0"`
 sudo='sudo'
 
-while getopts 'w' option; do
-        [ "$option" = 'w' ] && unset sudo
+while getopts 'r' option; do
+        [ "$option" = 'r' ] && unset sudo
 done
 
 shift $(($OPTIND-1))
@@ -26,7 +26,7 @@ $sudo tee /etc/systemd/system/setload.service <<- eof
 
 	[Service]
 	WorkingDirectory=/tmp
-	ExecStart=setload ${sudo:--w}
+	ExecStart=setload ${sudo:--r}
 
 	[Install]
 	WantedBy=multi-user.target
