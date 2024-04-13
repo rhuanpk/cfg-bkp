@@ -31,6 +31,7 @@ alias ggp='git pull origin `git branch --show-current`; git fetch --tags origin'
 
 alias ggbf='cat <(git branch --color=always --all -vv)'
 alias ggba='cat <(git branch --color=always --all)'
+alias ggdd='git diff | delta --color-only'
 alias ggsa='ga "git status"'
 alias ggrf='git restore --staged ./; git restore ./; git clean -f ./'
 
