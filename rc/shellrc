@@ -92,6 +92,8 @@ utilities() { cd /tmp/; highlight -O ansi "$PK_LOAD_LINUX/notes.md" | less -R; c
 calc() { /usr/bin/bc <<< "scale=${2:-2}; ${1:?nedd a expression to calculate}"; }
 repeater() { for _ in `seq "$1"`; do eval "${@:2}"; done; }
 percent-decode() { local IFS='+'; echo -e ${1//%/\\x}; }
+count-char() { tr -dc "$1" <<< "${@:2}" | wc -m; }
+count-string() { tr -d '\n' <<< "$1" | wc -m; }
 calendar() { while IFS= read; do local output="$(printf '%*s%s' "$(((`tput cols`-64)/2))" '' "$REPLY")"; echo "$output"; done <<< "`ncal -by`"; }
 
 ll() { local ROUTE=$([ "$#" -eq 0 ] && pwd || echo "$1"); ls -lhF --time-style=+%% --color=always "$ROUTE"; echo "count `ls -1 "$ROUTE" | wc -l`"; }
