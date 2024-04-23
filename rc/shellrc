@@ -124,11 +124,11 @@ mychecking() {
 	find ~/ -user '0'
 	echo -e "\n>>> VERIFY FOR .GIT FOLDERS!"
 	find ~/ -type d -name '.git'
-	echo -ne "\n>>> GIT STATUS ALL!"
+	echo -e "\n>>> GIT STATUS ALL!"
 	ga 'git status'
-	echo -e ">>> TREE IN HOME!"
+	echo -e "\n>>> TREE IN HOME!"
 	tree -FL 2 ~
-	echo -e "\n>>> VERIFY FOR CONFLICT AND SWP FILES!"
+	echo -e "\n>>> VERIFY FOR CONFLI, SWP AND TMP FILES!"
 	find ~/ -not \( \
 		-path '*/pCloudDrive' -prune -o \
 		-path '*/.config/Code/CachedData' -prune -o \
@@ -142,8 +142,9 @@ mychecking() {
 		-path '*/16' -prune -o \
 		-path '*/22' -prune -o \
 		-path '*/24' -prune -o \
-		-path '*/misc/programming' -prune \
-	\) \( -iname '*confli*' -o -name '*.swp' \)
+		-path '*/misc/programming' -prune -o \
+		-path '*/.gradle/.tmp' -prune \
+	\) \( -iname '*confli*' -o -name '*.swp' -o -name '*.tmp' \)
 }
 
 TOKEN() {
