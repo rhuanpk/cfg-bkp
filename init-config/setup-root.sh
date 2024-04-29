@@ -548,12 +548,12 @@ for func in pre-install set-personal-path $(echo `declare -F | awk '{print $3}' 
 		if ! "$func" >>"$log_hit" 2>>"$log_error"; then
 			kill "$!"
 			print-blank
-			echo -e "\r>>> ${format_bold}Failure$format_reset -> $color_red$func$format_reset !"
+			echo -e "\r>>> ${format_bold}Failure$format_reset -> $color_red$func$format_reset!"
 			FAILED_PROCESSES+=("$func")
 		else
 			kill "$!"
 			print-blank
-			echo -e "\r>>> ${format_bold}Success$format_reset -> $color_green$func$format_reset !"
+			echo -e "\r>>> ${format_bold}Success$format_reset -> $color_green$func$format_reset!"
 			let ++COUNT_SUCCESS
 		fi
 	}
