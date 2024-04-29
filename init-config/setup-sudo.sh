@@ -529,17 +529,17 @@ end-message() {
 
 clear; print-banner; sudo-validate
 
-for folder in "${list_folders2create_root[@]}"; do
+for folder in "${array_folders2create_root[@]}"; do
 	[ ! -d "$folder" ] && sudo mkdir -pv "$folder/"
 done
-for folder in "${list_folders2create_user[@]}"; do
+for folder in "${array_folders2create_user[@]}"; do
 	[ ! -d "$folder" ] && mkdir -pv "$folder/"
 done
 
 clear; print-banner
 for func in pre-install set-personal-path $(echo `declare -F | awk '{print $3}' | sed -E '/((pre|post)-install)|set-personal-path/d'`) post-install; do
 	default-action
-	[[ ! "${list_denieds[*]}" =~ "$func" ]] && {
+	[[ ! "${array_denieds[*]}" =~ "$func" ]] && {
 		tee -a "$log_hit" >>"$log_error" <<- EOF
 			---------- $func ----------
 		EOF
@@ -559,7 +559,7 @@ for func in pre-install set-personal-path $(echo `declare -F | awk '{print $3}' 
 done; echo
 
 end-message; loading-message $message_complexes &
-for cmd in "${list_commands[@]}"; do
+for cmd in "${array_commands[@]}"; do
 	if ! type "$cmd" &>/dev/null; then
 		ERROR_COMMANDS+=("$cmd")
 	fi
