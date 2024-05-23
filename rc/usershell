@@ -1,22 +1,22 @@
 # >>> Aliases <<<
 
-# Any's.
+# any's
 alias cdlx='cd $PK_LOAD_LINUX'
 alias cdbk='cd $PK_LOAD_CFGBKP'
 
-# Docker.
+# docker
 alias docker-ps="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}'"
 alias docker-remove-all-containers='docker rm -f `docker container ls -aq`'
 alias docker-remove-all-volumes='docker volume rm `docker volume ls -q`'
 alias docker-ip="docker inspect -f '{{.NetworkSettings.IPAddress}}'"
 alias docker-service="docker service ls --format 'table {{.ID}}\t{{.Name}}\t{{.Mode}}\t{{.Replicas}}\t{{.Ports}}'"
 
-# Golang.
+# golang
 alias go-run="clear; go run -ldflags '-s -w' ./"
 
 # >>> Functions <<<
 
-# Git.
+# git
 git-submodule-recreate() {
 	sed -nE 's/^[[:blank:]]+path = (.*)/\1/p' ./.gitmodules | \
 		xargs rm -rf && \
@@ -31,7 +31,7 @@ git-submodule-setbranch() {
 	done
 }
 
-# Docker.
+# docker
 docker-remove-dangling-volumes() {
 	for volume in `docker volume ls -qf dangling=true`; do
 		rm -rf /var/lib/docker/volumes/"$volume"
@@ -68,7 +68,7 @@ docker-list-all() {
 	done
 }
 
-# Golang.
+# golang
 go-package-start() {
 	pathway=/tmp/tmp/golang
 	[ -d $pathway ] && rm -rfv ${pathway:?pathway no set!}/
