@@ -8,7 +8,6 @@ alias cdbk='cd $PK_LOAD_CFGBKP'
 alias docker-ps="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}'"
 alias docker-remove-all-containers='docker rm -f `docker container ls -aq`'
 alias docker-remove-all-volumes='docker volume rm `docker volume ls -q`'
-alias docker-ip="docker inspect -f '{{.NetworkSettings.IPAddress}}'"
 alias docker-service="docker service ls --format 'table {{.ID}}\t{{.Name}}\t{{.Mode}}\t{{.Replicas}}\t{{.Ports}}'"
 
 # golang
@@ -32,6 +31,13 @@ git-submodule-setbranch() {
 }
 
 # docker
+docker-list-all() {
+	commands='image container volume network service'
+	for command in $commands; do
+		echo -e "\n » $command «\n"; docker $command ls;
+	done
+}
+
 docker-remove-dangling-volumes() {
 	for volume in `docker volume ls -qf dangling=true`; do
 		rm -rf /var/lib/docker/volumes/"$volume"
@@ -61,11 +67,9 @@ docker-mysql-adminer() {
 		mysql:latest
 }
 
-docker-list-all() {
-	commands='image container volume network service'
-	for command in $commands; do
-		echo -e "\n » $command «\n"; docker $command ls;
-	done
+docker-ip() {
+	container="${1:?need container name}"
+	docker inspect -f 'Main IP: {{if .NetworkSettings.IPAddress}}{{.NetworkSettings.IPAddress}}{{else}}N/A{{end}}{{"\n"}}{{if .NetworkSettings.Networks}}Networks:{{"\n"}}{{range $key, $value := .NetworkSettings.Networks}}- {{$key}}: {{if $value.IPAddress}}{{$value.IPAddress}}{{else}}N/A{{end}}{{"\n"}}{{end}}{{end}}' "$container" | sed '$d'
 }
 
 # golang
