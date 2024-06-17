@@ -165,7 +165,8 @@ pre-install() {
 	apt install -y network-manager
 	sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
 	# verify wpa_supplicant error
-	systemctl restart wpa_supplicant networking NetworkManager; sleep 3
+ 	systemctl stop networking; sleep 3
+	systemctl restart wpa_supplicant NetworkManager; sleep 3
 	while ! nmcli conn up "$(get-iface)"; do sleep 3; done; sleep 3
 
 	default-action
@@ -246,7 +247,7 @@ pre-install() {
 	-y
 
 	default-action
-	systemctl restart wpa_supplicant networking NetworkManager; sleep 3
+	systemctl restart wpa_supplicant NetworkManager; sleep 3
 	while ! nmcli conn down "$(get-iface)"; do sleep 3; done; sleep 3
 	while ! nmcli conn up "$(nmcli -t -f NAME conn show | grep -v '^lo')"; do sleep 3; done; sleep 3
 
