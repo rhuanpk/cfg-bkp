@@ -139,27 +139,38 @@ pre-install() {
 	get-iface() { sudo sed -nE 's/^#iface (.*) inet.*/\1/p' /etc/network/interfaces; }
 
 	default-action
+	# >>>>> CHANGE ACCORDING TO YOUR CHOICE <<<<<
 	sudo tee '/etc/apt/preferences.d/all' <<- EOF
-		Package: *
-		Pin: release a=stable
-		Pin-Priority: 500
+		#Package: *
+		#Pin: release a=stable
+		#Pin-Priority: 500
 
-		Package: *
-		Pin: release a=unstable
-		Pin-Priority: 300
+		#Package: *
+		#Pin: release a=testing
+		#Pin-Priority: 400
+
+		#Package: *
+		#Pin: release a=unstable
+		#Pin-Priority: 300
 	EOF
+	# >>>>> CHANGE ACCORDING TO YOUR CHOICE <<<<<
 	sudo tee '/etc/apt/sources.list' <<- EOF
 		# stable
-		deb http://deb.debian.org/debian/ stable main contrib non-free non-free-firmware
-		deb http://security.debian.org/debian-security stable-security main contrib non-free non-free-firmware
-		deb http://deb.debian.org/debian/ stable-updates main contrib non-free non-free-firmware
+		deb http://deb.debian.org/debian stable main contrib non-free non-free-firmware
+		deb http://deb.debian.org/debian-security stable-security main contrib non-free non-free-firmware
+		deb http://deb.debian.org/debian stable-updates main contrib non-free non-free-firmware
+
+		# testing
+		#deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware
+		#deb http://deb.debian.org/debian-security testing-security main contrib non-free non-free-firmware
+		#deb http://deb.debian.org/debian testing-updates main contrib non-free non-free-firmware
 
 		# unstable
 		#deb http://deb.debian.org/debian/ sid main contrib non-free non-free-firmware
 	EOF
 
 	default-action
-	sudo apt update
+	sudo apt update; sudo apt full-upgrade -y
 	sudo apt install -y network-manager
 	sudo sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
 	# verify wpa_supplicant error
