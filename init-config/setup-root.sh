@@ -145,15 +145,15 @@ pre-install() {
 	tee '/etc/apt/preferences.d/all' <<- EOF
 		#Package: *
 		#Pin: release a=stable
-		#Pin-Priority: 500
+		#Pin-Priority: 900
 
 		#Package: *
 		#Pin: release a=testing
-		#Pin-Priority: 400
+		#Pin-Priority: 800
 
 		#Package: *
 		#Pin: release a=unstable
-		#Pin-Priority: 300
+		#Pin-Priority: 700
 	EOF
 	# >>>>> CHANGE ACCORDING TO YOUR CHOICE <<<<<
 	tee '/etc/apt/sources.list' <<- EOF
