@@ -246,6 +246,7 @@ pre-install() {
 		resolvconf                 \
 		                           \
 		libnotify-bin              \
+		libfuse2                   \
 		vim-gtk3                   \
 		qt5-style-plugins          \
 		                           \
