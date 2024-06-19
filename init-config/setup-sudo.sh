@@ -589,4 +589,5 @@ done
 		echo -e "\t- $cmd"
 	done
 	echo -e "Total of unsuccessful applications: ${#error_commands[@]}"
-}; echo
+}
+echo -e "\e[3mSee post install guide inside script before run \`startx'\e[m\n"
