@@ -474,6 +474,7 @@ post-install() {
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | debconf-set-selections
 	apt purge -y vim-tiny*
 	timedatectl set-local-rtc 0
+	update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme / 100
 }
 
 # Execute standard action before perform each action.
