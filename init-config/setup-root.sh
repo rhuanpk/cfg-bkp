@@ -206,7 +206,9 @@ pre-install() {
 	EOF
 
 	default-action
-	apt update; apt full-upgrade -y
+	apt update
+	default-action
+	NEEDRESTART_MODE=a apt full-upgrade -y
 
 	default-action
 	apt install -y network-manager
