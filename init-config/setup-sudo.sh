@@ -521,10 +521,11 @@ post-install() {
 	sudo apt purge -y vim-tiny*
 	sudo timedatectl set-local-rtc 0
 	sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme / 100
+	unset password
 }
 
 # Execute standard action before perform each action.
-default-action() { cd '/tmp/'; sudo -v; }
+default-action() { cd '/tmp/'; echo "$password" | sudo -Sv; }
 
 # Reexecute the same action some times (for timeout reasons?).
 action-repeater() {
