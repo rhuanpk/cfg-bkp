@@ -206,12 +206,12 @@ pre-install() {
 	EOF
 
 	default-action
-	apt update; apt full-upgrade
+	apt update; apt full-upgrade -y
 
 	default-action
 	apt install -y network-manager
 	sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
-	# verify wpa_supplicant error
+	# verify wpa_supplicant error?
  	systemctl stop networking; sleep 3
 	systemctl restart wpa_supplicant NetworkManager; sleep 3
 	while ! nmcli conn up "$(get-iface)"; do sleep 3; done; sleep 3
@@ -642,4 +642,4 @@ done
 	done
 	echo -e "Total of unsuccessful applications: ${#error_commands[@]}"
 }
-echo -e "\e[2mSee post install guide inside script before run \`startx'\e[m\n"
+echo -e "\n\e[2mSee post install guide inside script before run \`startx'\e[m\n"
