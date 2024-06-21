@@ -5,33 +5,67 @@
 # >>> Manual Setup!
 #
 # Atual's:
-# - pcloud;
-# - qt5ct;
-# - thunar;
-# - touchpad;
-# - duckdns;
-# - ngrok;
-# - pipewire;
-# - sshd;
-# - arandr;
-# - polybar;
-# - delta;
-# - .bash_history;
-# - sources.list;
-# - HandleLidSwitch*;
-# - wireguard:
-# 	- Download connection file;
-# 	- Configure `nmcli conn import'.
-# - gtk:
-# 	- Download themes;
+#
+# - sources.list:
+# 	- Setup if not configured before run init script.
+# - Touchpad:
+# 	- Turn on X11 configuration file?
+# - HandleLidSwitch*:
+# 	- If the host are some laptop.
+# - .xinitrc:
+# 	- If have some to launch along with Xorg.
+#
+# - Qt5 Settings:
+# 	- Set dark theme.
+# - ARandR:
+# 	- Configure case uses multi monitors;
+# 	- If has multi monitors script, put into .xinitrc.
+# - pCloud:
+# 	- Install .AppImage;
+# 	- Add .git and .swp extension to be ignored;
+# 	- Configure folder synchronizations.
+# - Polybar:
+# 	- Copy necessary fonts.
+# - Git:
+# 	- Copy .gitconfig file.
+# - GTK 3/4:
+# 	- Copy/Download themes;
 # 	- Set configuration file;
-# 	- OBS: manual set for Chrome.
-# - xinitrc:
-# 	- Set arandr script generated?
+# - SSHD:
+# 	- Copy configuration file.
+# - WireGuard:
+# 	- Download connection file;
+# 	- Copy connection file to WG folder;
+# 	- Configure `nmcli conn import'.
+# - UFW:
+# 	- Set rules.
+# - Thunar
+# 	- Configure side panel;
+# 	- Configure open terminal here.
+# - ngrok:
+# 	- Install program;
+# 	- Configure API key.
+# - PipeWire:
+# 	- Configure echo cancel module.
 #
 # Off's:
-# - grive2;
-# - oh-my-zsh.
+# - Grive2:
+# 	- Install the program;
+# 	- Configure folders.
+# - Duck DNS:
+# 	- Install the script;
+# 	- Configure API key;
+# 	- Add into Cron Tab.
+# - Oh My ZSH:
+# 	- Set as default shell;
+# 	- Copy personal themes;
+# 	- Configure new themes.
+# - delta:
+# 	- Install git-delta package.
+# - .bash_history:
+# 	- Copy last saved history.
+# - User Shell:
+# 	- Sets usershell import.
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 #
@@ -290,10 +324,10 @@ set-environment-variables() {
 	tee -a /etc/environment <<- \EOF
 		QT_QPA_PLATFORMTHEME=qt5ct
 		QT_AUTO_SCREEN_SCALE_FACTOR=0
+		EDITOR=vim
 		PK_LOAD_CFGBKP=
 		PK_LOAD_LINUX=
 		PK_LOAD_PKUTILS=
-		EDITOR=vim
 	EOF
 }
 
@@ -376,12 +410,26 @@ set-gtks-config-files() {
 set-xinitrc() {
 	su "$user" <<- EOF
 		cat <<- eof >"$home/.xinitrc"
-			#!/bin/bash
+			#!/usr/bin/bash
 			# <command> &
 			# . <script>
 			`sed -E '/(^#|^$)/d' '/etc/X11/xinit/xinitrc'`
 		eof
 	EOF
+}
+
+# Sets touchpad x11 configuration file.
+set-x11-touchpad() {
+cat << EOF > '/etc/X11/xorg.conf.d/90-touchpad.conf.off'
+Section "InputClass"
+	Identifier "touchpad"
+	Driver "libinput"
+	MatchIsTouchpad "on"
+	Option "Tapping" "true"
+	Option "NaturalScrolling" "true"
+	Option "ScrollMethod" "twofinger"
+EndSection
+EOF
 }
 
 # Install pre-compiled programs.
