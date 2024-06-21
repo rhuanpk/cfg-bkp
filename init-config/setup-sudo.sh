@@ -173,6 +173,7 @@ pre-install() {
 	get-iface() { sudo sed -nE 's/^#iface (.*) inet.*/\1/p' /etc/network/interfaces; }
 
 	default-action
+	echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections
 	# >>>>> CHANGE ACCORDING TO YOUR CHOICE <<<<<
 	sudo tee '/etc/apt/preferences.d/all' <<- EOF
 		#Package: *
@@ -206,7 +207,7 @@ pre-install() {
 	default-action
 	sudo apt update
 	default-action
-	sudo NEEDRESTART_MODE=a apt full-upgrade -y
+	sudo apt full-upgrade -y
 
 	default-action
 	sudo apt install -y network-manager
@@ -517,7 +518,9 @@ post-install() {
 	sudo cp -v "$path_git/$name_linux/scripts/.private/setload.sh" "$path_localbin/setload"
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | debconf-set-selections
 	full
+	default-action
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | debconf-set-selections
+	echo '* libraries/restart-without-asking boolean false' | sudo debconf-set-selections
 	sudo apt purge -y vim-tiny*
 	sudo timedatectl set-local-rtc 0
 	sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme / 100
