@@ -207,6 +207,8 @@ pre-install() {
 
 	default-action
 	apt update; apt full-upgrade
+
+	default-action
 	apt install -y network-manager
 	sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
 	# verify wpa_supplicant error
@@ -640,4 +642,4 @@ done
 	done
 	echo -e "Total of unsuccessful applications: ${#error_commands[@]}"
 }
-echo -e "\e[3mSee post install guide inside script before run \`startx'\e[m\n"
+echo -e "\e[2mSee post install guide inside script before run \`startx'\e[m\n"

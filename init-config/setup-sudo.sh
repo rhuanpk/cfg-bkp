@@ -205,6 +205,8 @@ pre-install() {
 
 	default-action
 	sudo apt update; sudo apt full-upgrade -y
+
+	default-action
 	sudo apt install -y network-manager
 	sudo sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
 	# verify wpa_supplicant error
@@ -412,7 +414,7 @@ set-xinitrc() {
 
 # Sets touchpad x11 configuration file.
 set-x11-touchpad() {
-cat << EOF > '/etc/X11/xorg.conf.d/90-touchpad.conf.off'
+sudo tee '/etc/X11/xorg.conf.d/90-touchpad.conf.off' << \EOF
 Section "InputClass"
 	Identifier "touchpad"
 	Driver "libinput"
@@ -639,4 +641,4 @@ done
 	done
 	echo -e "Total of unsuccessful applications: ${#error_commands[@]}"
 }
-echo -e "\e[3mSee post install guide inside script before run \`startx'\e[m\n"
+echo -e "\e[2mSee post install guide inside script before run \`startx'\e[m\n"
