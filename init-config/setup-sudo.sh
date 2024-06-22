@@ -14,6 +14,7 @@
 # 	- If the host are some laptop.
 # - .xinitrc:
 # 	- If have some to launch along with Xorg.
+# - `reboot'
 #
 # - Qt5 Settings:
 # 	- Set dark theme.
@@ -618,12 +619,12 @@ for func in pre-install set-personal-path $(echo `declare -F | awk '{print $3}' 
 			kill "$!"
 			print-blank
 			echo -e "\r>>> ${format_bold}Failure$format_reset -> $color_red$func$format_reset!"
-			FAILED_PROCESSES+=("$func")
+			failed_processes+=("$func")
 		else
 			kill "$!"
 			print-blank
 			echo -e "\r>>> ${format_bold}Success$format_reset -> $color_green$func$format_reset!"
-			let ++COUNT_SUCCESS
+			let ++count_success
 		fi
 	}
 done; echo
@@ -631,7 +632,7 @@ done; echo
 end-message; loading-message $message_complexes &
 for cmd in "${array_commands[@]}"; do
 	if ! type "$cmd" &>/dev/null; then
-		ERROR_COMMANDS+=("$cmd")
+		error_commands+=("$cmd")
 	fi
 done
 [ -z "$error_commands" ] && {
