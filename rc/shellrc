@@ -52,7 +52,8 @@ alias rms='shred -zuvn 10'
 alias intrr='echo "$?"'
 alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
 
-alias default-montage='mount -o rw,user'
+alias default-montagee='mount -o rw,showexec,allow_other,uid=`id -u`,gid=`id -g`'
+alias default-montagei='mount -o rw,user'
 alias opened-doors='lsof -nPi | grep -F LISTEN'
 alias external-ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 
