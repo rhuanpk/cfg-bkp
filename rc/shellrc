@@ -17,6 +17,7 @@ shopt -s globstar
 
 # Security:
 #alias sudo='sudo -k '
+alias sudo='sudo '
 
 # First's:
 alias cbfull='xclip -sel clip'
@@ -51,8 +52,8 @@ alias rms='shred -zuvn 10'
 alias intrr='echo "$?"'
 alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
 
-alias default-montage='sudo mount -o rw,uid=`id -u`,gid=`id -g`'
-alias opened-doors='sudo lsof -nPi | grep -F LISTEN'
+alias default-montage='mount -o rw,user'
+alias opened-doors='lsof -nPi | grep -F LISTEN'
 alias external-ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
 
 # CLI's:
