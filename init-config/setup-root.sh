@@ -46,6 +46,8 @@
 # - ngrok:
 # 	- Install program;
 # 	- Configure API key.
+# - NetworkManager:
+# 	- Disable check connectivity
 # - PipeWire:
 # 	- Configure echo cancel module.
 #
