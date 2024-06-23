@@ -175,9 +175,8 @@ message_banner='
 
 # Pre instalation processing.
 pre-install() {
-	get-iface() { sed -nE 's/^#iface (.*) inet.*/\1/p' /etc/network/interfaces; }
-
 	default-action
+
 	echo '* libraries/restart-without-asking boolean true' | debconf-set-selections
 	# >>>>> CHANGE ACCORDING TO YOUR CHOICE <<<<<
 	tee '/etc/apt/preferences.d/all' <<- EOF
@@ -213,14 +212,6 @@ pre-install() {
 	apt update
 	default-action
 	apt full-upgrade -y
-
-	default-action
-	apt install -y network-manager
-	sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
-	# verify wpa_supplicant error?
- 	systemctl stop networking; sleep 3
-	systemctl restart wpa_supplicant NetworkManager; sleep 3
-	while ! nmcli conn up "$(get-iface)"; do sleep 3; done; sleep 3
 
 	default-action
 	apt install \
@@ -299,16 +290,6 @@ pre-install() {
 		ncal                       \
 		brightnessctl              \
 	-y
-
-	default-action
-	systemctl restart wpa_supplicant NetworkManager; sleep 3
-	while ! nmcli conn down "$(get-iface)"; do sleep 3; done; sleep 3
-	while ! nmcli conn up "$(nmcli -t -f NAME conn show | grep -v '^lo')"; do sleep 3; done; sleep 3
-
-	default-action
-	apt install \
-		pipewire-pulse \
-	-y --install-recommends
 }
 
 # Clone default repositories and put them into default folders.
@@ -526,14 +507,22 @@ post-install() {
 	default-action
 	[ -r "$path_profile/$name_profile" ] && . "$path_profile/$name_profile"
 	cp -v "$path_git/$name_linux/scripts/.private/setload.sh" "$path_localbin/setload"
-	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | debconf-set-selections
-	full
-	default-action
-	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | debconf-set-selections
-	echo '* libraries/restart-without-asking boolean false' | debconf-set-selections
-	apt purge -y vim-tiny*
 	timedatectl set-local-rtc 0
 	update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme / 100
+	apt purge -y vim-tiny*
+	echo '* libraries/restart-without-asking boolean false' | debconf-set-selections
+
+	default-action
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | debconf-set-selections
+	full
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | debconf-set-selections
+
+	default-action
+	mv -v /etc/network/interfaces{,.off}
+	apt install -y network-manager
+
+	default-action
+	apt install --install-recommends -y pipewire-pulse
 }
 
 # Execute standard action before perform each action.
