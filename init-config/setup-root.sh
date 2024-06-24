@@ -184,14 +184,14 @@ pre-install() {
 	fi
 	sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
 	local ifname="$(sed -nE 's/^#iface\s+(.*)\s+inet.*/\1/p' /etc/network/interfaces)"
-	apt install -y network-manager
+	apt install -y network-manager; sleep 5
 	default-action
 	systemctl restart wpa_supplicant networking NetworkManager
 	default-action
 	if "${is_wireless:-false}"; then
 		nmcli device wifi connect "$ssid" password "$psk" ifname "$ifname"
 	else
-		nmcli conn up "$ifname"
+		nmcli device up "$ifname"
 	fi
 
 	default-action
@@ -538,7 +538,7 @@ post-install() {
 }
 
 # Execute standard action before perform each action.
-default-action() { cd '/tmp/'; }
+default-action() { sleep 1; cd '/tmp/'; }
 
 # Reexecute the same action some times (for timeout reasons?).
 action-repeater() {
