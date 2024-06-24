@@ -191,7 +191,7 @@ pre-install() {
 	if "${is_wireless:-false}"; then
 		nmcli device wifi connect "$ssid" password "$psk" ifname "$ifname"
 	else
-		nmcli device up "$ifname"
+		nmcli device connect "$ifname"
 	fi
 
 	default-action
