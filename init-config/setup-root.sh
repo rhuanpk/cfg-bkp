@@ -308,6 +308,10 @@ pre-install() {
 		ncal                       \
 		brightnessctl              \
 	-y
+
+	default-action
+	resolvconf -u
+
 	default-action
 	apt install --install-recommends -y pipewire-pulse
 }

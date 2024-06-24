@@ -306,8 +306,12 @@ pre-install() {
 		ncal                       \
 		brightnessctl              \
 	-y
+
 	default-action
-	apt install --install-recommends -y pipewire-pulse
+	sudo resolvconf -u
+
+	default-action
+	sudo apt install --install-recommends -y pipewire-pulse
 }
 
 # Clone default repositories and put them into default folders.
