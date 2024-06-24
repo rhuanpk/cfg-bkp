@@ -174,7 +174,25 @@ message_banner='
 # Pre instalation processing.
 pre-install() {
 	default-action
+	if sudo grep -qE 'wpa-(ssid|psk)' /etc/network/interfaces; then
+	        local is_wireless='true'
+	        local infos="$(sudo sed -nE 's/^\s+wpa-(ssid|psk)\s+(.*)$/\2/p' /etc/network/interfaces)"
+	        local ssid="${infos%$'\n'*}"
+	        local psk="${infos#*$'\n'}"
+	fi
+	sudo sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
+	local ifname="$(sudo sed -nE 's/^#iface\s+(.*)\s+inet.*/\1/p' /etc/network/interfaces)"
+	sudo apt install -y network-manager
+	default-action
+	sudo systemctl restart wpa_supplicant networking NetworkManager
+	default-action
+	if "${is_wireless:-false}"; then
+	        nmcli device wifi connect "$ssid" password "$psk" ifname "$ifname"
+	else
+	        nmcli conn up "$ifname"
+	fi
 
+	default-action
 	echo '* libraries/restart-without-asking boolean true' | sudo debconf-set-selections
 	# >>>>> CHANGE ACCORDING TO YOUR CHOICE <<<<<
 	sudo tee '/etc/apt/preferences.d/all' <<- EOF
@@ -288,6 +306,8 @@ pre-install() {
 		ncal                       \
 		brightnessctl              \
 	-y
+	default-action
+	apt install --install-recommends -y pipewire-pulse
 }
 
 # Clone default repositories and put them into default folders.
@@ -503,19 +523,12 @@ post-install() {
 	sudo timedatectl set-local-rtc 0
 	sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme / 100
 	sudo apt purge -y vim-tiny*
-	echo '* libraries/restart-without-asking boolean false' | sudo debconf-set-selections
 
 	default-action
-	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | debconf-set-selections
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
 	full
-	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | debconf-set-selections
-
-	default-action
-	sudo mv -v /etc/network/interfaces{,.off}
-	sudo apt install -y network-manager
-
-	default-action
-	sudo apt install --install-recommends -y pipewire-pulse
+	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | sudo debconf-set-selections
+	echo '* libraries/restart-without-asking boolean false' | sudo debconf-set-selections
 
 	unset password
 }

@@ -176,7 +176,25 @@ message_banner='
 # Pre instalation processing.
 pre-install() {
 	default-action
+	if grep -qE 'wpa-(ssid|psk)' /etc/network/interfaces; then
+		local is_wireless='true'
+		local infos="$(sed -nE 's/^\s+wpa-(ssid|psk)\s+(.*)$/\2/p' /etc/network/interfaces)"
+		local ssid="${infos%$'\n'*}"
+		local psk="${infos#*$'\n'}"
+	fi
+	sed -i '/primary/,$s/^/#/;s/^##/#/' /etc/network/interfaces
+	local ifname="$(sed -nE 's/^#iface\s+(.*)\s+inet.*/\1/p' /etc/network/interfaces)"
+	apt install -y network-manager
+	default-action
+	systemctl restart wpa_supplicant networking NetworkManager
+	default-action
+	if "${is_wireless:-false}"; then
+		nmcli device wifi connect "$ssid" password "$psk" ifname "$ifname"
+	else
+		nmcli conn up "$ifname"
+	fi
 
+	default-action
 	echo '* libraries/restart-without-asking boolean true' | debconf-set-selections
 	# >>>>> CHANGE ACCORDING TO YOUR CHOICE <<<<<
 	tee '/etc/apt/preferences.d/all' <<- EOF
@@ -290,6 +308,8 @@ pre-install() {
 		ncal                       \
 		brightnessctl              \
 	-y
+	default-action
+	apt install --install-recommends -y pipewire-pulse
 }
 
 # Clone default repositories and put them into default folders.
@@ -510,19 +530,11 @@ post-install() {
 	timedatectl set-local-rtc 0
 	update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme / 100
 	apt purge -y vim-tiny*
-	echo '* libraries/restart-without-asking boolean false' | debconf-set-selections
-
 	default-action
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | debconf-set-selections
 	full
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select false' | debconf-set-selections
-
-	default-action
-	mv -v /etc/network/interfaces{,.off}
-	apt install -y network-manager
-
-	default-action
-	apt install --install-recommends -y pipewire-pulse
+	echo '* libraries/restart-without-asking boolean false' | debconf-set-selections
 }
 
 # Execute standard action before perform each action.
