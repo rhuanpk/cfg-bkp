@@ -519,7 +519,7 @@ compile-programs() {
 # Disable unecessary services.
 disable-services() {
 	default-action
-	for service in 'ssh' 'NetworkManager-wait-online' 'bluetooth' 'networking'; do
+	for service in 'ssh' 'NetworkManager-wait-online' 'bluetooth'; do
 		sudo systemctl disable "$service"
 	done
 	return 0
