@@ -233,6 +233,8 @@ pre-install() {
 	default-action
 	sudo apt full-upgrade -y
 
+	while [ "$(nmcli -t networking connectivity check)" != 'full' ]; do sleep 3; done
+
 	default-action
 	sudo apt install \
 		polybar                    \
@@ -311,8 +313,11 @@ pre-install() {
 		brightnessctl              \
 	-y
 
-	default-action
-	sudo resolvconf -u
+	while [ "$(nmcli -t networking connectivity check)" != 'full' ]; do
+		default-action
+		sudo resolvconf -u
+		sleep 3
+	done
 
 	default-action
 	sudo apt install --install-recommends -y pipewire-pulse
