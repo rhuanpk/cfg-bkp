@@ -315,12 +315,10 @@ pre-install() {
 		brightnessctl              \
 	-y
 
-	while [ "$(nmcli -t networking connectivity check)" != 'full' ]; do
-		default-action
-		resolvconf -u
-		sleep 3
-	done
-
+	while [ "$(nmcli -t networking connectivity check)" != 'full' ]; do sleep 3; done
+	default-action
+	resolvconf -u
+  
 	default-action
 	apt install --install-recommends -y pipewire-pulse
 }
