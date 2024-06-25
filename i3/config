@@ -28,7 +28,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- plock
+exec --no-startup-id xss-lock --transfer-sleep-lock -- lockp
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -217,7 +217,7 @@ for_window [all] floating enable
 exec_always --no-startup-id polybar
 
 # set rofi as dmenu (program launcher)
-bindsym $mod+d exec --no-startup-id profi
+bindsym $mod+d exec --no-startup-id rofip
 
 # start program that enable transparency effect
 # exec_always --no-startup-id xcompmgr -n
@@ -246,7 +246,7 @@ set $bind_suffix exec --no-startup-id
 set $volume      wpctl set-volume '@DEFAULT_AUDIO_SINK@'
 set $backlight   brightnessctl --quiet -d `brightnessctl -l | sed -nE "s/^Device '(.*)' .*backlight.*$/\1/p"` set
 
-bindsym --release $mod+Shift+b $bind_suffix plock
+bindsym --release $mod+Shift+b $bind_suffix lockp
 bindsym --release $mod+Shift+s $bind_suffix suspend
 
 bindsym --release $mod+Shift+p $bind_suffix polybar-msg cmd restart
