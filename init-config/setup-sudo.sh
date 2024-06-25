@@ -316,7 +316,7 @@ pre-install() {
 	while [ "$(nmcli -t networking connectivity check)" != 'full' ]; do sleep 3; done
 	default-action
 	sudo resolvconf -u
- 
+
 	default-action
 	sudo apt install --install-recommends -y pipewire-pulse
 }
