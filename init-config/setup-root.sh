@@ -189,11 +189,11 @@ pre-install() {
 	systemctl restart wpa_supplicant networking NetworkManager
 	default-action
 	if "${is_wireless:-false}"; then
-		while ! nmcli -g ssid device wifi list --rescan yes ifname "$ifname" | grep "^$ssid$"; do
+		while ! nmcli -g ssid device wifi list --rescan yes ifname "$ifname" | grep -q "^$ssid$"; do
 			nmcli device wifi rescan ifname "$ifname"
 			sleep 3
 		done
-		nmcli device wifi connect "$ssid" password "$psk" ifname "$ifname"
+		while ! nmcli device wifi connect "$ssid" password "$psk" ifname "$ifname"; do sleep 3; done
 	else
 		nmcli device connect "$ifname"
 	fi
