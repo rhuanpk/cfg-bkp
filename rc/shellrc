@@ -153,6 +153,7 @@ mychecking() {
 
 TOKEN() {
 	local FROM="${1:?need to inform the abbreviation where}"
+	which -s copyq && copyq disable
 	read -sp 'Password: '
 	gpg \
 		--decrypt \
@@ -168,6 +169,7 @@ TOKEN() {
 	} || {
 		echo 'FAILURE!'
 	}
+	which -s copyq && copyq enable
 	unset REPLY
 }
 
