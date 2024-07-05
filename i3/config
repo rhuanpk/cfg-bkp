@@ -247,7 +247,7 @@ set $volume      wpctl set-volume '@DEFAULT_AUDIO_SINK@'
 set $backlight   brightnessctl --quiet -d `brightnessctl -l | sed -nE "s/^Device '(.*)' .*backlight.*$/\1/p"` set
 
 bindsym --release $mod+Shift+b $bind_suffix lockp
-bindsym --release $mod+Shift+s $bind_suffix suspend
+bindsym --release $mod+Shift+s $bind_suffix suspendp
 
 bindsym --release $mod+Shift+p $bind_suffix polybar-msg cmd restart
 
