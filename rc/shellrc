@@ -88,6 +88,7 @@ mkcd() { local PATHWAY="${1:?need a pathway to make and go}"; mkdir -pv "$PATHWA
 insp() { eval "echo \${${1}}"; }
 psgp() { local PATTERN=${1:-need pattern to search}; ps -xo pid,state,command | grep --color=always -iE "$PATTERN" | head -n -1; }
 
+diffadv() { diff "${1:?need first file to compare}" "${2:?need second file to compare}" -u | colordiff | diff-highlight; }
 calcr() { /usr/bin/bc <<< "scale=1; x=${1:?nedd a expression to calculate}; if (x < 0) x-=.5 else x+=.5; scale=0; x/1"; }
 diffstr() { if diff --color=always <(rs "$1") <(rs "$2"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
 utilities() { cd /tmp/; highlight -O ansi "$PK_LOAD_LINUX/notes.md" | less -R; cd -; }
