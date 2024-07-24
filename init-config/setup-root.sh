@@ -270,11 +270,12 @@ pre-install() {
 		                           \
 		zathura                    \
 		                           \
-		kolourpaint                \
 		flameshot                  \
 		mplayer                    \
 		yt-dlp                     \
+		nomacs                     \
 		scrot                      \
+		mpv                        \
 		feh                        \
 		simplescreenrecorder       \
 		                           \
@@ -304,7 +305,6 @@ pre-install() {
 		                           \
 		libnotify-bin              \
 		libfuse2                   \
-		vim-gtk3                   \
 		qt5-style-plugins          \
 		                           \
 		lsb-release                \
