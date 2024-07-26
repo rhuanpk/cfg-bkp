@@ -74,6 +74,7 @@
 #
 # >>> Crontab!
 #
+# DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 # DISPLAY=:0
 # #0 * * * * /usr/local/bin/pk/tn 2>/tmp/cron.log
 # */2 * * * * /usr/local/bin/pk/suspend2safety 2>/tmp/cron.log
