@@ -402,9 +402,12 @@ set-configurations() {
 
 # Sets polkit policies.
 set-polkit-rules() {
-tee "$path_polkit/$name_polkit" << \EOF
+tee "$path_polkit/$name_polkit" << EOF
 polkit.addRule(function(action, subject) {
-    if (subject.user == "user" && (action.id == "org.freedesktop.login1.suspend" || action.id == "org.freedesktop.login1.suspend-multiple-session")) {
+    if ((action.id == "org.freedesktop.login1.suspend" ||
+         action.id == "org.freedesktop.login1.hibernate" ||
+         action.id == "org.freedesktop.login1.suspend-then-hibernate") &&
+        subject.user == "$user") {
         return polkit.Result.YES;
     }
 });
