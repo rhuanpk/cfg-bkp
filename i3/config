@@ -251,6 +251,7 @@ bindsym --release $mod+Shift+s $bind_suffix suspendp
 
 bindsym --release $mod+Shift+p $bind_suffix polybar-msg cmd restart
 
+bindsym --release $mod_alt+i         $bind_suffix dunstctl context
 bindsym --release $mod_alt+k         $bind_suffix sc2cb
 bindsym --release $mod_alt+y         $bind_suffix kw
 bindsym --release $mod_alt+s         $bind_suffix pws
