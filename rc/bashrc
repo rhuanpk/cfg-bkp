@@ -32,7 +32,8 @@ fi
 
 shopt -s extglob
 
-PS1="\[\033[00;31m\]${USER:-`whoami`} 炎 \[\033[00m\]"
+PS0="\[\033[00;31m\]\$(printf '%*s' \$(tput cols) '\t ✘')\[\033[00m\]\r"
+PS1="\[\033[00;31m\]\H \$ \[\033[00m\]"
 
 unalias -a
 . "$PK_LOAD_CFGBKP/rc/shellrc"
