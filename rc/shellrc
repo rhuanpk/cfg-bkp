@@ -46,10 +46,11 @@ alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
 alias gpgp='gpg --no-symkey-cache --pinentry-mode loopback'
 alias rmll='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias mktp='mktemp /tmp/XXXXXXXXXXXXXX.txt'
+alias pwgn='pwgen -scny 24 1'
 alias ips='ip -br -c address'
 alias sb='source ~/.bashrc'
-alias rms='shred -zuvn 10'
 alias intrr='echo "$?"'
+alias jq='jq -C'
 alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
 
 alias opened-doors='lsof -nPi | grep -F LISTEN'
@@ -63,7 +64,7 @@ alias dff='df -h --output=source,size,used,avail,pcent,target --exclude-type={tm
 # Standards:
 alias lls='ls --color=always -lhF'
 alias grep='grep --color=always'
-alias jq='jq -C'
+alias rms='shred -zuvn 10'
 alias rm='rm -i'
 alias llt='ls --color=always -lhtcF'
 
