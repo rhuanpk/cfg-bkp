@@ -32,7 +32,7 @@ fi
 
 shopt -s extglob
 
-PS0="\[\033[00;31m\]\$(printf '%*s' \$(tput cols) '\t ✘')\[\033[00m\]\r"
+#PS0="\[\033[00;31m\]\$(printf '%*s' \$(tput cols) '\t ✘')\[\033[00m\]\r"
 PS1="\[\033[00;31m\]\H \$ \[\033[00m\]"
 
 unalias -a
