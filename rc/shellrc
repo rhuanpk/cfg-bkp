@@ -55,6 +55,7 @@ alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -
 
 alias opened-doors='lsof -nPi | grep -F LISTEN'
 alias external-ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
+alias getwingeo='xdotool selectwindow getwindowgeometry'
 
 # CLI's:
 alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
