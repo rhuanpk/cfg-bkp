@@ -85,8 +85,8 @@ alias llt='ls --color=always -lhtcF'
 # >>> Functions <<<
 
 # Short's:
+mkcd() { local PATHWAY="${1:?need a pathway to make and go}"; mkdir -pv "$PATHWAY" && cd "$PATHWAY"; echo -n 'pwd: '; pwd; }
 ts() { [ "-b" != "$1" ] && local LANG=en:pt-br || { local LANG=pt-br:en; shift 1; }; trans -b "$LANG" "`eval 'rs "$*"'`"; }
-mkcd() { local PATHWAY="${1:?need a pathway to make and go}"; mkdir -pv "$PATHWAY" && cd "$PATHWAY"; pwd; }
 insp() { eval "echo \${${1}}"; }
 psgp() { local PATTERN=${1:-need pattern to search}; ps -xo pid,state,command | grep --color=always -iE "$PATTERN" | head -n -1; }
 
