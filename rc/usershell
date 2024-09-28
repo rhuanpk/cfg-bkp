@@ -72,6 +72,15 @@ docker-ip() {
 	docker inspect -f 'Main IP: {{if .NetworkSettings.IPAddress}}{{.NetworkSettings.IPAddress}}{{else}}N/A{{end}}{{"\n"}}{{if .NetworkSettings.Networks}}Networks:{{"\n"}}{{range $key, $value := .NetworkSettings.Networks}}- {{$key}}: {{if $value.IPAddress}}{{$value.IPAddress}}{{else}}N/A{{end}}{{"\n"}}{{end}}{{end}}' "$container" | sed '$d'
 }
 
+docker-copy-volume() {
+	[ "${UID:-`id -u`}" -ne '0' ] && local sudo='sudo'
+	local old_volume="${1:?arg 1 must be the old volume}"
+	local new_volume="${1:?arg 2 must be the new volume}"
+	local volume_path='/var/lib/docker/volumes'
+	docker volume create "$new_volume"
+	$sudo cp -afv "$volume_path"/"$old_volume"/_data/ "$volume_path"/"$new_volume"/
+}
+
 # golang
 go-package-start() {
 	pathway=/tmp/tmp/golang
