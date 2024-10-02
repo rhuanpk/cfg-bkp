@@ -67,7 +67,7 @@ alias lls='ls --color=always -lhF'
 alias grep='grep --color=always'
 alias rms='shred -zuvn 10'
 alias rm='rm -i'
-alias llt='ls --color=always -lhtcF'
+alias llt='ls --color=always -lhtF'
 
 # >>> Depreceated!
 #alias rmallz='setopt extendedglob; rm -rfv ./(.|)*'
