@@ -83,8 +83,8 @@ docker-copy-volume() {
 
 # golang
 go-package-start() {
-	pathway=/tmp/tmp/golang
-	[ -d $pathway ] && rm -rfv ${pathway:?pathway no set!}/
+	pathway=/tmp/tmp/dev
+	[ -d $pathway ] && rm -rfv ${pathway:?pathway no set}/
 	mkdir -pv $pathway
 	cd $pathway
 	cat <<- eof > ./main.go
@@ -94,6 +94,6 @@ go-package-start() {
 
 		}
 	eof
-	go mod init golang
+	go mod init dev
 	echo "pwd: `pwd`"
 }
