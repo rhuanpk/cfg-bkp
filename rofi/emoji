@@ -1,4 +1,4 @@
-#!/usr/bin/bash -x
+#!/usr/bin/bash
 
 file="${XDG_DATA_HOME:-$HOME/.local/share}/emojis.txt"
 url='https://unicode.org/Public/emoji/latest/emoji-test.txt'
