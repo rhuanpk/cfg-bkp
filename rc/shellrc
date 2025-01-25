@@ -54,7 +54,7 @@ alias jq='jq -C'
 alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
 
 alias opened-doors='lsof -nPi | grep -F LISTEN'
-alias external-ip="curl -fsSL http://ipecho.net/plain | sed 's/$/\n/'"
+alias external-ip="curl -fsSL ipecho.net/plain | sed 's/$/\n/' #ipinfo.io"
 alias getwingeo='xdotool selectwindow getwindowgeometry'
 
 # CLI's:
