@@ -53,9 +53,9 @@ alias intrr='echo "$?"'
 alias jq='jq -C'
 alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
 
+alias getwingeo='xdotool selectwindow getwindowgeometry'
 alias opened-doors='lsof -nPi | grep -F LISTEN'
 alias external-ip="curl -fsSL ipecho.net/plain | sed 's/$/\n/' #ipinfo.io"
-alias getwingeo='xdotool selectwindow getwindowgeometry'
 
 # CLI's:
 alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
@@ -220,14 +220,6 @@ hlct() {
 	cd - >/dev/null
 }
 
-mkfl() {
-	touch ./file-{1..4}.{txt,tmp}
-	for folder in ./dir-{1..2}/sub-{a..c}/; do
-		mkdir -p "$folder"
-		touch "$folder"/file-{1..2}.off
-	done
-}
-
 reverse-string() {
 	local STRING="${1:?needs a string to reverse}"
 	unset REVERSED
@@ -236,6 +228,24 @@ reverse-string() {
 	done
 	tee '/dev/fd/2' <<< "$REVERSED" \
 	| xclip -sel 'clip' -rmlastnl
+}
+
+mkfl() {
+	touch ./file-{1..4}.{txt,tmp}
+	for folder in ./dir-{1..2}/sub-{a..c}/; do
+		mkdir -p "$folder"
+		touch "$folder"/file-{1..2}.off
+	done
+}
+
+system-infos() {
+	[ "$UID" -ne 0 ] && sudo='sudo' || unset sudo
+	echo -e "\e[3;95m> lshw -short\e[m"
+	lshw -short
+	echo -e "\n\e[3;95m> hwinfo --short$*\e[m"
+	$sudo hwinfo --short
+	echo -e "\n\e[3;95m> inxi -exz$*\e[m"
+	inxi -exz
 }
 
 outfind() {
