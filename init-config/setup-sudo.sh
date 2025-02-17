@@ -16,7 +16,7 @@
 # 	- If have some to launch along with Xorg.
 # - `reboot'
 #
-# - Qt5 Settings:
+# - Qt 5/6 Settings:
 # 	- Set dark theme.
 # - ARandR:
 # 	- Configure case uses multi monitors;
@@ -289,6 +289,7 @@ pre-install() {
 		unicode                    \
 		unzip                      \
 		qt5ct                      \
+		qt6ct                      \
 		zip                        \
 		bc                         \
 		jq                         \
@@ -341,7 +342,7 @@ set-personal-path() {
 set-environment-variables() {
 	default-action
 	sudo tee -a /etc/environment <<- \EOF
-		QT_QPA_PLATFORMTHEME=qt5ct
+		QT_QPA_PLATFORMTHEME=qt6ct
 		QT_AUTO_SCREEN_SCALE_FACTOR=0
 		EDITOR=vim
 		PK_LOAD_CFGBKP=
@@ -539,6 +540,7 @@ post-install() {
 	sudo timedatectl set-local-rtc 0
 	sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme / 100
 	sudo apt purge -y vim-tiny*
+	gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 	default-action
 	echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | sudo debconf-set-selections
