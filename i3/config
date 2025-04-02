@@ -265,3 +265,6 @@ bindsym $mod_alt+Control+Down  $bind_suffix $volume '.05-'
 bindsym $mod_alt+Control+Right $bind_suffix $backlight '+5%'
 bindsym $mod_alt+Control+Left  $bind_suffix $backlight '5%-'
 bindsym --release $mod_alt+m   $bind_suffix wpctl set-mute '@DEFAULT_AUDIO_SINK@' toggle
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus       scratchpad show
