@@ -257,6 +257,7 @@ bindsym --release $mod_alt+y         $bind_suffix kw
 bindsym --release $mod_alt+s         $bind_suffix pws
 bindsym --release $mod_alt+Control+s $bind_suffix pws -fps
 bindsym --release $mod_alt+Control+p $bind_suffix ph
+bindsym --release $mod_alt+Control+x $bind_suffix flameshot gui
 
 bindsym $mod_alt+F1            $bind_suffix $volume '.05+'
 bindsym $mod_alt+F2            $bind_suffix $volume '.05-'
