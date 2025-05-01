@@ -154,6 +154,33 @@ mychecking() {
 	#-not -name 'other-file.any'
 }
 
+hlct() {
+	local TMP="$(mktemp /tmp/hlct_XXXXXXX.any)"
+	if [ $# -eq 1 ]; then
+		if [ -t 0 ]; then
+			local STMT="'`realpath "$1"`'"
+		else
+			while read -u 0; do
+				echo "$REPLY" >> "$TMP"
+			done
+			local STMT="--syntax $1 '`realpath "$TMP"`'"
+		fi
+	elif [ $# -eq 2 ]; then
+		local STMT="--syntax $1 '`realpath "$2"`'"
+	elif [ ! -t 0 ]; then
+		while read -u 0; do
+			echo "$REPLY" >> "$TMP"
+		done
+		local STMT="'`realpath "$TMP"`'"
+	else
+		echo "$0: error: need one or two args"
+		exit 1
+	fi
+	cd /tmp/
+	eval highlight -O ansi $STMT
+	cd - >/dev/null
+}
+
 TOKEN() {
 	local FROM="${1:?need to inform the abbreviation where}"
 	which -s copyq && copyq disable
@@ -203,20 +230,6 @@ string-reverse() {
 	for index in `seq $(("${#MESSAGE}"-1)) -1 0`; do
 		echo -n "${MESSAGE:$index:1}"
 	done
-}
-
-hlct() {
-	if [ $# -eq 1 ]; then
-		local STMT="'`realpath "$1"`'"
-	elif [ $# -eq 2 ]; then
-		local STMT="--syntax $1 '`realpath "$2"`'"
-	else
-		echo "$0: error: need one or two args"
-		exit 1
-	fi
-	cd /tmp/
-	eval highlight -O ansi $STMT
-	cd - >/dev/null
 }
 
 reverse-string() {
