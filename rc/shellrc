@@ -146,7 +146,7 @@ mychecking() {
 		-path '*/16' -prune -o \
 		-path '*/22' -prune -o \
 		-path '*/24' -prune -o \
-		-path '*/misc/programming' -prune -o \
+		-path '*/misc/prog' -prune -o \
 		-path '*/.gradle/.tmp' -prune -o \
 		-path '*/.cache/typescript' -prune \
 	\) \( -iname '*confli*' -o -name '*.swp' -o -name '*.tmp' \) \
