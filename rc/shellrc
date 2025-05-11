@@ -150,7 +150,10 @@ mychecking() {
 		-path '*/.gradle/.tmp' -prune -o \
 		-path '*/.cache/typescript' -prune \
 	\) \( -iname '*confli*' -o -name '*.swp' -o -name '*.tmp' \) \
-	-not -name 'plugin-conflict.js'
+	-not \( \
+		-name 'plugin-conflict.js' -o \
+		-name 'fc-conflist' \
+	\)
 	#-not -name 'other-file.any'
 }
 
