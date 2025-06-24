@@ -152,6 +152,8 @@ mychecking() {
 	\) \( -iname '*confli*' -o -name '*.swp' -o -name '*.tmp' \) \
 	-not \( \
 		-name 'plugin-conflict.js' -o \
+		-name 'conflict-detection.preload.js' -o \
+		-name 'conflict-detection.preload.js.map' -o \
 		-name 'fc-conflist' \
 	\)
 	#-not -name 'other-file.any'
