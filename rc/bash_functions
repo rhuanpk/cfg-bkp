@@ -1,0 +1,188 @@
+# Short's
+ts() { [ '-b' != "$1" ] && local lang='en:pt-br' || { local lang='pt-br:en'; shift 1; }; trans -b "$lang" "$*"; }
+mkcd() { local path="${1:?need a path to make and go}"; mkdir -pv "$path" && cd "$path"; echo -n 'pwd: '; pwd; }
+psgp() { local pattern="${1:-need a pattern to search}"; ps -xo 'pid,state,command' | grep --color=always -iE "$pattern" | head -n -1; }
+
+calcr() { bc <<< "scale=1; x=${1:?nedd a expression to calculate}; if (x < 0) x-=.5 else x+=.5; scale=0; x/1"; }
+webcam() { webcam='mplayer tv://0 -tv driver=v4l2 -fps 90 -zoom'; eval $webcam || eval $webcam -vo x11; }
+calc() { bc <<< "scale=${2:-2}; ${1:?nedd a expression to calculate}"; }
+repeater() { for _ in $(seq "$1"); do eval "${@:2}"; done; }
+percent-decode() { local IFS='+'; echo -e ${1//%/\\x}; }
+count-string() { tr -d '\n' <<< "$*" | wc -m; }
+diffstr() { if diff --color=always <(return-string "$1") <(return-string "$2"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
+
+# Long's
+erase-history() {
+	if erased_history=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
+		echo "$erased_history" > "$HISTFILE"
+	fi
+}
+
+utilities() {
+	local path="$(
+		find "$PATH_NOTES" -type f -name '*.md' \
+		| fzf --tac --height='~100%' --delimiter '/' --with-nth='-1'
+	)"
+	cd /tmp/
+	highlight -O ansi "$path" | less -R
+	cd -
+}
+
+get-bindings() {
+	echo '>>> i3 bindings <<<'
+	sed -n '/my bindings/,$p' ~/.config/i3/config \
+	| sed -nE 's/^.*(\$mod[^[:blank:]]+).+\$bind_suffix (.*)$/\1 » \2/p'
+}
+
+mychecking() {
+	clear
+	echo -e ">>> VERIFY FOR ROOT FILES!"
+	find ~/ -user '0'
+	echo -e "\n>>> VERIFY FOR .GIT FOLDERS!"
+	find ~/ -type d -name '.git'
+	echo -e "\n>>> GIT STATUS ALL!"
+	ga 'git status'
+	echo -e "\n>>> TREE IN HOME!"
+	tree -FL 2 ~
+	echo -e "\n>>> VERIFY FOR CONFLI, SWP AND TMP FILES!"
+	find ~/ \
+		-not \( \
+			-path '*/pCloudDrive' -prune -o \
+			-path '*/.config/Code/CachedData' -prune -o \
+			-path '*/.gradle/caches' -prune -o \
+			-path '*/.go/pkg/mod' -prune -o \
+			-path '*/.icons' -prune -o \
+			-path '*/.local/share/Trash' -prune -o \
+			-path '*/.steam/debian-installation' -prune -o \
+			-path '*/.vscode/extensions' -prune -o \
+			-path '*/8' -prune -o \
+			-path '*/16' -prune -o \
+			-path '*/22' -prune -o \
+			-path '*/24' -prune -o \
+			-path '*/misc/prog' -prune -o \
+			-path '*/.gradle/.tmp' -prune -o \
+			-path '*/.cache/typescript' -prune \
+		\) \
+		-not \( \
+			-name 'plugin-conflict.js' -o \
+			-name 'conflict-detection.preload.js' -o \
+			-name 'conflict-detection.preload.js.map' -o \
+			-name 'fc-conflist' \
+		\) \
+		\( \
+			-iname '*confli*' -o \
+			-name '*.swp' -o \
+			-name '*.tmp' \
+		\)
+}
+
+hlct() {
+	local tmp="$(mktemp /tmp/hlct_XXXXXXX.any)"
+	if [ "$#" -eq 1 ]; then
+		if [ -t 0 ]; then
+			local stmt="'$(realpath "$1")'"
+		else
+			while read -u 0; do
+				echo "$REPLY" >> "$tmp"
+			done
+			local stmt="--syntax '$1' '$(realpath "$tmp")'"
+		fi
+	elif [ "$#" -eq 2 ]; then
+		local stmt="--syntax '$1' '$(realpath "$2")'"
+	elif [ ! -t 0 ]; then
+		while read -u 0; do
+			echo "$REPLY" >> "$tmp"
+		done
+		local stmt="'$(realpath "$tmp")'"
+	else
+		echo "$0: fatal: need one or two args"
+		exit 1
+	fi
+	cd /tmp/
+	eval highlight -O ansi $stmt
+	cd - >/dev/null
+}
+
+twcm() {
+	local mode=${1:?need a mode to set}
+	local file=${2:?need a file to create}
+	[ -e "$file" ] && {
+		echo "`basename "$0"`: fatal: file already exists"
+		return 1
+	}
+	> "$file" && chmod -v "$mode" "$file"
+}
+
+TOKEN() {
+	local from="${1:?need to inform the abbreviation where}"
+	which -s copyq && copyq disable
+	read -sp 'Password: '
+	gpg \
+		--decrypt \
+		--quiet \
+		--batch \
+		--passphrase "$REPLY" \
+		"$PATH_CFGBKP/enkrypted/.nekot_$from.gpg" \
+		2>&- \
+	| sed -n '2p' \
+	| xclip -selection clipboard -rmlastnl
+	[[ ! "${PIPESTATUS[*]}" =~ [1-9]+ ]] && {
+		echo 'SUCCESS!'
+	} || {
+		echo 'FAILURE!'
+	}
+	which -s copyq && copyq enable
+	unset REPLY
+}
+
+percent-encode() {
+	: ${1:?need a string to encode}
+	local length="${#1}"
+	for ((index=0; index<length; index++)); do
+		local char="${1:index:1}"
+		case "$char" in
+			[a-zA-Z0-9.~_-]) echo -n "$char";;
+			*) printf '%%%02X' "'$char";;
+		esac
+	done
+}
+
+reverse-string() {
+	local string="${1:?needs a string to reverse}"
+	unset reversed
+	for index in $(seq 1 "${#string}"); do
+		reversed+="${string: -$index:1}"
+	done
+	tee '/dev/fd/2' <<< "$reversed" \
+	| xclip -sel 'clip' -rmlastnl
+}
+
+system-infos() {
+	[ "$UID" -ne 0 ] && sudo='sudo' || unset sudo
+	echo -e "\e[3;95m> lshw -short\e[m"
+	lshw -short
+	echo -e "\n\e[3;95m> hwinfo --short\e[m"
+	$sudo hwinfo --short
+	echo -e "\n\e[3;95m> inxi -exz\e[m"
+	inxi -exz
+}
+
+mkfl() {
+	> ./file-{1..4}.{txt,tmp}
+	for folder in ./dir-{1..2}/sub-{a..c}/; do
+		mkdir -p "$folder"
+		touch "$folder"/file-{1..2}.off
+	done
+}
+
+outfind() {
+	local file="$(mktemp '/tmp/outfind_XXXXXXX.log')"
+	local count='1'
+	find / \( -path /proc -prune -o -path /sys -prune \) -o -iname "*$1*" >"$file" 2>&- &
+	while (ps "$!" >/dev/null); do
+		echo -ne "\rtime: ${count}s"
+		let ++count_time
+		sleep 1
+	done; echo ""
+	less "$file"
+}

@@ -1,0 +1,50 @@
+# Security
+#alias sudo='sudo -k '
+alias sudo='sudo '
+alias gpgp='gpg --no-symkey-cache --pinentry-mode loopback'
+
+# Replacements
+alias rm='rm -i'
+alias jq='jq -C'
+
+alias ll='ls -lhF --time-style=+%%'
+alias lla='ls -lhAF --time-style=+%%'
+alias llt='ls -lhtF'
+
+# Git
+alias ggd='cat <(git diff --color=always)'
+alias ggs='git status'
+alias ggr='git restore ./; git clean -f ./'
+
+alias ggbf='cat <(git branch --color=always --all -vv)'
+alias ggsa='ga "git status"'
+alias ggrf='git restore --staged ./; git restore ./; git clean -f ./'
+
+alias ggan='git add ./ && git commit --amend --no-edit && git push -f'
+alias ggam='git add ./ && git commit --amend && git push -f'
+alias ggrm='git rebase -i `git merge-base HEAD origin/HEAD`'
+alias ggsy='git switch main || git switch master && git fetch --tags upstream HEAD && git merge FETCH_HEAD && git push'
+
+# Generals
+alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
+alias source-bash='source ~/.bashrc'
+
+# Clipboard
+alias cb="xclip -sel clip -rmlastnl"
+alias cbfull='xclip -sel clip'
+
+# Tools
+alias rmll='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
+alias pwgn='pwgen -scny 24 1'
+alias rms='shred -zuvn 10'
+alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
+alias getwingeo='xdotool selectwindow getwindowgeometry'
+
+# Network
+alias ips='ip -br -c address'
+alias opened-doors='lsof -nPi | grep -F LISTEN'
+alias external-ip="curl -fsSL ipecho.net/plain | sed 's/$/\n/' #ipinfo.io"
+
+# Disk
+alias lsblkf='lsblk --output=MODEL,STATE,TYPE,PATH,FSTYPE,LABEL,UUID'
+alias dff='df -h --output=source,size,used,avail,pcent,target --exclude-type={tmpfs,efivarfs,devtmpfs}'
