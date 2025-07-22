@@ -186,3 +186,15 @@ outfind() {
 	done; echo ""
 	less "$file"
 }
+
+git-pretty() {
+	local cmd="${1:?need a command to execute}"
+	local args="${@:2}"
+	if [[ "$args" =~ -fq ]]; then
+		args="$(sed "s/-fq/--pretty=format:'%C(auto)%h%d %C(bold)%C(blue)\"%C(reset)%s%C(bold)%C(blue)\"%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'/" <<< "$args")"
+	elif [[ "$args" =~ -fh ]];then
+		args="$(sed "s/-fh/--pretty=format:'%C(auto)%h%d %s %C(blue)-%C(reset) %C(cyan)%ar%C(reset) <%C(magenta)%an%C(reset)>'/" <<< "$args")"
+	fi
+	eval "$cmd" "$args"
+	unset cmd args
+}

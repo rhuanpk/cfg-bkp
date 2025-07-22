@@ -25,6 +25,11 @@ alias ggam='git add ./ && git commit --amend && git push -f'
 alias ggrm='git rebase -i `git merge-base HEAD origin/HEAD`'
 alias ggsy='git switch main || git switch master && git fetch --tags upstream HEAD && git merge FETCH_HEAD && git push'
 
+alias ggg="git-pretty 'git log --all --oneline --graph' $@"
+alias ggl="git-pretty 'git log --all --oneline --patch' $@"
+alias ggls="git-pretty 'git log --all --oneline' $@"
+alias gglt="git-pretty 'git log --oneline origin/HEAD..HEAD' $@"
+
 # Generals
 alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
 alias source-bash='source ~/.bashrc'
