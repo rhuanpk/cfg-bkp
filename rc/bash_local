@@ -67,7 +67,7 @@ docker-ip() {
 }
 
 # golang
-go-package-start() {
+gps() {
 	: ${1:?need a path to setup}
 	local path="${1%/}"
 	[ -d "$path" ] && {
