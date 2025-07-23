@@ -1,3 +1,7 @@
+# >>> Variables <<<
+
+PATH+=":$HOME/.go/bin"
+
 # >>> Aliases <<<
 
 # general
