@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
-git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/standard_scripts/.private/setload.sh'
-final_path=${PK_LOAD_CFGBKP:-$(wget -qO - $git_url | bash - 2>&- | grep -F cfg-bkp)}/slim
-prefix='sudo'
+url_setpath='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setpath.sh'
+path_cfgbkp="${PATH_CFGBKP:-$(curl -fsL "$url_setpath" | bash -s -- -p cfgbkp)}"
+path_slim="$path_cfgbkp/slim"
+sudo='sudo'
 
-while getopts 'w' option; do
-        [ "$option" = 'w' ] && unset prefix
+while getopts 'r' option; do
+        [ "$option" = 'r' ] && unset sudo
 done
 
-shift $(($OPTIND-1))
+shift $((OPTIND-1))
 
-$prefix ln -sfv ${final_path}/etc/slim.conf /etc/
-$prefix ln -sfv ${final_path}/usr/share/slim/themes/my-theme /usr/share/slim/themes
+$sudo ln -sfv "$path_slim/etc/slim.conf" '/etc/'
+$sudo ln -sfv "$path_slim/usr/share/slim/themes/theme" '/usr/share/slim/themes'
