@@ -1,29 +1,17 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-user="`id -un 1000`"
-home="/home/$user"
-URL_SETLOAD='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
-PATH_FINAL=${PK_LOAD_CFGBKP:-`wget -qO - "$URL_SETLOAD" | bash - 2>&- | grep 'cfg-bkp'`}/rofi
-SUDO='sudo'
+url_setpath='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setpath.sh'
+path_cfgbkp="${PATH_CFGBKP:-$(curl -fsL "$url_setpath" | bash -s -- -p cfgbkp)}"
 
-ROFI_CONFIG_PATH="$home/.config/rofi"
-ROFI_CONFIG_FILE="$PATH_FINAL/config.rasi"
-ROFI_CONFIG_FILE_OLD="$ROFI_CONFIG_PATH/config.rasi"
-ROFI_THEME_PATH='/usr/share/rofi/themes'
+path_rofi_src="$path_cfgbkp/rofi"
+path_rofi_dst="$HOME/.config/rofi"
 
-symlink-create() {
-	[ -e "$ROFI_CONFIG_FILE_OLD" ] && rm -fv "$ROFI_CONFIG_FILE_OLD"
-	eval "${PREFIX:+$PREFIX "'"} ln -sfv '$ROFI_CONFIG_FILE' '$ROFI_CONFIG_PATH/' ${PREFIX:+"'"}"
-	$SUDO ln -sfv "$PATH_FINAL/theme.rasi" "$ROFI_THEME_PATH/"
-}
+path_rofi_cfg_src="$path_rofi_src/config.rasi"
+path_rofi_cfg_src="$path_rofi_dst/config.rasi"
 
-[ '-r' = "$1" ] && {
-	PREFIX="su $user -c --"
-	unset SUDO
-	shift
-}
+path_rofi_theme_src="$path_rofi_src/theme.rasi"
+path_rofi_theme_dst='/usr/share/rofi/themes/theme.rasi'
 
-[ ! -d "$ROFI_CONFIG_PATH/" ] && {
-	eval "${PREFIX:+$PREFIX "'"} mkdir -pv '$ROFI_CONFIG_PATH/' ${PREFIX:+"'"}"
-	symlink-create
-} || symlink-create
+[ ! -d "$path_rofi_dst" ] && mkdir -pv "$path_rofi_dst"
+ln -sfv "$path_rofi_cfg_src" "$path_rofi_cfg_dst"
+ln -sfv "$path_rofi_theme_src" "$path_rofi_theme_dst"
