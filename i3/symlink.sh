@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 
-home=${HOME:-"/home/${USER:-$(whoami)}"}
-i3_local_path=${home}/.config/i3
-git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
-final_path=${PK_LOAD_CFGBKP:-$(wget -qO - $git_url | bash - 2>&- | grep -F cfg-bkp)}/i3/config
+url_setpath='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setpath.sh'
+path_cfgbkp="${PATH_CFGBKP:-$(curl -fsL "$url_setpath" | bash -s -- -p cfgbkp)}"
+path_i3_src="$path_cfgbkp/i3/config"
+path_i3_dst="$HOME/.config/i3"
 
-symlink_create() {
-	ln -sfv $final_path $i3_local_path
-}
-
-[ ! -d $i3_local_path ] && {
-	mkdir -p $i3_local_path
-	symlink_create
-} || symlink_create
+[ ! -d "$path_i3_dst" ] && mkdir -pv "$path_i3_dst"
+ln -sfv "$path_i3_src" "$path_i3_dst"
