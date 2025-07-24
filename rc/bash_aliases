@@ -17,7 +17,7 @@ alias ggs='git status'
 alias ggr='git restore ./; git clean -f ./'
 
 alias ggbf='cat <(git branch --color=always --all -vv)'
-alias ggsa='ga "git status"'
+alias ggsa='git-all "git status"'
 alias ggrf='git restore --staged ./; git restore ./; git clean -f ./'
 
 alias ggan='git add ./ && git commit --amend --no-edit && git push -f'
