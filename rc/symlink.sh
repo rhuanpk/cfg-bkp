@@ -1,13 +1,16 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
-final_path=${PK_LOAD_CFGBKP:-$(wget -qO - $git_url | bash - 2>&- | grep -F cfg-bkp)}/rc/bashrc
+url_setpath='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setpath.sh'
+path_cfgbkp="${PATH_CFGBKP:-$(curl -fsL "$url_setpath" | bash -s -- -p cfgbkp)}"
+path_bash_aliases="$path_cfgbkp/rc/bash_aliases"
+path_bash_functions="$path_cfgbkp/rc/bash_functions"
+path_bash_local="$path_cfgbkp/rc/bash_local"
+source_bash=''
 
-symlink_create() {
-	ln -sfv $final_path ${HOME}/.bashrc
-}
+ln -sfv "$path_bash_aliases" "$HOME/.${path_bash_aliases##*/}"
+ln -sfv "$path_bash_functions" "$HOME/.${path_bash_functions##*/}"
+ln -sfv "$path_bash_local" "$HOME/.${path_bash_local##*/}"
 
-[ ! -d $HOME ] && {
-	mkdir -pv $HOME
-	symlink_create
-} || symlink_create
+if ! grep -qE '^source "\$PATH_CFGBKP/rc/bashrc"$' ~/.bashrc; then
+	echo -e "\nsource \"\$PATH_CFGBKP/rc/bashrc\"" >> ~/.bashrc
+fi
