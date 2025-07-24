@@ -1,8 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-home=${HOME:-"/home/${USER:-$(whoami)}"}
-config_path=${home}/.config/noti
-file=noti.yaml
+config_path="$HOME/.config/noti"
+file='noti.yaml'
 
-[ ! -d $config_path ] && mkdir -pv $config_path
-toplip -d ./${file} > ${config_path}/${file}
+[ ! -d "$config_path" ] && mkdir -pv "$config_path"
+cp -fv "./$file" "$config_path/$file"

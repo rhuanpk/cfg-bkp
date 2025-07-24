@@ -1,5 +1,0 @@
-DEFAULT_CHANNELS='--banner --pushsafer'
-RAM_OVERLOAD=$(/usr/bin/bc <<< "scale=1; x=`cat /proc/meminfo | grep -i memtotal | tr -s '[[:blank:]]' | cut -d ' ' -f 2`/1000000; if (x < 0) x-=.5 else x+=.5; scale=0; x/1")
-RAM_CONSUME=$(free -g | tr -s '[[:blank:]]' | grep -i mem | cut -d ' ' -f 3)
-[ "$RAM_OVERLOAD" -le '12' ] && let --RAM_OVERLOAD || { [ "$RAM_OVERLOAD" -le '24' ] && let RAM_OVERLOAD-=2 || let RAM_OVERLOAD-=4; }
-[ "$RAM_CONSUME" -ge "$RAM_OVERLOAD" ] && noti $DEFAULT_CHANNELS -t "High RAM consumption!" -m "RAM memory consumption is above ${RAM_OVERLOAD}GB."
