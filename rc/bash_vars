@@ -1,0 +1,2 @@
+[ -d "$HOME/.local/bin/me" ] && PATH="$HOME/.local/bin/me:$PATH"
+[ -d "$HOME/.go/bin" ] && PATH+=":$HOME/.go/bin"
