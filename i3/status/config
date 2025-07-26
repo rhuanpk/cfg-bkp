@@ -1,0 +1,98 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        interval = 5
+}
+
+order += "disk /"
+order += "disk /home"
+order += "disk /var"
+order += "disk /tmp"
+order += "disk /boot"
+order += "disk /boot/efi"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "ipv6"
+order += "path_exists vpn_openvpn"
+order += "path_exists vpn_wireguard_kirigaya"
+order += "path_exists vpn_wireguard_reaper"
+order += "battery all"
+
+disk "/" {
+	format = ""
+	format_below_threshold = "/: %avail (%percentage_used)"
+	low_threshold = "10"
+}
+
+disk "/home" {
+	format = "/home: %avail (%percentage_used)"
+	low_threshold = "10"
+}
+
+disk "/var" {
+	format = ""
+	format_below_threshold = "/var: %avail (%percentage_used)"
+	low_threshold = "10"
+}
+
+disk "/tmp" {
+	format = ""
+	format_below_threshold = "/tmp: %avail (%percentage_used)"
+	low_threshold = "10"
+}
+
+disk "/boot" {
+	format = ""
+	format_below_threshold = "/boot: %avail (%percentage_used)"
+	low_threshold = "10"
+}
+
+disk "/boot/efi" {
+	format = ""
+	format_below_threshold = "/boot/efi: %avail (%percentage_used)"
+	low_threshold = "10"
+}
+
+wireless _first_ {
+	format_up = "w_IP: %ip (%essid)"
+	format_down = "w_IP: N/A"
+}
+
+ethernet _first_ {
+	format_up = "e_IP: %ip"
+	format_down = "e_IP: N/A"
+}
+
+ipv6 {
+	#format_up = "ipv6: %ip (%iface)"
+	format_up = "ipv6 (%iface)"
+	format_down = "ipv6: N/A"
+}
+
+path_exists "vpn_openvpn" {
+	format = "VPN: %status"
+	format_down = ""
+	path = "/sys/class/net/tun0"
+}
+
+path_exists "vpn_wireguard_kirigaya" {
+	format = "VPN: %status"
+	format_down = ""
+	path = "/sys/class/net/kirigaya"
+}
+
+path_exists "vpn_wireguard_reaper" {
+	format = "VPN: %status"
+	format_down = ""
+	path = "/sys/class/net/reaper"
+}
+
+battery all {
+
+}
