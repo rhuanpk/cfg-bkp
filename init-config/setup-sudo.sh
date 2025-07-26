@@ -76,9 +76,8 @@
 #
 # DISPLAY=:0
 # DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
-# PATH=$HOME/.local/bin/me:$HOME/.local/bin:/usr/local/bin:/usr/bin
-# * * * * * suspend2safety 2>/tmp/cron.log
-# */30 * * * * backup-files 2>/tmp/cron.log
+# * * * * * $HOME/.local/bin/me/suspend2safety 2>/tmp/cron.log
+# */30 * * * * $HOME/.local/bin/me/backup-files 2>/tmp/cron.log
 #
 # --------------------------------------------------------------------------------------------------------------------------------
 #
