@@ -3,15 +3,28 @@ ts() { [ '-b' != "$1" ] && local lang='en:pt-br' || { local lang='pt-br:en'; shi
 mkcd() { local path="${1:?need a path to make and go}"; mkdir -pv "$path" && cd "$path"; echo -n 'pwd: '; pwd; }
 psgp() { local pattern="${1:-need a pattern to search}"; ps -xo 'pid,state,command' | grep --color=always -iE "$pattern" | head -n -1; }
 
-calcr() { bc <<< "scale=1; x=${1:?nedd a expression to calculate}; if (x < 0) x-=.5 else x+=.5; scale=0; x/1"; }
 webcam() { webcam='mplayer tv://0 -tv driver=v4l2 -fps 90 -zoom'; eval $webcam || eval $webcam -vo x11; }
 calc() { bc <<< "scale=${2:-2}; ${1:?nedd a expression to calculate}"; }
 repeater() { for _ in $(seq "$1"); do eval "${@:2}"; done; }
 percent-decode() { local IFS='+'; echo -e ${1//%/\\x}; }
 count-string() { tr -d '\n' <<< "$*" | wc -m; }
-diffstr() { if diff --color=always <(return-string "$1") <(return-string "$2"); then echo -e "\e[1;32;40mNo differences ✔\e[m"; fi; }
+calcr() { bc <<< "scale=1; x=${1:?nedd a expression to calculate}; if (x < 0) x-=.5 else x+=.5; scale=0; x/1"; }
 
 # Long's
+diffstr() {
+	[ "$#" -ge 3 ] && {
+		echo "$0: fatal: only two args is accept" >&2
+		return 1
+	}
+	text1="${1:?need two args to compare}"
+	text2="${2:?need more one arg to compare}"
+	if [ -p "$1" ]; then text1="$(< "$1")"; fi
+	if [ -p "$2" ]; then text2="$(< "$2")"; fi
+	if diff --color=always <(return-string "$text1") <(return-string "$text2"); then
+		echo -e "\e[1;32;40mNo differences ✔\e[m"
+	fi
+}
+
 erase-history() {
 	if erased_history=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
 		echo "$erased_history" > "$HISTFILE"
@@ -40,9 +53,9 @@ mychecking() {
 	echo -e ">>> VERIFY FOR ROOT FILES!"
 	find ~/ -user '0'
 	echo -e "\n>>> VERIFY FOR .GIT FOLDERS!"
-	find ~/ -type d -name '.git'
+	find ~/ -type d -name '.git' -not -path ~/.git
 	echo -e "\n>>> GIT STATUS ALL!"
-	ga 'git status'
+	git-all 'git status'
 	echo -e "\n>>> TREE IN HOME!"
 	tree -FL 2 ~
 	echo -e "\n>>> VERIFY FOR CONFLI, SWP AND TMP FILES!"
