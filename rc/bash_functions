@@ -44,8 +44,8 @@ utilities() {
 
 get-bindings() {
 	echo '>>> i3 bindings <<<'
-	sed -n '/my bindings/,$p' ~/.config/i3/config \
-	| sed -nE 's/^.*(\$mod[^[:blank:]]+).+\$bind_suffix (.*)$/\1 » \2/p'
+	sed -n '/polybar/,$p' ~/.config/i3/config \
+		| sed -nE 's/^.*(\$mod[^[:blank:]]+).*id (.*)$/\1 » \2/p'
 }
 
 mychecking() {
