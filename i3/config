@@ -202,7 +202,7 @@ bindsym --release $mod+Shift+b exec --no-startup-id i3lock -nuec 111111
 bindsym --release $mod+Shift+s exec --no-startup-id systemctl suspend-then-hibernate
 
 bindsym --release $mod+Control+i exec --no-startup-id dunstctl context
-bindsym --release $mod+Control+c exec --no-startup-id sc2cb
+bindsym --release $mod+Control+b exec --no-startup-id sc2cb
 bindsym --release $mod+Control+y exec --no-startup-id xdotool selectwindow windowkill
 bindsym --release $mod+Control+h exec --no-startup-id pointer-highlight
 bindsym --release $mod+Control+x exec --no-startup-id flameshot gui
