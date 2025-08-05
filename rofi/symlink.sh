@@ -8,7 +8,7 @@ path_rofi_src="$path_cfgbkp/rofi"
 path_rofi_dst="$HOME/.config/rofi"
 
 path_rofi_cfg_src="$path_rofi_src/config.rasi"
-path_rofi_cfg_src="$path_rofi_dst/config.rasi"
+path_rofi_cfg_dst="$path_rofi_dst/config.rasi"
 
 path_rofi_theme_src="$path_rofi_src/theme.rasi"
 path_rofi_theme_dst='/usr/share/rofi/themes/theme.rasi'
