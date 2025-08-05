@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 script="$0"
 folder="$HOME/googleDrive"
