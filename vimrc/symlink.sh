@@ -6,4 +6,4 @@ path_cfgbkp="${PATH_CFGBKP:-$(curl -fsL "$url_setpath" | bash -s -- -p cfgbkp)}"
 
 path_vimrc="$path_cfgbkp/vimrc/.vimrc"
 
-ln -sfv "$final_path" "$HOME/"
+ln -sfv "$path_vimrc" "$HOME/"
