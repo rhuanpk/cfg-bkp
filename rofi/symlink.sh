@@ -13,6 +13,8 @@ path_rofi_cfg_dst="$path_rofi_dst/config.rasi"
 path_rofi_theme_src="$path_rofi_src/theme.rasi"
 path_rofi_theme_dst='/usr/share/rofi/themes/theme.rasi'
 
+[ "$UID" -ne 0 ] && sudo='sudo'
+
 [ ! -d "$path_rofi_dst" ] && mkdir -pv "$path_rofi_dst"
 ln -sfv "$path_rofi_cfg_src" "$path_rofi_cfg_dst"
-ln -sfv "$path_rofi_theme_src" "$path_rofi_theme_dst"
+$sudo ln -sfv "$path_rofi_theme_src" "$path_rofi_theme_dst"
