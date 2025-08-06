@@ -8,8 +8,8 @@ corner_radius = 1
 width = "(300, 500)"
 max_icon_size = 0
 icon_path = "/usr/share/icons/gnome/32x32/status"
-gaps = true
-gap_size = 5
+#gaps = true
+#gap_size = 5
 
 [urgency_critical]
 background = "#1A0000"
