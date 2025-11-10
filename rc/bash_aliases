@@ -32,18 +32,16 @@ alias gglt="git-pretty 'git log --oneline origin/HEAD..HEAD' $@"
 
 # Generals
 alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
-alias source-bash='source ~/.bashrc'
 
 # Clipboard
-alias cb="xclip -sel clip -rmlastnl"
-alias cbfull='xclip -sel clip'
+#alias cb="xclip -sel clip -rmlastnl"
+#alias cbfull='xclip -sel clip'
 
 # Tools
 alias rmll='shopt -s extglob; rm -rfv ./{.[^.]*,*}'
 alias pwgn='pwgen -scny 24 1'
 alias rms='shred -zuvn 10'
 alias hsgp="history | sed -E 's/[[:blank:]]+[[:digit:]]+[[:blank:]]+//' | grep -iE"
-alias getwingeo='xdotool selectwindow getwindowgeometry'
 
 # Network
 alias ips='ip -br -c address'

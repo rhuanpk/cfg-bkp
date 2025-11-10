@@ -19,13 +19,13 @@ cp -fv "$path_bash_vars" "$HOME/.${path_bash_vars##*/}"
 if ! grep -qF '. "$HOME/.bash_vars"' ~/.profile; then
 	tee -a ~/.profile <<- \eof
 
-	[ -r "$HOME/.bash_vars" ] && . "$HOME/.bash_vars"
+		[ -r "$HOME/.bash_vars" ] && . "$HOME/.bash_vars"
 	eof
 fi
 
 if ! grep -qF '. "$PATH_CFGBKP/rc/bashrc"' ~/.bashrc; then
 	tee -a ~/.bashrc <<- \eof
 
-	[ -r "$PATH_CFGBKP/rc/bashrc" ] && . "$PATH_CFGBKP/rc/bashrc"
+		[ -r "$PATH_CFGBKP/rc/bashrc" ] && . "$PATH_CFGBKP/rc/bashrc"
 	eof
 fi

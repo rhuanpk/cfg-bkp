@@ -1,9 +1,8 @@
 # Short's
 ts() { [ '-b' != "$1" ] && local lang='en:pt-br' || { local lang='pt-br:en'; shift 1; }; trans -b "$lang" "$*"; }
 mkcd() { local path="${1:?need a path to make and go}"; mkdir -pv "$path" && cd "$path"; echo -n 'pwd: '; pwd; }
-psgp() { local pattern="${1:-need a pattern to search}"; ps -xo 'pid,state,command' | grep --color=always -iE "$pattern" | head -n -1; }
 
-webcam() { webcam='mplayer tv://0 -tv driver=v4l2 -fps 90 -zoom'; eval $webcam || eval $webcam -vo x11; }
+#webcam() { webcam='mplayer tv://0 -tv driver=v4l2 -fps 90 -zoom'; eval $webcam || eval $webcam -vo x11; }
 calc() { bc <<< "scale=${2:-2}; ${1:?nedd a expression to calculate}"; }
 repeater() { for _ in $(seq "$1"); do eval "${@:2}"; done; }
 percent-decode() { local IFS='+'; echo -e ${1//%/\\x}; }
@@ -25,11 +24,11 @@ diffstr() {
 	fi
 }
 
-erase-history() {
-	if erased_history=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
-		echo "$erased_history" > "$HISTFILE"
-	fi
-}
+#erase-history() {
+#	if erased_history=`tac <(tac "$HISTFILE" | awk '!x[$0]++') 2>&-`; then
+#		echo "$erased_history" > "$HISTFILE"
+#	fi
+#}
 
 utilities() {
 	local path="$(
@@ -42,11 +41,11 @@ utilities() {
 	cd -
 }
 
-get-bindings() {
-	echo '>>> i3 bindings <<<'
-	sed -n '/polybar/,$p' ~/.config/i3/config \
-		| sed -nE 's/^.*(\$mod[^[:blank:]]+).*id (.*)$/\1 » \2/p'
-}
+#get-bindings() {
+#	echo '>>> i3 bindings <<<'
+#	sed -n '/polybar/,$p' ~/.config/i3/config \
+#		| sed -nE 's/^.*(\$mod[^[:blank:]]+).*id (.*)$/\1 » \2/p'
+#}
 
 mychecking() {
 	clear
