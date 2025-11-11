@@ -1,0 +1,4 @@
+[includeIf "gitdir:~/projects/**"]
+	path = ~/projects/.gitconfig
+[includeIf "gitdir:~/.go/pkg/**"]
+	path = ~/.go/pkg/.gitconfig
