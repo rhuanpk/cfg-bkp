@@ -89,6 +89,7 @@ Ferramentas:
 - `vim`: Editor em modo texto
 - `htop`: Monitor do sistema TUI
 - `tree`: Listagem de arquivo em árvore
+- `ncdu`: Gerenciador de uso de disco
 - `tmux`: Multiplexador de janelas
 - `ranger`: Gerenciador de arquivos TUI
 - `progress`: Utilitário de visualização de progresso
