@@ -229,3 +229,6 @@ Variáveis:
     ```
 TMP:
 1. Copiar arquivo de configuração para `/etc/tmpfiles.d/` (_default_ `/usr/lib/tmpfiles.d/tmp.conf`)
+
+pCloud:
+1. Adicionar nas exclusões: `.git;*.swp;*.pf;`
