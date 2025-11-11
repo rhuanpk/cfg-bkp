@@ -1,0 +1,65 @@
+*:not(tooltip):not(menu):not(menuitem) {
+	all: unset;
+}
+
+#waybar {
+	background-color: transparent;
+	font-family: "Hack Nerd Font", monospace;
+	font-size: 9pt;
+}
+
+.module {
+	padding: 2px 8px 0;
+	margin: 0 -2px;
+}
+
+.module:hover {
+	color: #10e3e3;
+}
+
+tooltip {
+	background-color: rgba(0, 0, 0, .9);
+}
+
+#workspaces {
+	padding: 0;
+}
+
+#workspaces>* {
+	margin-right: 2px;
+	padding: 2px 8px 0;
+}
+
+#workspaces>*:hover {
+	color: #10e3e3;
+
+}
+
+#workspaces button.focused {
+	color: #f0f;
+}
+
+#workspaces button.urgent,
+#cpu.critical,
+#memory.critical {
+	color: #f03;
+}
+
+#tray {
+	margin-right: -4px;
+	margin-left: -4px;
+	padding-left: 6px;
+}
+
+#custom-notification {
+	margin-right: -2px;
+	margin-left: 0;
+	padding-right: 10px;
+	padding-left: 6px;
+}
+
+#custom-power {
+	margin-left: -4px;
+	padding-right: 10px;
+	padding-left: 6px;
+}

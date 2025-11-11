@@ -1,0 +1,13 @@
+[user]
+	name = rhuanpk
+	email = dev@rhuanpk.net
+[init]
+	defaultBranch = main
+[credential]
+	helper = cache 
+[credential "https://"]
+	useHttpPath = true
+[include]
+	path = ~/.git/config
+#[url "ssh://git@"]
+#	insteadOf = https://

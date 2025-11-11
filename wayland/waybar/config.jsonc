@@ -1,0 +1,171 @@
+{
+	//"reload_style_on_change": true,
+	"position": "bottom",
+	"spacing": 4,
+	"modules-left": [
+		"sway/workspaces",
+		"sway/scratchpad"
+	],
+	"modules-center": [
+		"clock"
+	],
+	"modules-right": [
+		"network",
+		"cpu",
+		"memory",
+		"pulseaudio",
+		"backlight",
+		"battery",
+		"tray",
+		//"idle_inhibitor",
+		"custom/notification",
+		"custom/power"
+	],
+	"sway/workspaces": {
+		"all-outputs": false,
+		"format": "{icon} {name}",
+		"format-icons": {
+			"urgent": "",
+			"focused": "",
+			"default": ""
+		}
+	},
+	"sway/scratchpad": {
+		"format": " {count}",
+		"show-empty": false,
+		"tooltip": true,
+		"tooltip-format": "{app}: {title}"
+	},
+	"network": {
+		"format-wifi": " {essid} ({signalStrength}%)",
+		"format-ethernet": " {ipaddr}/{cidr}",
+		"format-linked": "{ifname} (No IP)",
+		"format-disconnected": "Network: N/A",
+		"format-alt": "󰩠 {ifname}: {ipaddr}/{cidr}",
+		"tooltip-format": "{ifname} via {gwaddr}",
+		"on-click-right": "kitty nmtui",
+		"on-click-middle": "nm-connection-editor"
+	},
+	"cpu": {
+		"states": {
+			"critical": 90
+		},
+		"format": " {usage}%",
+		"format-alt": " {usage}% ({avg_frequency}GHz)",
+		"tooltip": false,
+		"interval": 3
+	},
+	"memory": {
+		"states": {
+			"critical": 90
+		},
+		"format": " {used}GiB",
+		"format-critical": " {used}GiB ({percentage}%)",
+		"format-alt": " {used}/{total}GiB ({percentage}%)",
+		"tooltip-format": "SWAP: {swapUsed}/{swapTotal}GiB ({swapPercentage}%)",
+		"interval": 3
+	},
+	"pulseaudio": {
+		"format": "{format_source}{icon} {volume}%",
+		"format-muted": "{format_source} {volume}%",
+		"format-bluetooth": "() {format_source}{icon} {volume}%",
+		"format-bluetooth-muted": "() {format_source} {volume}%",
+		"format-source": "",
+		"format-source-muted": " ",
+		"format-icons": {
+			"headphone": "",
+			"headset": "",
+			"default": ["", "", ""]
+		},
+		"tooltip": false,
+		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+		"on-click-right": "pavucontrol"
+	},
+	"backlight": {
+		"format": "󰖨 {percent}%",
+		"tooltip": false
+	},
+	"battery": {
+		"states": {
+			"critical": 15
+		},
+		"format": "{icon} {capacity}%",
+		"format-alt": "{icon} {capacity}% ({time})",
+		"format-full": "󰂄 {capacity}%",
+		"format-charging": "{icon} {capacity}%",
+		"format-plugged": " {capacity}%",
+		"format-time": "{H}h {M}m",
+		"format-icons": {
+			"default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+			"charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+		}
+	},
+	"clock": {
+		"format": "{:%Hh%M 󰀠 | %d/%m/%Y 󰸗}",
+		"format-alt": "{:%H:%M:%S - %Y/%m/%d}",
+		"tooltip-format": "<tt>{calendar}</tt>",
+		"calendar": {
+			"mode": "year",
+			"mode-mon-col": 3,
+			"weeks-pos": "right",
+			"on-scroll": 1,
+			"format": {
+				"months": "<span color='#10e3e3'><b>{}</b></span>",
+				"days": "<span color='#dfdfdf'>{}</span>",
+				"weeks": "<span color='#555555'><i>W{}</i></span>",
+				"weekdays": "<span color='#ff00ff'><b>{}</b></span>",
+				"today": "<span foreground='#bb1133'><b><u>{}</u></b></span>"
+			}
+		},
+		"actions": {
+			"on-scroll-up": "shift_up",
+			"on-scroll-down": "shift_down"
+		},
+		"interval": 1
+	},
+	"idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"activated": "",
+			"deactivated": ""
+		},
+		"tooltip-format-activated": "Presentation: Activated",
+		"tooltip-format-deactivated": "Presentation: Dectivated"
+	},
+	"custom/notification": {
+		"tooltip": true,
+		"format": "{icon}",
+		"format-icons": {
+			"notification": "󱅫",
+			"none": "󰂜",
+			"dnd-notification": "󰂠",
+			"dnd-none": "󰪓",
+			"inhibited-notification": "󰂛",
+			"inhibited-none": "󰪑",
+			"dnd-inhibited-notification": "󰂛",
+			"dnd-inhibited-none": "󰪑"
+		},
+		"return-type": "json",
+		"exec-if": "which -s swaync-client",
+		"exec": "swaync-client -swb",
+		"on-click": "swaync-client -t -sw",
+		"on-click-right": "swaync-client -d -sw",
+		"escape": true
+	},
+	"tray": {
+		"spacing": 4,
+		"show-passive-items": true
+	},
+	"custom/power": {
+		"format" : "",
+		"tooltip": false,
+		"menu": "on-click",
+		"menu-file": "~/.config/waybar/custom/power.xml",
+		"menu-actions": {
+			"shutdown": "systemctl poweroff",
+			"reboot": "systemctl reboot",
+			"suspend": "systemctl suspend",
+			"hibernate": "systemctl hibernate"
+		}
+	}
+}
