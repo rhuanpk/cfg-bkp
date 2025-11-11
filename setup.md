@@ -97,6 +97,7 @@ Ferramentas:
 - `kitty`: Emulador de terminal
 - `code`: Editor de código
 - `google-chrome-stable`: Pacote _.deb_
+- `translate-shell`: Tradutor CLI
 
 Interface:
 - `fyi`: Utilitário para enviar notificações de _desktop_
