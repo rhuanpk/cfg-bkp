@@ -1,0 +1,4 @@
+profile {
+	output "Chimei Innolux Corporation 0x1522 Unknown" mode 1920x1080@120.015Hz position 1920,0
+	output "VIE ATHEN U2L 21 000000000" mode 1920x1080@60.000Hz position 0,0
+}
