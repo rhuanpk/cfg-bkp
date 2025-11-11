@@ -4,7 +4,7 @@
 [init]
 	defaultBranch = main
 [credential]
-	helper = cache 
+	helper = cache
 [credential "https://"]
 	useHttpPath = true
 [include]
