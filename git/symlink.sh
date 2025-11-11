@@ -4,8 +4,6 @@ url_setpath='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.priva
 [ -z "$PATH_CFGBKP" ] && source /etc/environment
 path_cfgbkp="${PATH_CFGBKP:-$(curl -fsL "$url_setpath" | bash -s -- -p cfgbkp)}"
 
-path_swaync_src="$path_cfgbkp/wayland/swaync/style.css"
-path_swaync_dst="$HOME/.config/swaync"
+path_gitconfig="$path_cfgbkp/git/.gitconfig"
 
-mkdir -pv "$path_swaync_dst/"
-ln -sfv "$path_swaync_src" "$path_swaync_dst/"
+ln -sfv "$path_gitconfig" "$HOME/"
