@@ -98,6 +98,7 @@ Ferramentas:
 - `code`: Editor de código
 - `google-chrome-stable`: Pacote _.deb_
 - `translate-shell`: Tradutor CLI
+- `wev`: Visualizador de eventos (como teclado e _mouse_)
 
 Interface:
 - `fyi`: Utilitário para enviar notificações de _desktop_
