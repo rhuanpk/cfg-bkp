@@ -221,9 +221,10 @@ Variáveis:
     cat <<- eof | tee -a /etc/environment
         EDITOR=vim
         GDK_DARK_MODE=1
-        QT_QPA_PLATFORMTHEME=qt5ct
         XDG_SESSION_TYPE=wayland
         XDG_CURRENT_DESKTOP=sway
+        QT_QPA_PLATFORM=wayland
+        QT_QPA_PLATFORMTHEME=qt5ct
         MOZ_ENABLE_WAYLAND=1
         ELECTRON_OZONE_PLATFORM_HINT=auto
     eof
