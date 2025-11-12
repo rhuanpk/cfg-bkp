@@ -117,7 +117,9 @@ bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@
 bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-bindsym Print exec grim
+
+bindsym Print exec slurp -d | grim -g -
+bindsym Print+Shift exec slurp -d | grim -g - - | swappy -f -
 
 bar {
     swaybar_command waybar
