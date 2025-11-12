@@ -71,8 +71,8 @@ Compatibilidade:
 
 Protocolos:
 - `wayland-protocols`: Protocolos do servidor gráfico
-- `xdg-desktop-portal-wlr`: Protocolos para _screencast_ e etc
-- `xdg-desktop-portal-gtk`: Protocolos genéricos
+- `xdg-desktop-portal-wlr`: Protocolos para Wayland
+- `xdg-desktop-portal-gtk`: Protocolos genéricos (_?_)
 
 Drivers:
 - `mesa-utils`: Ferramentas CLI de vídeo
@@ -94,7 +94,7 @@ Ferramentas:
 - `ranger`: Gerenciador de arquivos TUI
 - `progress`: Utilitário de visualização de progresso
 - `git`: Versionamento de arquivos
-- `kitty`: Emulador de terminal
+- `kitty`: Emulador de terminal (_?_)
 - `code`: Editor de código
 - `google-chrome-stable`: Pacote _.deb_
 - `translate-shell`: Tradutor CLI
