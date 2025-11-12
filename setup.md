@@ -117,6 +117,7 @@ Sistema:
 - `xdg-user-dirs`: Gerenciador de diretórios do usuário
 - `xdg-utils`: Ferramentas CLI de integração _application x desktop_
 - `preload`: Otimizador de _startup time_ de programas (_?_)
+- `fwupd`: Gerenciador de atualizações de `firmware`
 
 ### Configurações
 
