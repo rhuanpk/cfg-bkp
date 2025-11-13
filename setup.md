@@ -110,6 +110,7 @@ Mídia:
 - `slurp`: Utilitário de seletor de área
 - `grim`: Utilitário de _screenshot_
 - `swappy`: Utilitário de edição de _screenshot_
+- `hyprpicker`: Utilitário de _color picker_
 
 Sistema:
 - `resolvconf`: Utilitário de DNS
