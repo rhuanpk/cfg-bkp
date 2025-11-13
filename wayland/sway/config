@@ -134,6 +134,8 @@ client.background       #ffffff
 
 titlebar_padding 1
 
+bindsym $mod+Control+p exec hyprpicker -rla
+
 include /etc/sway/config.d/*
 
 #xwayland disable
