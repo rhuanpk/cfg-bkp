@@ -99,6 +99,7 @@ Ferramentas:
 - `google-chrome-stable`: Pacote _.deb_
 - `translate-shell`: Tradutor CLI
 - `wev`: Visualizador de eventos (como teclado e _mouse_)
+- `tealdeer`: Páginas de manuais simplificadas
 
 Interface:
 - `fyi`: Utilitário para enviar notificações de _desktop_
