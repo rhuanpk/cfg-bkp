@@ -146,7 +146,7 @@ Ranger:
 - Se necessário, copiar arquivo de configuração para `~/.config/ranger/` (_default_ `ranger --copy-config=rc`)
 - Para `image_preview`:
     - Caso esteja usando `kitty`, instale a depedência `python3-pil`
-    - Caso esteja usando outro emulador de terminal: instale a dependência `ueberzug`
+    - Caso esteja usando outro emulador de terminal: instale a dependência `w3m-img`
 
 Git:
 - Copiar arquivo de configuração para `~/`
