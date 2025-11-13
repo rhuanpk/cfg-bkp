@@ -94,7 +94,7 @@ Ferramentas:
 - `ranger`: Gerenciador de arquivos TUI
 - `progress`: Utilitário de visualização de progresso
 - `git`: Versionamento de arquivos
-- `kitty`: Emulador de terminal (_?_)
+- `terminator`: Emulador de terminal (_also kitty_)
 - `code`: Editor de código
 - `google-chrome-stable`: Pacote _.deb_
 - `translate-shell`: Tradutor CLI
@@ -143,8 +143,10 @@ XDG:
 - Executar `xdg-user-dirs-update`
 
 Ranger:
-- Copiar arquivo de configuração para `~/.config/ranger/` (_default_ `ranger --copy-config=rc`)
-- Caso esteja usando `kitty`, instale a depedência `python3-pil` para `image_preview`
+- Se necessário, copiar arquivo de configuração para `~/.config/ranger/` (_default_ `ranger --copy-config=rc`)
+- Para `image_preview`:
+    - Caso esteja usando `kitty`, instale a depedência `python3-pil`
+    - Caso esteja usando outro emulador de terminal: instale a dependência `ueberzug`
 
 Git:
 - Copiar arquivo de configuração para `~/`

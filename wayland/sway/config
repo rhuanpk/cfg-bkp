@@ -6,7 +6,7 @@ set $down j
 set $up k
 set $right l
 
-set $term kitty -d /tmp/tmp
+set $term terminator --working-directory /tmp/tmp
 set $menu wmenu-run
 
 include /etc/sway/config-vars.d/*
