@@ -143,9 +143,10 @@ XDG:
 - Executar `xdg-user-dirs-update`
 
 Ranger:
-- Se necessário, copiar arquivo de configuração para `~/.config/ranger/` (_default_ `ranger --copy-config=rc`)
+- Copiar arquivo de configuração para `~/.config/ranger/` (_default_ `ranger --copy-config=rc`)
 - Para `image_preview`:
-    - Caso esteja usando `kitty`, instale a depedência `python3-pil`
+    - Caso esteja usando `kitty`, instale a dependência `python3-pil`
+    - Caso esteja usando `terminator`, instale a dependência [`ueberzugpp`](https://software.opensuse.org/download.html?project=home%3Ajustkidding&package=ueberzugpp)
     - Caso esteja usando outro emulador de terminal: instale a dependência `w3m-img`
 
 Git:
