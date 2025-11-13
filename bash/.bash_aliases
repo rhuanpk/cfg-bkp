@@ -34,8 +34,8 @@ alias gglt="git-pretty 'git log --oneline origin/HEAD..HEAD' $@"
 alias tmp='[ ! -d /tmp/tmp/ ] && mkdir -pv /tmp/tmp/; cd /tmp/tmp/'
 
 # Clipboard
-#alias cb="xclip -sel clip -rmlastnl"
-#alias cbfull='xclip -sel clip'
+alias cb="wl-copy -n"
+alias cbf='wl-copy'
 
 # Tools
 alias rmll='shopt -s extglob; rm -rfv ./{.[^.]*,*}'

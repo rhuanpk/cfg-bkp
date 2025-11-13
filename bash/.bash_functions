@@ -138,7 +138,7 @@ TOKEN() {
 		"$PATH_CFGBKP/enkrypted/.nekot_$from.gpg" \
 		2>&- \
 	| sed -n '2p' \
-	| xclip -selection clipboard -rmlastnl
+	| wl-copy -n
 	[[ ! "${PIPESTATUS[*]}" =~ [1-9]+ ]] && {
 		echo 'SUCCESS!'
 	} || {
@@ -167,7 +167,7 @@ reverse-string() {
 		reversed+="${string: -$index:1}"
 	done
 	tee '/dev/fd/2' <<< "$reversed" \
-	| xclip -sel 'clip' -rmlastnl
+	| wl-copy -n
 }
 
 system-infos() {
