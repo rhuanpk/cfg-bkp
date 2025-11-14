@@ -100,6 +100,7 @@ Ferramentas:
 - `translate-shell`: Tradutor CLI
 - `wev`: Visualizador de eventos (como teclado e _mouse_)
 - `tealdeer`: Páginas de manuais simplificadas
+- `blueman`: Gerenciador de _bluetooth_
 
 Interface:
 - `fyi`: Utilitário para enviar notificações de _desktop_
