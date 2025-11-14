@@ -118,7 +118,7 @@ bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ tog
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 
-bindsym Print exec slurp -d | grim -g - - | tee "$HOME/Pictures/$(date '+%Y%m%d_%H%M%S_print.png')" | wl-copy
+bindsym Print exec slurp -d | grim -g - - | tee "$HOME/Pictures/$(date '+%y%m%d_%H%M%S_print.png')" | wl-copy
 bindsym Print+Shift exec slurp -d | grim -g - - | swappy -f -
 
 bar {
