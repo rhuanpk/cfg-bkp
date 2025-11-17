@@ -43,7 +43,7 @@
 		"format-disconnected": "Network: N/A",
 		"format-alt": "󰩠 {ifname}: {ipaddr}/{cidr}",
 		"tooltip-format": "{ifname} via {gwaddr}",
-		"on-click-right": "kitty nmtui",
+		"on-click-right": "terminator -x nmtui",
 		"on-click-middle": "nm-connection-editor"
 	},
 	"cpu": {
