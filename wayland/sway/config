@@ -20,6 +20,7 @@ exec kanshi
 font Hack Nerd Font 8
 
 seat seat0 xcursor_theme default 0
+exec_always gsettings set org.gnome.desktop.interface cursor-theme default
 exec_always gsettings set org.gnome.desktop.interface cursor-size 0
 
 input type:touchpad {
