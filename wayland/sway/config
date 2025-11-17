@@ -11,13 +11,16 @@ set $menu wmenu-run
 
 include /etc/sway/config-vars.d/*
 
-font Hack Nerd Font 8
-
 exec swayidle -w \
     before-sleep 'swaylock -f -c 000000' \
     timeout 300 'swaylock -f -c 000000'
     #timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
 exec kanshi
+
+font Hack Nerd Font 8
+
+seat seat0 xcursor_theme default 0
+exec_always gsettings set org.gnome.desktop.interface cursor-size 0
 
 input type:touchpad {
     dwt enabled
