@@ -9,6 +9,10 @@ set $right l
 set $term terminator --working-directory /tmp/tmp
 set $menu wmenu-run
 
+set $cursorCmd gsettings set org.gnome.desktop.interface
+set $cursorName default
+set $cursorSize 12
+
 include /etc/sway/config-vars.d/*
 
 exec swayidle -w \
@@ -19,9 +23,9 @@ exec kanshi
 
 font Hack Nerd Font 8
 
-seat seat0 xcursor_theme default 0
-exec_always gsettings set org.gnome.desktop.interface cursor-theme default
-exec_always gsettings set org.gnome.desktop.interface cursor-size 0
+seat seat0 xcursor_theme $cursorName $cursorSize
+exec_always $cursorCmd cursor-theme $cursorName
+exec_always $cursorCmd cursor-size $cursorSize
 
 input type:touchpad {
     dwt enabled
