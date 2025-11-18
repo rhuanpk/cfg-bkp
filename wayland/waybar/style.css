@@ -2,64 +2,58 @@
 	all: unset;
 }
 
-#waybar {
-	background-color: transparent;
-	font-family: "Hack Nerd Font", monospace;
-	font-size: 9pt;
-}
-
-.module {
-	padding: 2px 8px 0;
-	margin: 0 -2px;
-}
-
-.module:hover {
-	color: #10e3e3;
-}
-
 tooltip {
 	background-color: rgba(0, 0, 0, .9);
 }
 
-#workspaces {
-	padding: 0;
+#waybar {
+	background-color: black;
+	font-family: 'Hack Nerd Font', monospace;
+	font-size: 9pt;
 }
 
 #workspaces>* {
-	margin-right: 2px;
-	padding: 2px 8px 0;
+	padding: 0 4px;
 }
 
 #workspaces>*:hover {
 	color: #10e3e3;
-
 }
 
 #workspaces button.focused {
-	color: #f0f;
+	color: #ff00ff;
 }
 
-#workspaces button.urgent,
-#cpu.critical,
-#memory.critical {
-	color: #f03;
+#workspaces button.urgent {
+	color: #ff0033;
 }
 
-#tray {
-	margin-right: -4px;
-	margin-left: -4px;
-	padding-left: 6px;
+#scratchpad {
+	margin-left: -2px;
 }
 
-#custom-notification {
-	margin-right: -2px;
-	margin-left: 0;
-	padding-right: 10px;
-	padding-left: 6px;
+#clock {
+	padding: 0 4px;
 }
 
+#network {
+	padding-left: 2px;
+}
+
+#custom-vpn {
+	padding-right: 2px;
+}
+
+#cpu,
+#memory,
+#pulseaudio,
+#backlight,
+#battery,
+#tray,
+#idle_inhibitor,
+#custom-noti,
 #custom-power {
-	margin-left: -4px;
-	padding-right: 10px;
-	padding-left: 6px;
+	padding: 0 2px;
 }
+
+/* #cpu.critical, #memory.critical */
