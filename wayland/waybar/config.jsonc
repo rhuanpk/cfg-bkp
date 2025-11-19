@@ -1,5 +1,6 @@
 {
 	"position": "bottom",
+	// "height": 16,
 	"spacing": 4,
 	"modules-left": [
 		"sway/workspaces",
@@ -27,7 +28,7 @@
 		"custom/power"
 	],
 	"custom/seppipe": {
-		"format": "<span color='#777777'>|</span>",
+		"format": "<span color='#555555'>|</span>",
 		"tooltip": false,
 		"interval": "once"
 	},
@@ -77,9 +78,9 @@
 	"network": {
 		"format-wifi": "<span color='#10e3e3'></span> {essid}",
 		"format-ethernet": "<span color='#10e3e3'></span> {ipaddr}",
-		"format-linked": "<span color='#10e3e3'>{ifname}:</span> N/IP",
-		"format-disconnected": "<span color='#10e3e3'>Network:</span> N/A",
-		"format-alt": "<span color='#10e3e3'>󰩠</span> {ifname}: <span color='#ff00ff'>{ipaddr}</span>/{cidr}",
+		"format-linked": "<span color='#10e3e3'>{ifname}:</span> <span color='#ff0033'>N/IP</span>",
+		"format-disconnected": "<span color='#10e3e3'>Network:</span> <span color='#ff0033'>N/A</span>",
+		"format-alt": "<span color='#10e3e3'>󰩠</span> {ifname}: <span color='#ff00ff'>{ipaddr}/{cidr}</span>",
 		"tooltip-format": "Gateway: {gwaddr}",
 		"on-click-right": "terminator -x nmtui",
 		"on-click-middle": "nm-connection-editor"
@@ -93,8 +94,9 @@
 		"states": {
 			"critical": 90
 		},
-		"format": " {usage}%",
-		"format-alt": " {usage}% ({avg_frequency}GHz)",
+		"format": "<span color='#10e3e3'></span> {usage}%",
+		"format-alt": "<span color='#10e3e3'></span> {usage}% (<span color='#ff00ff'>{avg_frequency}GHz</span>)",
+		"format-critical": "<span color='#10e3e3'></span> <span color='#ff0033'>{usage}%</span> (<span color='#ff0033'>{avg_frequency}GHz</span>)",
 		"tooltip": false,
 		"interval": 3
 	},
@@ -102,17 +104,17 @@
 		"states": {
 			"critical": 90
 		},
-		"format": " {used}GiB",
-		"format-critical": " {used}GiB ({percentage}%)",
-		"format-alt": " {used}/{total}GiB ({percentage}%)",
+		"format": "<span color='#10e3e3'></span> {used}GiB",
+		"format-alt": "<span color='#10e3e3'></span> {used}GiB (<span color='#ff00ff'>{total}/{percentage}%</span>)",
+		"format-critical": "<span color='#10e3e3'></span> <span color='#ff0033'>{used}GiB</span> (<span color='#ff0033'>{total}/{percentage}%</span>)",
 		"tooltip-format": "SWAP: {swapUsed}/{swapTotal}GiB ({swapPercentage}%)",
 		"interval": 3
 	},
 	"pulseaudio": {
-		"format": "{icon}{format_source} {volume}%",
-		"format-muted": "{format_source} {volume}%",
-		"format-bluetooth": "{icon}{format_source} {volume}% ()",
-		"format-bluetooth-muted": "{format_source} {volume}% ()",
+		"format": "<span color='#10e3e3'>{icon}</span><span color='#ff00ff'>{format_source}</span> {volume}%",
+		"format-muted": "<span color='#ff00ff'>{format_source}</span> {volume}%",
+		"format-bluetooth": "<span color='#10e3e3'>{icon}</span><span color='#ff00ff'>{format_source}</span> {volume}% (<span color='#ff00ff'></span>)",
+		"format-bluetooth-muted": "<span color='#ff00ff'>{format_source}</span> {volume}% (<span color='#ff00ff'></span>)",
 		"format-source": "",
 		"format-source-muted": " ",
 		"format-icons": {
@@ -125,17 +127,17 @@
 		"on-click-right": "pavucontrol"
 	},
 	"backlight": {
-		"format": "󰖨 {percent}%",
+		"format": "<span color='#10e3e3'>󰖨</span> {percent}%",
 		"tooltip": false
 	},
 	"battery": {
 		"states": {
 			"critical": 15
 		},
-		"format": "{icon} {capacity}%",
-		"format-alt": "{icon} {capacity}% ({time})",
-		"format-full": "󰂄{capacity}%",
-		"format-charging": "{icon} {capacity}%",
+		"format": "<span color='#ff00ff'>{icon}</span> {capacity}%",
+		"format-full": "<span color='#10e3e3'>󰂄</span>{capacity}%",
+		"format-charging": "<span color='#10e3e3'>{icon}</span> {capacity}%",
+		"format-critical": "<span color='#ff0033'>{icon}</span> <b>{capacity}</b>%",
 		"format-plugged": "{capacity}%",
 		"format-time": "{H}h {M}m",
 		"format-icons": {
