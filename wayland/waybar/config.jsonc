@@ -1,6 +1,6 @@
 {
 	"position": "bottom",
-	// "height": 16,
+	"height": 16,
 	"spacing": 4,
 	"modules-left": [
 		"sway/workspaces",
@@ -163,7 +163,7 @@
 		"format": "{icon}",
 		"format-icons": {
 			"notification": "󱅫",
-			"none": "",
+			"none": "󰂚",
 			"dnd-notification": "󰂠",
 			"dnd-none": "󰪓",
 			"inhibited-notification": "󰂛",
