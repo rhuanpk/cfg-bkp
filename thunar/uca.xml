@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal</name>
+	<submenu></submenu>
+	<unique-id>1763171962641619-1</unique-id>
+	<command>terminator --working-directory %f</command>
+	<description>Open the terminal in this folder.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>vscode</icon>
+	<name>Open VSCode</name>
+	<submenu></submenu>
+	<unique-id>1763745512871529-1</unique-id>
+	<command>code --new-window %f</command>
+	<description>Open the file/folder in Visual Studio Code.</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+	<text-files/>
+</action>
+</actions>

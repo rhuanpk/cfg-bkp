@@ -55,7 +55,8 @@ Segurança:
 
 Trabalho:
 - `terminator`: Emulador de terminal (_also kitty_)
-- `google-chrome-stable`: Pacote _.deb_
+- `google-chrome`: Pacote _.deb_
+- `thunar`: Gerenciador de arquivos
 - `zathura`: Visualizador de PDFs
 
 Programação:
@@ -208,6 +209,9 @@ Google-chrome:
 - Utilize o `cog` como intermediário somente para fazer o _download_ do Chrome
 - Caso precise, configure os _emojis_:
     `[sudo] apt-get install fonts-noto-color-emoji; fc-cache -fv`
+
+Thunar:
+1. Copiar arquivo de configuração para `~/.config/Thunar/`
 
 Network-manager:
 - Remover o arquivo `/etc/network/interfaces`
