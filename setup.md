@@ -102,6 +102,7 @@ Ferramentas:
 - `wev`: Visualizador de eventos (como teclado e _mouse_)
 - `tealdeer`: Páginas de manuais simplificadas
 - `blueman`: Gerenciador de _bluetooth_
+- `zathura`: Visualizador de PDFs
 
 Interface:
 - `fyi`: Utilitário para enviar notificações de _desktop_
