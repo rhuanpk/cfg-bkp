@@ -53,13 +53,26 @@ Segurança:
 - `gnome-keyring`: Chaveiro
 - `seahorse`: Chaveiro GUI (_?_)
 
+Trabalho:
+- `terminator`: Emulador de terminal (_also kitty_)
+- `google-chrome-stable`: Pacote _.deb_
+- `zathura`: Visualizador de PDFs
+
+Programação:
+- `git`: Versionamento de arquivos
+- `code`: Editor de código
+- `build-essential`: Utilitários de compilação (_?_)
+- `default-jre`: Binários Java para execução de _apps_ (_?_)
+- `default-jdk`: Utilitários Java para desenvolvimento de _apps_ (_?_)
+
 Media:
 - `pipewire-media-session-`: _#remove_
 - `pipewire-audio`: Sevidor de áudio (inclui `wireplumber`)
 - `pipewire-jack`: Driver de dispositivos _jack_
 - `pavucontrol`: Controlador GUI de áudio
-- `mpv`: Mídia _player_
+- `mpv`: Mídia _player_ (_?_)
 - `feh`: Visualizador de imagens
+- `blueman`: Gerenciador de _bluetooth_ (_?_)
 
 Tema:
 - `qt5ct`: Utilitário do Qt5
@@ -83,6 +96,9 @@ Drivers:
 - `mesa-opencl-icd`: Processamento gráfico
 - `intel-media-va-driver`: Aceleração de vídeo (especializado)
 
+Diversos:
+- `hunspell-<lang>`: Utilitário de verificação ortográfica (_?_)
+
 #### Utilitários
 
 Ferramentas:
@@ -94,15 +110,9 @@ Ferramentas:
 - `tmux`: Multiplexador de janelas
 - `ranger`: Gerenciador de arquivos TUI
 - `progress`: Utilitário de visualização de progresso
-- `git`: Versionamento de arquivos
-- `terminator`: Emulador de terminal (_also kitty_)
-- `code`: Editor de código
-- `google-chrome-stable`: Pacote _.deb_
 - `translate-shell`: Tradutor CLI
 - `wev`: Visualizador de eventos (como teclado e _mouse_)
 - `tealdeer`: Páginas de manuais simplificadas
-- `blueman`: Gerenciador de _bluetooth_
-- `zathura`: Visualizador de PDFs
 
 Interface:
 - `fyi`: Utilitário para enviar notificações de _desktop_
@@ -125,6 +135,19 @@ Sistema:
 - `xdg-utils`: Ferramentas CLI de integração _application x desktop_
 - `preload`: Otimizador de _startup time_ de programas (_?_)
 - `fwupd`: Gerenciador de atualizações de `firmware`
+- `libwayland-dev`: Utilitários do Wayland
+
+#### Complexos
+
+List Wayland Toplevels:
+1. `[sudo] apt install libwayland-dev`
+1. `git clone [-b <version>] https://git.sr.ht/~leon_plickat/lswt`
+1. `cd ./lswt/`
+1. `make -j$(nproc)`
+1. `[sudo] make install`
+
+LibreOffice:
+1. `[sudo] apt install libreoffice libreoffice-{gtk4|qt6} [hunspell-<lang>] [default-jre]`
 
 ### Configurações
 
@@ -144,6 +167,9 @@ Waybar:
 
 XDG:
 - Executar `xdg-user-dirs-update`
+
+LibreOffice:
+- Opcional (`/etc/environment`): `SAL_USE_VCLPLUGIN={gtk4|kf6} libreoffice`
 
 Ranger:
 - Copiar arquivo de configuração para `~/.config/ranger/` (_default_ `ranger --copy-config=rc`)
@@ -181,7 +207,7 @@ VSCode:
 Google-chrome:
 - Utilize o `cog` como intermediário somente para fazer o _download_ do Chrome
 - Caso precise, configure os _emojis_:
-    `sudo apt-get install fonts-noto-color-emoji; fc-cache -fv`
+    `[sudo] apt-get install fonts-noto-color-emoji; fc-cache -fv`
 
 Network-manager:
 - Remover o arquivo `/etc/network/interfaces`
@@ -189,7 +215,7 @@ Network-manager:
 - Reiniciar o daemon `NetworkManager.service`
 
 UFW:
-- Executar `sudo ufw enable`
+- Executar `[sudo] ufw enable`
 
 Pipewire:
 1. `cp -fv /usr/share/doc/pipewire/examples/systemd/user/pipewire-pulse.* /etc/systemd/user/`
@@ -197,8 +223,8 @@ Pipewire:
 1. `cp -fv /usr/share/doc/pipewire/examples/ld.so.conf.d/pipewire-jack-*.conf /etc/ld.so.conf.d/`
 1. `ldconfig`
 1. `systemctl --user --now enable wireplumber.service`
-1. `sudo systemctl --global disable fluidsynth.service`
-1. `systemctl reboot || sudo reboot`
+1. `[sudo] systemctl --global disable fluidsynth.service`
+1. `systemctl reboot || [sudo] reboot`
 1. Copiar arquivo de configuração para `~/.config/pipewire/pipewire.conf.d/`
 
 Tema:
@@ -243,7 +269,7 @@ Variáveis:
 TMP:
 1. Copiar arquivo de configuração para `/etc/tmpfiles.d/` (_default_ `/usr/lib/tmpfiles.d/tmp.conf`)
 1. Desabilitar limpadores automáticos:
-    `sudo systemctl disable --now systemd-tmpfiles-clean.service; sudo systemctl mask --now systemd-tmpfiles-clean.timer`
+    `[sudo] systemctl disable --now systemd-tmpfiles-clean.service; [sudo] systemctl mask --now systemd-tmpfiles-clean.timer`
 
 pCloud:
 1. Adicionar nas exclusões: `.git;*.swp;*.pf;`
