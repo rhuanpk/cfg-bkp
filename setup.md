@@ -272,8 +272,6 @@ Variáveis:
     ```
 TMP:
 1. Copiar arquivo de configuração para `/etc/tmpfiles.d/` (_default_ `/usr/lib/tmpfiles.d/tmp.conf`)
-1. Desabilitar limpadores automáticos:
-    `[sudo] systemctl disable --now systemd-tmpfiles-clean.service; [sudo] systemctl mask --now systemd-tmpfiles-clean.timer`
 
 pCloud:
 1. Adicionar nas exclusões: `.git;*.swp;*.pf;`
