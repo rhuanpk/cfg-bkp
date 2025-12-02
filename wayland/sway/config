@@ -16,9 +16,11 @@ set $cursorSize 12
 include /etc/sway/config-vars.d/*
 
 exec swayidle -w \
-    before-sleep 'swaylock -f -c 000000' \
-    timeout 300 'swaylock -f -c 000000'
-    #timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+	before-sleep 'wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; swaylock -f -c 000000' \
+	timeout 300 'wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; swaylock -f -c 000000'
+	#timeout 600 'swaymsg "output * power off"' \
+	#     resume 'swaymsg "output * power on"' \
+
 exec kanshi
 
 font Hack Nerd Font 8
