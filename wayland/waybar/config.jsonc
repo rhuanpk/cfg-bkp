@@ -88,7 +88,7 @@
 	"custom/vpn": {
 		"exec": "echo \"$(nmcli -f TYPE conn show --active)\" | grep -qE 'vpn|tun|wireguard' && echo \"(<span color='#ff00ff'>VPN</span>)\"",
 		"tooltip": false,
-		"interval": 60
+		"interval": 30
 	},
 	"cpu": {
 		"states": {
