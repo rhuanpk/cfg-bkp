@@ -74,7 +74,8 @@ mychecking() {
 			-path '*/24' -prune -o \
 			-path '*/misc/prog' -prune -o \
 			-path '*/.gradle/.tmp' -prune -o \
-			-path '*/.cache/typescript' -prune \
+			-path '*/.cache/typescript' -prune -o \
+			-path '*/.config/libreoffice/*/user/extensions/bundled/registry' -prune \
 		\) \
 		-not \( \
 			-name 'plugin-conflict.js' -o \
