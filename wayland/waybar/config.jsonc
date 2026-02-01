@@ -98,7 +98,8 @@
 		"format-alt": "<span color='#10e3e3'></span> {usage}% (<span color='#ff00ff'>{avg_frequency}GHz</span>)",
 		"format-critical": "<span color='#10e3e3'></span> <span color='#ff0033'>{usage}%</span> (<span color='#ff0033'>{avg_frequency}GHz</span>)",
 		"tooltip": false,
-		"interval": 3
+		"interval": 3,
+		"on-click-right": "terminator -x htop"
 	},
 	"memory": {
 		"states": {
@@ -108,7 +109,8 @@
 		"format-alt": "<span color='#10e3e3'></span> {used}GiB (<span color='#ff00ff'>{total}/{percentage}%</span>)",
 		"format-critical": "<span color='#10e3e3'></span> <span color='#ff0033'>{used}GiB</span> (<span color='#ff0033'>{total}/{percentage}%</span>)",
 		"tooltip-format": "SWAP: {swapUsed}/{swapTotal}GiB ({swapPercentage}%)",
-		"interval": 3
+		"interval": 3,
+		"on-click-right": "terminator -x htop"
 	},
 	"pulseaudio": {
 		"format": "<span color='#10e3e3'>{icon}</span><span color='#ff00ff'>{format_source}</span> {volume}%",
