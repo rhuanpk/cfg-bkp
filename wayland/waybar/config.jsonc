@@ -139,7 +139,7 @@
 		"format": "<span color='#ff00ff'>{icon}</span> {capacity}%",
 		"format-full": "<span color='#10e3e3'>󰂄</span>{capacity}%",
 		"format-charging": "<span color='#10e3e3'>{icon}</span> {capacity}%",
-		"format-critical": "<span color='#ff0033'>{icon}</span> <b>{capacity}</b>%",
+		"format-critical": "<span color='#ff0033'>{icon}</span> {capacity}%",
 		"format-plugged": "{capacity}%",
 		"format-time": "{H}h {M}m",
 		"format-icons": {
