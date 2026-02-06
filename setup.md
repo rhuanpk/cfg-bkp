@@ -72,7 +72,7 @@ Media:
 - `pipewire-jack`: Driver de dispositivos _jack_
 - `pavucontrol`: Controlador GUI de áudio
 - `mpv`: Mídia _player_ (_?_)
-- `feh`: Visualizador de imagens
+- `swayimg`: Visualizador de imagens
 - `blueman`: Gerenciador de _bluetooth_ (_?_)
 
 Tema:
