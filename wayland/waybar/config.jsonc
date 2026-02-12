@@ -188,8 +188,9 @@
 		"menu-actions": {
 			"shutdown": "systemctl poweroff",
 			"reboot": "systemctl reboot",
+			"hibernate": "systemctl hibernate",
 			"suspend": "systemctl suspend",
-			"hibernate": "systemctl hibernate"
+			"lock": "swaylock -flc 00000000 --font-size 16 --indicator-radius 75 --indicator-thickness 7"
 		}
 	}
 }
