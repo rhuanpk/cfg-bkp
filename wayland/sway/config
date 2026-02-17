@@ -145,7 +145,7 @@ client.background       #ffffff
 titlebar_padding 1
 
 bindsym $mod+Control+p exec hyprpicker -rla
-bindsym $mod+Control+l exec swaylock -flc 00000000 --font-size 16 --indicator-radius 75 --indicator-thickness 7
+bindsym $mod+Control+b exec swaylock -flc 00000000 --font-size 16 --indicator-radius 75 --indicator-thickness 7
 
 include /etc/sway/config.d/*
 
