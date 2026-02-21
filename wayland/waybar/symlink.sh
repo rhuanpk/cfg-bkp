@@ -3,6 +3,7 @@
 url_setpath='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setpath.sh'
 [ -z "$PATH_CFGBKP" ] && source /etc/environment
 path_cfgbkp="${PATH_CFGBKP:-$(curl -fsL "$url_setpath" | bash -s -- -p cfgbkp)}"
+: ${path_cfgbkp:?path cfgbkp must be set}
 
 path_waybar_config_src="$path_cfgbkp/wayland/waybar/config.jsonc"
 path_waybar_style_src="$path_cfgbkp/wayland/waybar/style.css"

@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if ! grep -qF 'keychain --eval' ~/.profile; then
 	tee -a ~/.profile <<- \eof
 
