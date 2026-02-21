@@ -1,8 +1,8 @@
 # >>> Aliases <<<
 
 # general
-alias cdlx='cd $PATH_LINUX'
-alias cdbk='cd $PATH_CFGBKP'
+alias cdlx='cd "$PATH_LINUX"'
+alias cdbk='cd "$PATH_CFGBKP"'
 
 # docker
 alias docker-ps="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}'"
