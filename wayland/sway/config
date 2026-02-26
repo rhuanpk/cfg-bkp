@@ -16,8 +16,8 @@ set $cursorSize 12
 include /etc/sway/config-vars.d/*
 
 exec swayidle -w \
-	before-sleep 'wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; swaylock -flc 00000000 --font-size 16 --indicator-radius 75 --indicator-thickness 7' \
-	timeout 300 'wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; swaylock -flc 00000000 --font-size 16 --indicator-radius 75 --indicator-thickness 7'
+	before-sleep 'wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; swaylock -flc 00000000' \
+	timeout 300 'wpctl set-mute @DEFAULT_AUDIO_SINK@ 1; swaylock -flc 00000000'
 	#timeout 600 'swaymsg "output * power off"' \
 	#     resume 'swaymsg "output * power on"' \
 
@@ -145,7 +145,7 @@ client.background       #ffffff
 titlebar_padding 1
 
 bindsym $mod+Control+p exec hyprpicker -rla
-bindsym $mod+Control+b exec swaylock -flc 00000000 --font-size 16 --indicator-radius 75 --indicator-thickness 7
+bindsym $mod+Control+b exec swaylock -flc 00000000
 
 include /etc/sway/config.d/*
 

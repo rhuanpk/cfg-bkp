@@ -190,7 +190,7 @@
 			"reboot": "systemctl reboot",
 			"hibernate": "systemctl hibernate",
 			"suspend": "systemctl suspend",
-			"lock": "swaylock -flc 00000000 --font-size 16 --indicator-radius 75 --indicator-thickness 7"
+			"lock": "swaylock -flc 00000000"
 		}
 	}
 }
