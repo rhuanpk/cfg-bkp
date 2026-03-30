@@ -169,6 +169,10 @@ Waybar:
 XDG:
 - Executar `xdg-user-dirs-update`
 
+Bluetooth:
+- Instale `bluez-firmware` para suporte de _dongles_ de chips Broadcom BCM203x e Raspberry Pi's
+- Instale `firmware-iwlwifi` para suporte de chips Intel
+
 LibreOffice:
 - Opcional (`/etc/environment`): `SAL_USE_VCLPLUGIN={gtk4|kf6} libreoffice`
 
