@@ -114,6 +114,7 @@ Ferramentas:
 - `translate-shell`: Tradutor CLI
 - `wev`: Visualizador de eventos (como teclado e _mouse_)
 - `tealdeer`: Páginas de manuais simplificadas
+- `aria2`: Cliente de BitTorrent (`aria2c`)
 
 Interface:
 - `fyi`: Utilitário para enviar notificações de _desktop_
